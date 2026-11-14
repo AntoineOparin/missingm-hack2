@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ChangeEvent } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { activity, queue, story, type QueueItem } from '../data'
 import { money, moneyShort } from '../lib/format'
 import './Queue.css'
@@ -38,16 +38,16 @@ const saveTicked = (ids: Set<string>) => {
   }
 }
 
-// Range filters; an empty field means "no limit". Days late is negative for bills not due yet.
-type Ranges = { amountMin: string; amountMax: string; dueFrom: string; dueTo: string; lateMin: string; lateMax: string }
-const NO_RANGES: Ranges = { amountMin: '', amountMax: '', dueFrom: '', dueTo: '', lateMin: '', lateMax: '' }
-const inRanges = (r: QueueItem, f: Ranges) =>
-  (f.amountMin === '' || r.amount >= Number(f.amountMin)) &&
-  (f.amountMax === '' || r.amount <= Number(f.amountMax)) &&
-  (f.dueFrom === '' || r.dueDate >= f.dueFrom) &&
-  (f.dueTo === '' || r.dueDate <= f.dueTo) &&
-  (f.lateMin === '' || r.daysOverdue >= Number(f.lateMin)) &&
-  (f.lateMax === '' || r.daysOverdue <= Number(f.lateMax))
+// Columns the list can be sorted by; no sort keeps the automation's ranking.
+type SortKey = 'amount' | 'dueDate' | 'daysOverdue'
+type Sort = { key: SortKey; dir: 'asc' | 'desc' } | null
+const sortBy = (list: QueueItem[], sort: Sort) => {
+  if (!sort) return list
+  const sign = sort.dir === 'asc' ? 1 : -1
+  return [...list].sort((a, b) => (a[sort.key] < b[sort.key] ? -sign : a[sort.key] > b[sort.key] ? sign : a.rank - b.rank))
+}
+// Click cycles a column: ascending, descending, back to the ranking.
+const nextSort = (sort: Sort, key: SortKey): Sort => (sort?.key !== key ? { key, dir: 'asc' } : sort.dir === 'asc' ? { key, dir: 'desc' } : null)
 
 const dateFmt = new Intl.DateTimeFormat('en-CA', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
 const date = (iso: string) => dateFmt.format(new Date(`${iso}T00:00:00Z`))
@@ -76,11 +76,13 @@ export default function Queue() {
   const [all, setAll] = useState(false)
   const [ticked, setTicked] = useState(loadTicked)
   const [hideTicked, setHideTicked] = useState(false)
-  const [ranges, setRanges] = useState<Ranges>(NO_RANGES)
-  const rangesSet = Object.values(ranges).some((v) => v !== '')
+  const [sort, setSort] = useState<Sort>(null)
 
   const byStep = filter === NEW ? rows.filter(isNew) : filter ? rows.filter((r) => r.tier === filter) : rows
-  const shown = byStep.filter((r) => inRanges(r, ranges) && !(hideTicked && ticked.has(r.orderId)))
+  const shown = sortBy(
+    byStep.filter((r) => !(hideTicked && ticked.has(r.orderId))),
+    sort,
+  )
   const visible = all ? shown : shown.slice(0, FIRST)
   // Totals count only what is still to chase: ticked bills are off the list.
   const open_ = rows.filter((r) => !ticked.has(r.orderId))
@@ -95,7 +97,18 @@ export default function Queue() {
       saveTicked(next)
       return next
     })
-  const setRange = (key: keyof Ranges) => (e: ChangeEvent<HTMLInputElement>) => setRanges((f) => ({ ...f, [key]: e.target.value }))
+  // A sortable column header: the button names the column, the arrows show the direction.
+  const sortHeader = (key: SortKey, label: string, className: string) => (
+    <th scope="col" className={className} aria-sort={sort?.key === key ? (sort.dir === 'asc' ? 'ascending' : 'descending') : 'none'}>
+      <button type="button" className="q-sort" data-dir={sort?.key === key ? sort.dir : undefined} onClick={() => setSort((s) => nextSort(s, key))}>
+        {label}
+        <svg className="q-sort-arrows" viewBox="0 0 8 12" aria-hidden="true">
+          <path className="q-sort-up" d="M4 1 L7 5 H1 Z" />
+          <path className="q-sort-down" d="M4 11 L1 7 H7 Z" />
+        </svg>
+      </button>
+    </th>
+  )
 
   const show = (item: QueueItem) => {
     lastId.current = item.orderId
@@ -175,64 +188,21 @@ export default function Queue() {
         ))}
       </div>
 
-      <fieldset className="q-ranges">
-        <legend className="q-sr">Narrow the list</legend>
-        <div className="q-range">
-          <span className="q-range-name">Amount</span>
-          <label>
-            <span className="q-sr">Amount from</span>
-            <input type="number" inputMode="numeric" min={0} step={100} placeholder="$ min" value={ranges.amountMin} onChange={setRange('amountMin')} />
-          </label>
-          <span aria-hidden="true">to</span>
-          <label>
-            <span className="q-sr">Amount up to</span>
-            <input type="number" inputMode="numeric" min={0} step={100} placeholder="$ max" value={ranges.amountMax} onChange={setRange('amountMax')} />
-          </label>
-        </div>
-        <div className="q-range">
-          <span className="q-range-name">Due</span>
-          <label>
-            <span className="q-sr">Due on or after</span>
-            <input type="date" value={ranges.dueFrom} onChange={setRange('dueFrom')} />
-          </label>
-          <span aria-hidden="true">to</span>
-          <label>
-            <span className="q-sr">Due on or before</span>
-            <input type="date" value={ranges.dueTo} onChange={setRange('dueTo')} />
-          </label>
-        </div>
-        <div className="q-range">
-          <span className="q-range-name">Days late</span>
-          <label>
-            <span className="q-sr">At least this many days late</span>
-            <input type="number" inputMode="numeric" step={1} placeholder="min" value={ranges.lateMin} onChange={setRange('lateMin')} />
-          </label>
-          <span aria-hidden="true">to</span>
-          <label>
-            <span className="q-sr">At most this many days late</span>
-            <input type="number" inputMode="numeric" step={1} placeholder="max" value={ranges.lateMax} onChange={setRange('lateMax')} />
-          </label>
-        </div>
-        <label className="q-hide">
-          <input type="checkbox" checked={hideTicked} onChange={(e) => setHideTicked(e.target.checked)} />
-          Hide ticked bills
-        </label>
-        {rangesSet && (
-          <button type="button" className="q-btn q-clear" onClick={() => setRanges(NO_RANGES)}>
-            Clear filters
-          </button>
-        )}
-      </fieldset>
+      <label className="q-hide">
+        <input type="checkbox" checked={hideTicked} onChange={(e) => setHideTicked(e.target.checked)} />
+        Hide ticked bills
+      </label>
 
       {rows.length === 0 ? (
         <p className="card">Nothing to chase this week.</p>
       ) : shown.length === 0 ? (
-        <p className="q-empty muted">No bills match these filters.</p>
+        <p className="q-empty muted">Every bill here is ticked off.</p>
       ) : (
         <div className="q-scroll" role="region" aria-label="Bills to chase">
           <table className="q-table">
             <caption className="q-sr">
-              {filter === NEW ? 'Bills emailed on the latest run' : filter ? `${tierLabel(filter)} bills` : 'All bills'}, most urgent first
+              {filter === NEW ? 'Bills emailed on the latest run' : filter ? `${tierLabel(filter)} bills` : 'All bills'}
+              {sort ? `, sorted by ${sort.key === 'amount' ? 'amount' : sort.key === 'dueDate' ? 'due date' : 'days late'}` : ', most urgent first'}
               {visible.length < shown.length && `, showing ${visible.length} of ${shown.length}`}. Select a customer to open the ready-to-send email.
             </caption>
             <thead>
@@ -244,15 +214,9 @@ export default function Queue() {
                   #
                 </th>
                 <th scope="col">Customer</th>
-                <th scope="col" className="q-right">
-                  Amount
-                </th>
-                <th scope="col" className="q-due">
-                  Due date
-                </th>
-                <th scope="col" className="q-right">
-                  Days late
-                </th>
+                {sortHeader('amount', 'Amount', 'q-right')}
+                {sortHeader('dueDate', 'Due date', 'q-due')}
+                {sortHeader('daysOverdue', 'Days late', 'q-right')}
                 <th scope="col">Next step</th>
                 <th scope="col" className="q-action">
                   What to do

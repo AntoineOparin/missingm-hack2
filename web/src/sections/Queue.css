@@ -293,47 +293,9 @@
 
 /* Log of what the automation did on its last runs. */
 
-/* Range filters: square ruled fields in the ledger's figure face. */
-.q-ranges {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px 28px;
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-.q-range {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.9rem;
-  color: var(--muted);
-}
-.q-range-name {
-  font-weight: 600;
-  color: var(--text);
-}
-.q-range input {
-  width: 10.5em;
-  min-height: 40px;
-  padding: 6px 8px;
-  font: 400 0.95rem var(--font-num);
-  color: var(--text);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-bottom: 1.5px solid var(--text);
-  border-radius: var(--radius);
-}
-.q-range input[type='number'] {
-  width: 6.5em;
-}
-.q-range input::placeholder {
-  color: var(--muted);
-}
-.q-range input:focus-visible,
 .q-tickbox:focus-visible,
-.q-hide input:focus-visible {
+.q-hide input:focus-visible,
+.q-sort:focus-visible {
   outline: 2px solid var(--oak);
   outline-offset: 2px;
 }
@@ -343,9 +305,6 @@
   gap: 8px;
   font-size: 0.9rem;
   cursor: pointer;
-}
-.q-clear {
-  min-height: 40px;
 }
 .q-empty {
   padding: 24px 0;
@@ -391,4 +350,34 @@
 .q-table tr[data-ticked] .q-open,
 .q-table tr[data-ticked] td.num {
   text-decoration: line-through;
+}
+
+/* Sortable column: the header is a button; the arrow for the current direction is inked, the other stays pencil. */
+.q-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.q-sort-arrows {
+  width: 8px;
+  height: 12px;
+  fill: var(--line);
+}
+.q-sort[data-dir='asc'] .q-sort-up,
+.q-sort[data-dir='desc'] .q-sort-down {
+  fill: var(--text);
+}
+.q-sort[data-dir] {
+  color: var(--text);
+}
+@media (hover: hover) {
+  .q-sort:hover {
+    color: var(--text);
+  }
 }

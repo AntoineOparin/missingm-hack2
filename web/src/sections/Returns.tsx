@@ -25,7 +25,7 @@ const useNarrow = () => useSyncExternalStore(subscribeNarrow, () => narrowQuery.
 // Treemap: one row per product, one block per reason, area ∝ refund dollars.
 // Products under 3% of refunds share one row so every row is tall enough to label.
 const total = returns.reduce((s, r) => s + r.refund, 0)
-const GUTTER = 150
+const GUTTER = 176 // room for the longest product name at 14px plus a clear gap before the blocks
 const MAP = { top: 40, bottom: H, left: GUTTER, right: W }
 const byProduct = new Map<string, typeof returns>()
 for (const r of returns) byProduct.set(r.product, [...(byProduct.get(r.product) ?? []), r])
