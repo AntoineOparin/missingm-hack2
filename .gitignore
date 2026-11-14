@@ -1,0 +1,11 @@
+# third-party skill repos: reference only, never commit
+claudedesignskills/
+threejs-skills/
+node_modules/
+dist/
+.venv/
+__pycache__/
+.DS_Store
+slides.pdf
+requirements.png
+option2.png

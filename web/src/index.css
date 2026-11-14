@@ -1,0 +1,168 @@
+/* Design tokens: every section uses these, never raw colours. */
+:root {
+  --bg: #0e0f13;
+  --surface: #171920;
+  --surface-2: #20232c;
+  --line: #2c303b;
+  --text: #f1eee8;
+  --muted: #9a9daa;
+  --oak: #d9a15b; /* money in, the healthy colour */
+  --chrome: #a9c1d9; /* neutral data, peers, baselines */
+  --leak: #ef6a5b; /* losses, flags, anything escaping */
+  --ok: #6fcf97; /* recovered, fixed */
+  --radius: 14px;
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-num: ui-monospace, 'SF Mono', Menlo, monospace;
+  --step-width: 380px;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+html {
+  background: var(--bg);
+}
+body {
+  margin: 0;
+  color: var(--text);
+  font: 400 17px/1.55 var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+h1 {
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+h2 {
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.num {
+  font-family: var(--font-num);
+  font-variant-numeric: tabular-nums;
+}
+.muted {
+  color: var(--muted);
+}
+.leak {
+  color: var(--leak);
+}
+.oak {
+  color: var(--oak);
+}
+.ok {
+  color: var(--ok);
+}
+.eyebrow {
+  font: 600 0.75rem/1 var(--font-num);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--oak);
+}
+.card {
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  display: grid;
+  gap: 10px;
+}
+
+/* Scrolly: pinned graphic, text cards scroll past on the left. */
+.scrolly {
+  position: relative;
+}
+.scrolly-graphic {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 24px 24px 24px calc(var(--step-width) + 72px);
+  overflow: hidden;
+}
+.scrolly-graphic svg {
+  max-width: 100%;
+  max-height: 100%;
+}
+.scrolly-steps {
+  position: relative;
+  margin-top: -100vh;
+  margin-top: -100svh;
+  pointer-events: none;
+}
+.scrolly-step {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 0 0 0 48px;
+}
+.scrolly-step .card {
+  width: var(--step-width);
+  pointer-events: auto;
+  opacity: 0.35;
+  transition: opacity 0.3s;
+}
+.scrolly-step[data-active='true'] .card {
+  opacity: 1;
+}
+
+@media (max-width: 860px) {
+  .scrolly-graphic {
+    padding: 16px 16px 45svh;
+  }
+  .scrolly-step {
+    align-items: flex-end;
+    padding: 0 16px 24px;
+  }
+  .scrolly-step .card {
+    width: 100%;
+    opacity: 0; /* inactive cards would otherwise slide over the pinned graphic */
+  }
+}
+
+.placeholder {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  border-bottom: 1px dashed var(--line);
+  color: var(--muted);
+}
+
+/* Callout: arrow + short note pointing at one mark (components/Callout.tsx). */
+.callout {
+  color: var(--text);
+}
+.callout[data-tone='leak'] {
+  color: var(--leak);
+}
+.callout[data-tone='ok'] {
+  color: var(--ok);
+}
+.callout[data-tone='oak'] {
+  color: var(--oak);
+}
+.callout path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.callout text {
+  fill: currentColor;
+  font-weight: 600;
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 4px; /* halo keeps the note readable over chart marks */
+}

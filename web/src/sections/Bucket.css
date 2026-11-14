@@ -1,0 +1,245 @@
+/* The stage keeps the viewBox aspect (--vb, set from geometry.ts) so HTML labels placed in % line up with the art. */
+.bucket-wrap {
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  display: grid;
+  place-items: center;
+}
+.bucket-stage {
+  position: relative;
+  width: min(100cqw, 100cqh * var(--vb));
+  aspect-ratio: var(--vb);
+}
+.bucket-stage > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.bucket-marks,
+.bucket-fade {
+  pointer-events: none;
+}
+.bucket-fade {
+  position: absolute;
+  inset: auto 0 0;
+}
+
+/* art */
+.glass-back {
+  fill: var(--surface-2);
+  opacity: 0.45;
+}
+.glass-edge {
+  fill: none;
+  stroke: var(--chrome);
+  stroke-width: 2;
+  opacity: 0.8;
+}
+.glass-edge.faint {
+  opacity: 0.35;
+}
+.glass-edge.rim {
+  stroke-width: 3;
+}
+.glass-shine {
+  stroke: var(--text);
+  stroke-width: 3;
+  stroke-linecap: round;
+  opacity: 0.12;
+}
+.pipe {
+  fill: var(--surface-2);
+  stroke: var(--line);
+}
+.stream {
+  fill: none;
+  stroke-linecap: butt;
+}
+.inflow .stream {
+  stroke: var(--oak);
+}
+.leak .stream {
+  stroke: var(--leak);
+}
+.cogs .stream {
+  stroke: var(--chrome);
+  opacity: 0.55;
+}
+.water {
+  fill: var(--oak);
+}
+.water-top,
+.splash {
+  fill: color-mix(in srgb, var(--oak) 65%, var(--text));
+}
+.splash {
+  opacity: 0.7;
+}
+.hole {
+  fill: var(--bg);
+  stroke: var(--leak);
+  stroke-width: 1.5;
+}
+
+/* direction of flow: a dashed copy crawling along each stream */
+.bucket-flow {
+  fill: none;
+  stroke: var(--text);
+  stroke-dasharray: 5 15;
+  opacity: 0;
+}
+.bucket-stage[data-flow='true'] .bucket-flow {
+  opacity: 0.22;
+  animation: bucket-flow 0.9s linear infinite;
+}
+@keyframes bucket-flow {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bucket-stage[data-flow='true'] .bucket-flow {
+    animation: none;
+  }
+}
+
+/* emphasis per step: fade what the card is not about */
+.is-inflow,
+.is-cogs,
+.is-leak,
+.is-kept {
+  transition: opacity 0.3s ease;
+}
+.bucket-stage[data-step='1'] :is(.is-leak, .is-cogs, .is-kept),
+.bucket-stage[data-step='2'] :is(.is-inflow, .is-cogs, .is-kept),
+.bucket-stage[data-step='3'] :is(.is-inflow, .is-cogs, .is-leak) {
+  opacity: 0.35;
+}
+
+/* step 3 level markers */
+.bucket-lines path {
+  fill: none;
+  stroke-width: 2;
+}
+.mark-then {
+  stroke: var(--bg);
+  stroke-dasharray: 4 5;
+}
+.mark-pace {
+  stroke: var(--text);
+  stroke-dasharray: 6 6;
+}
+.bucket-lines,
+.bucket-step3 {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+:is(.bucket-lines, .bucket-step3)[data-show='true'] {
+  opacity: 1;
+}
+
+/* labels */
+.bucket-tag {
+  position: absolute;
+  display: grid;
+  gap: 2px;
+  max-width: 12em;
+  font-size: clamp(11px, 1.6cqw, 14px);
+  line-height: 1.2;
+  white-space: normal;
+}
+.bucket-tag[data-at='tl'] {
+  transform: translate(0, 0);
+}
+.bucket-tag[data-at='tr'] {
+  transform: translate(-100%, 0);
+  text-align: right;
+}
+.bucket-tag[data-at='bl'] {
+  transform: translate(0, -100%);
+}
+.bucket-tag[data-at='br'] {
+  transform: translate(-100%, -100%);
+  text-align: right;
+}
+.bucket-tag[data-at='l'] {
+  transform: translate(0, -50%);
+}
+.bucket-tag[data-at='r'] {
+  transform: translate(-100%, -50%);
+  text-align: right;
+}
+.bucket-tag[data-at='c'] {
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.tag-name {
+  color: var(--muted);
+}
+.tag-amt {
+  font-size: 1.45em;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+}
+.tag-chg {
+  font-style: normal;
+  font-size: 0.62em;
+  margin-left: 0.5em;
+  vertical-align: 0.25em;
+  color: var(--text);
+}
+.tag-amt.leak,
+.tag-chg.leak {
+  color: var(--leak);
+}
+.tag-note {
+  color: var(--muted);
+  font-size: 0.85em;
+}
+.leak-name {
+  color: var(--text);
+}
+/* sits on the water: dark ink on oak */
+.kept .tag-name,
+.kept .tag-amt,
+.kept .tag-chg {
+  color: var(--bg);
+}
+.kept .tag-name {
+  font-weight: 600;
+  white-space: nowrap;
+}
+.bucket-year {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: clamp(18px, 4cqw, 30px);
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.bucket-tag.inline {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4em;
+}
+.narrow {
+  display: none;
+}
+
+/* small stage (phones): shorter labels, smaller figures */
+@container (max-width: 520px) {
+  .wide,
+  .tag-note {
+    display: none;
+  }
+  .narrow {
+    display: inline;
+  }
+  .tag-amt {
+    font-size: 1.25em;
+  }
+}

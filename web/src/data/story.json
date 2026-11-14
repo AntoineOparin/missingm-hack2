@@ -1,0 +1,2609 @@
+{
+ "meta": {
+  "asOf": "2026-10-31",
+  "comparison": "January to September, 2025 vs 2026",
+  "rawOrders": 6169,
+  "cleanOrders": 6136,
+  "cleaning": [
+   {
+    "issue": "Same order listed twice",
+    "count": 25,
+    "fix": "Removed the copy",
+    "why": "Counting an order twice makes sales look bigger than they are."
+   },
+   {
+    "issue": "Dates written a different way",
+    "count": 122,
+    "fix": "Put all dates in one format",
+    "why": "Mixed dates break every chart over time, and every due date."
+   },
+   {
+    "issue": "Discounts typed as whole numbers",
+    "count": 181,
+    "fix": "Divided by 100",
+    "why": "Left alone, a small discount looks bigger than the sale itself."
+   },
+   {
+    "issue": "One product, many spellings",
+    "count": 160,
+    "fix": "Mapped 22 spellings to 10 products",
+    "why": "One product's sales and refunds were split across several names."
+   },
+   {
+    "issue": "One region, many spellings",
+    "count": 245,
+    "fix": "Mapped 15 spellings to 5 regions",
+    "why": "'ON', 'ontario' and 'Ontario' are the same place."
+   },
+   {
+    "issue": "Cost missing on some orders",
+    "count": 92,
+    "fix": "Filled in with that product's usual cost",
+    "why": "Each product's cost barely changes, so its usual cost is a safe guess."
+   },
+   {
+    "issue": "Orders with a negative amount",
+    "count": 8,
+    "fix": "Left out",
+    "why": "Most likely typos. Refunds are counted on their own."
+   },
+   {
+    "issue": "No payment date",
+    "count": 92,
+    "fix": "Kept as they are",
+    "why": "Not a mistake: these are the unpaid bills you are chasing."
+   }
+  ]
+ },
+ "yoy": {
+  "2025": {
+   "gross": 3411209,
+   "discounts": 480561,
+   "revenue": 2930649,
+   "cogs": 2055243,
+   "grossProfit": 875406,
+   "refunds": 175302,
+   "profitAfterRefunds": 700103,
+   "orders": 2199,
+   "discountRate": 0.1409,
+   "marginPct": 0.2987
+  },
+  "2026": {
+   "gross": 4674793,
+   "discounts": 776235,
+   "revenue": 3898558,
+   "cogs": 2836962,
+   "grossProfit": 1061596,
+   "refunds": 293371,
+   "profitAfterRefunds": 768225,
+   "orders": 3050,
+   "discountRate": 0.166,
+   "marginPct": 0.2723
+  },
+  "change": {
+   "gross": 0.3704,
+   "discounts": 0.6153,
+   "revenue": 0.3303,
+   "grossProfit": 0.2127,
+   "refunds": 0.6735,
+   "profitAfterRefunds": 0.0973
+  }
+ },
+ "quarters": [
+  {
+   "q": "2025Q1",
+   "gross": 1030586,
+   "discounts": 142222,
+   "revenue": 888365,
+   "cogs": 620878,
+   "grossProfit": 267487,
+   "refunds": 46530,
+   "profitAfterRefunds": 220956,
+   "orders": 659,
+   "discountRate": 0.138,
+   "marginPct": 0.3011
+  },
+  {
+   "q": "2025Q2",
+   "gross": 1199915,
+   "discounts": 168044,
+   "revenue": 1031871,
+   "cogs": 727051,
+   "grossProfit": 304819,
+   "refunds": 57633,
+   "profitAfterRefunds": 247186,
+   "orders": 737,
+   "discountRate": 0.14,
+   "marginPct": 0.2954
+  },
+  {
+   "q": "2025Q3",
+   "gross": 1180708,
+   "discounts": 170295,
+   "revenue": 1010413,
+   "cogs": 707313,
+   "grossProfit": 303100,
+   "refunds": 71139,
+   "profitAfterRefunds": 231961,
+   "orders": 803,
+   "discountRate": 0.1442,
+   "marginPct": 0.3
+  },
+  {
+   "q": "2025Q4",
+   "gross": 1339189,
+   "discounts": 195104,
+   "revenue": 1144084,
+   "cogs": 811544,
+   "grossProfit": 332540,
+   "refunds": 82731,
+   "profitAfterRefunds": 249809,
+   "orders": 887,
+   "discountRate": 0.1457,
+   "marginPct": 0.2907
+  },
+  {
+   "q": "2026Q1",
+   "gross": 1552383,
+   "discounts": 264930,
+   "revenue": 1287453,
+   "cogs": 943806,
+   "grossProfit": 343647,
+   "refunds": 59439,
+   "profitAfterRefunds": 284207,
+   "orders": 941,
+   "discountRate": 0.1707,
+   "marginPct": 0.2669
+  },
+  {
+   "q": "2026Q2",
+   "gross": 1627555,
+   "discounts": 265686,
+   "revenue": 1361869,
+   "cogs": 988956,
+   "grossProfit": 372913,
+   "refunds": 147553,
+   "profitAfterRefunds": 225360,
+   "orders": 1060,
+   "discountRate": 0.1632,
+   "marginPct": 0.2738
+  },
+  {
+   "q": "2026Q3",
+   "gross": 1494855,
+   "discounts": 245619,
+   "revenue": 1249236,
+   "cogs": 904200,
+   "grossProfit": 345036,
+   "refunds": 86378,
+   "profitAfterRefunds": 258658,
+   "orders": 1049,
+   "discountRate": 0.1643,
+   "marginPct": 0.2762
+  }
+ ],
+ "monthly": [
+  {
+   "month": "2025-01",
+   "billed": 321195,
+   "collected": 23558
+  },
+  {
+   "month": "2025-02",
+   "billed": 220167,
+   "collected": 133424
+  },
+  {
+   "month": "2025-03",
+   "billed": 347003,
+   "collected": 283801
+  },
+  {
+   "month": "2025-04",
+   "billed": 252951,
+   "collected": 276120
+  },
+  {
+   "month": "2025-05",
+   "billed": 357528,
+   "collected": 301620
+  },
+  {
+   "month": "2025-06",
+   "billed": 421391,
+   "collected": 277398
+  },
+  {
+   "month": "2025-07",
+   "billed": 303853,
+   "collected": 444999
+  },
+  {
+   "month": "2025-08",
+   "billed": 384184,
+   "collected": 332007
+  },
+  {
+   "month": "2025-09",
+   "billed": 322377,
+   "collected": 292794
+  },
+  {
+   "month": "2025-10",
+   "billed": 398554,
+   "collected": 425028
+  },
+  {
+   "month": "2025-11",
+   "billed": 327026,
+   "collected": 296218
+  },
+  {
+   "month": "2025-12",
+   "billed": 418505,
+   "collected": 420802
+  },
+  {
+   "month": "2026-01",
+   "billed": 367319,
+   "collected": 356245
+  },
+  {
+   "month": "2026-02",
+   "billed": 349528,
+   "collected": 334946
+  },
+  {
+   "month": "2026-03",
+   "billed": 570606,
+   "collected": 391614
+  },
+  {
+   "month": "2026-04",
+   "billed": 357282,
+   "collected": 464703
+  },
+  {
+   "month": "2026-05",
+   "billed": 433025,
+   "collected": 456259
+  },
+  {
+   "month": "2026-06",
+   "billed": 571562,
+   "collected": 430925
+  },
+  {
+   "month": "2026-07",
+   "billed": 373851,
+   "collected": 492089
+  },
+  {
+   "month": "2026-08",
+   "billed": 364462,
+   "collected": 373202
+  },
+  {
+   "month": "2026-09",
+   "billed": 510923,
+   "collected": 434773
+  }
+ ],
+ "reps": [
+  {
+   "rep": "R01",
+   "flagged": false,
+   "belowCostOrders": 0,
+   "revenue": 556718,
+   "quarters": [
+    {
+     "q": "2025Q1",
+     "discount": 0.0818,
+     "marginPct": 0.3363,
+     "revenue": 65439,
+     "flag": false
+    },
+    {
+     "q": "2025Q2",
+     "discount": 0.1128,
+     "marginPct": 0.3207,
+     "revenue": 87376,
+     "flag": false
+    },
+    {
+     "q": "2025Q3",
+     "discount": 0.1074,
+     "marginPct": 0.3564,
+     "revenue": 55749,
+     "flag": false
+    },
+    {
+     "q": "2025Q4",
+     "discount": 0.1178,
+     "marginPct": 0.3379,
+     "revenue": 57164,
+     "flag": false
+    },
+    {
+     "q": "2026Q1",
+     "discount": 0.1206,
+     "marginPct": 0.3044,
+     "revenue": 120692,
+     "flag": false
+    },
+    {
+     "q": "2026Q2",
+     "discount": 0.0886,
+     "marginPct": 0.3421,
+     "revenue": 85819,
+     "flag": false
+    },
+    {
+     "q": "2026Q3",
+     "discount": 0.104,
+     "marginPct": 0.3321,
+     "revenue": 84479,
+     "flag": false
+    }
+   ]
+  },
+  {
+   "rep": "R02",
+   "flagged": false,
+   "belowCostOrders": 1,
+   "revenue": 266686,
+   "quarters": [
+    {
+     "q": "2025Q1",
+     "discount": 0.0824,
+     "marginPct": 0.3384,
+     "revenue": 35464,
+     "flag": false
+    },
+    {
+     "q": "2025Q2",
+     "discount": 0.107,
+     "marginPct": 0.3232,
+     "revenue": 50323,
+     "flag": false
+    },
+    {
+     "q": "2025Q3",
+     "discount": 0.0996,
+     "marginPct": 0.3437,
+     "revenue": 38360,
+     "flag": false
+    },
+    {
+     "q": "2025Q4",
+     "discount": 0.0825,
+     "marginPct": 0.3317,
+     "revenue": 37622,
+     "flag": false
+    },
+    {
+     "q": "2026Q1",
+     "discount": 0.069,
+     "marginPct": 0.3435,
+     "revenue": 39747,
+     "flag": false
+    },
+    {
+     "q": "2026Q2",
+     "discount": 0.0776,
+     "marginPct": 0.3448,
+     "revenue": 32862,
+     "flag": false
+    },
+    {
+     "q": "2026Q3",
+     "discount": 0.072,
+     "marginPct": 0.3577,
+     "revenue": 32308,
+     "flag": false
+    }
+   ]
+  },
+  {
+   "rep": "R03",
+   "flagged": false,
+   "belowCostOrders": 0,
+   "revenue": 620995,
+   "quarters": [
+    {
+     "q": "2025Q1",
+     "discount": 0.1125,
+     "marginPct": 0.3147,
+     "revenue": 53605,
+     "flag": false
+    },
+    {
+     "q": "2025Q2",
+     "discount": 0.092,
+     "marginPct": 0.3482,
+     "revenue": 53937,
+     "flag": false
+    },
+    {
+     "q": "2025Q3",
+     "discount": 0.0892,
+     "marginPct": 0.3566,
+     "revenue": 65343,
+     "flag": false
+    },
+    {
+     "q": "2025Q4",
+     "discount": 0.118,
+     "marginPct": 0.3228,
+     "revenue": 109177,
+     "flag": false
+    },
+    {
+     "q": "2026Q1",
+     "discount": 0.1159,
+     "marginPct": 0.3136,
+     "revenue": 85092,
+     "flag": false
+    },
+    {
+     "q": "2026Q2",
+     "discount": 0.1211,
+     "marginPct": 0.3062,
+     "revenue": 123907,
+     "flag": false
+    },
+    {
+     "q": "2026Q3",
+     "discount": 0.117,
+     "marginPct": 0.3107,
+     "revenue": 129934,
+     "flag": false
+    }
+   ]
+  },
+  {
+   "rep": "R04",
+   "flagged": false,
+   "belowCostOrders": 0,
+   "revenue": 740713,
+   "quarters": [
+    {
+     "q": "2025Q1",
+     "discount": 0.0966,
+     "marginPct": 0.3241,
+     "revenue": 84683,
+     "flag": false
+    },
+    {
+     "q": "2025Q2",
+     "discount": 0.0902,
+     "marginPct": 0.3738,
+     "revenue": 79895,
+     "flag": false
+    },
+    {
+     "q": "2025Q3",
+     "discount": 0.1065,
+     "marginPct": 0.3382,
+     "revenue": 91710,
+     "flag": false
+    },
+    {
+     "q": "2025Q4",
+     "discount": 0.1202,
+     "marginPct": 0.3041,
+     "revenue": 119447,
+     "flag": false
+    },
+    {
+     "q": "2026Q1",
+     "discount": 0.1123,
+     "marginPct": 0.3242,
+     "revenue": 111544,
+     "flag": false
+    },
+    {
+     "q": "2026Q2",
+     "discount": 0.1095,
+     "marginPct": 0.309,
+     "revenue": 129647,
+     "flag": false
+    },
+    {
+     "q": "2026Q3",
+     "discount": 0.1248,
+     "marginPct": 0.3059,
+     "revenue": 123787,
+     "flag": false
+    }
+   ]
+  },
+  {
+   "rep": "R05",
+   "flagged": false,
+   "belowCostOrders": 0,
+   "revenue": 740245,
+   "quarters": [
+    {
+     "q": "2025Q1",
+     "discount": 0.1131,
+     "marginPct": 0.3505,
+     "revenue": 82585,
+     "flag": false
+    },
+    {
+     "q": "2025Q2",
+     "discount": 0.1229,
+     "marginPct": 0.3136,
+     "revenue": 100057,
+     "flag": false
+    },
+    {
+     "q": "2025Q3",
+     "discount": 0.1126,
+     "marginPct": 0.3471,
+     "revenue": 87310,
+     "flag": false
+    },
+    {
+     "q": "2025Q4",
+     "discount": 0.1166,
+     "marginPct": 0.3064,
+     "revenue": 125215,
+     "flag": false
+    },
+    {
+     "q": "2026Q1",
+     "discount": 0.1195,
+     "marginPct": 0.3108,
+     "revenue": 117788,
+     "flag": false
+    },
+    {
+     "q": "2026Q2",
+     "discount": 0.1214,
+     "marginPct": 0.3145,
+     "revenue": 127134,
+     "flag": false
+    },
+    {
+     "q": "2026Q3",
+     "discount": 0.12,
+     "marginPct": 0.3121,
+     "revenue": 100157,
+     "flag": false
+    }
+   ]
+  },
+  {
+   "rep": "R06",
+   "flagged": false,
+   "belowCostOrders": 0,
+   "revenue": 1074825,
+   "quarters": [
+    {
+     "q": "2025Q1",
+     "discount": 0.1329,
+     "marginPct": 0.3016,
+     "revenue": 150951,
+     "flag": false
+    },
+    {
+     "q": "2025Q2",
+     "discount": 0.1129,
+     "marginPct": 0.3075,
+     "revenue": 172146,
+     "flag": false
+    },
+    {
+     "q": "2025Q3",
+     "discount": 0.1207,
+     "marginPct": 0.3135,
+     "revenue": 128311,
+     "flag": false
+    },
+    {
+     "q": "2025Q4",
+     "discount": 0.1168,
+     "marginPct": 0.3191,
+     "revenue": 116291,
+     "flag": false
+    },
+    {
+     "q": "2026Q1",
+     "discount": 0.1064,
+     "marginPct": 0.318,
+     "revenue": 166449,
+     "flag": false
+    },
+    {
+     "q": "2026Q2",
+     "discount": 0.1139,
+     "marginPct": 0.3116,
+     "revenue": 177378,
+     "flag": false
+    },
+    {
+     "q": "2026Q3",
+     "discount": 0.1195,
+     "marginPct": 0.3068,
+     "revenue": 163299,
+     "flag": false
+    }
+   ]
+  },
+  {
+   "rep": "R07",
+   "flagged": true,
+   "belowCostOrders": 40,
+   "revenue": 1976828,
+   "quarters": [
+    {
+     "q": "2025Q1",
+     "discount": 0.2318,
+     "marginPct": 0.2163,
+     "revenue": 203532,
+     "flag": true
+    },
+    {
+     "q": "2025Q2",
+     "discount": 0.2291,
+     "marginPct": 0.1936,
+     "revenue": 261112,
+     "flag": true
+    },
+    {
+     "q": "2025Q3",
+     "discount": 0.2338,
+     "marginPct": 0.2014,
+     "revenue": 281323,
+     "flag": true
+    },
+    {
+     "q": "2025Q4",
+     "discount": 0.2314,
+     "marginPct": 0.1955,
+     "revenue": 303596,
+     "flag": true
+    },
+    {
+     "q": "2026Q1",
+     "discount": 0.3154,
+     "marginPct": 0.1088,
+     "revenue": 315085,
+     "flag": true
+    },
+    {
+     "q": "2026Q2",
+     "discount": 0.3113,
+     "marginPct": 0.1121,
+     "revenue": 316616,
+     "flag": true
+    },
+    {
+     "q": "2026Q3",
+     "discount": 0.3043,
+     "marginPct": 0.1189,
+     "revenue": 295565,
+     "flag": true
+    }
+   ]
+  },
+  {
+   "rep": "R08",
+   "flagged": false,
+   "belowCostOrders": 0,
+   "revenue": 440174,
+   "quarters": [
+    {
+     "q": "2025Q1",
+     "discount": 0.1141,
+     "marginPct": 0.3069,
+     "revenue": 47774,
+     "flag": false
+    },
+    {
+     "q": "2025Q2",
+     "discount": 0.0975,
+     "marginPct": 0.3131,
+     "revenue": 72721,
+     "flag": false
+    },
+    {
+     "q": "2025Q3",
+     "discount": 0.1157,
+     "marginPct": 0.3136,
+     "revenue": 63626,
+     "flag": false
+    },
+    {
+     "q": "2025Q4",
+     "discount": 0.1099,
+     "marginPct": 0.3163,
+     "revenue": 61030,
+     "flag": false
+    },
+    {
+     "q": "2026Q1",
+     "discount": 0.1335,
+     "marginPct": 0.2928,
+     "revenue": 60742,
+     "flag": false
+    },
+    {
+     "q": "2026Q2",
+     "discount": 0.1088,
+     "marginPct": 0.3191,
+     "revenue": 80003,
+     "flag": false
+    },
+    {
+     "q": "2026Q3",
+     "discount": 0.1029,
+     "marginPct": 0.3307,
+     "revenue": 54277,
+     "flag": false
+    }
+   ]
+  },
+  {
+   "rep": "R09",
+   "flagged": false,
+   "belowCostOrders": 0,
+   "revenue": 356716,
+   "quarters": [
+    {
+     "q": "2025Q1",
+     "discount": 0.1007,
+     "marginPct": 0.3428,
+     "revenue": 31395,
+     "flag": false
+    },
+    {
+     "q": "2025Q2",
+     "discount": 0.121,
+     "marginPct": 0.3296,
+     "revenue": 35957,
+     "flag": false
+    },
+    {
+     "q": "2025Q3",
+     "discount": 0.1299,
+     "marginPct": 0.306,
+     "revenue": 39606,
+     "flag": false
+    },
+    {
+     "q": "2025Q4",
+     "discount": 0.1336,
+     "marginPct": 0.3291,
+     "revenue": 49773,
+     "flag": false
+    },
+    {
+     "q": "2026Q1",
+     "discount": 0.1226,
+     "marginPct": 0.3106,
+     "revenue": 47920,
+     "flag": false
+    },
+    {
+     "q": "2026Q2",
+     "discount": 0.1289,
+     "marginPct": 0.3131,
+     "revenue": 62307,
+     "flag": false
+    },
+    {
+     "q": "2026Q3",
+     "discount": 0.1205,
+     "marginPct": 0.3137,
+     "revenue": 89758,
+     "flag": false
+    }
+   ]
+  },
+  {
+   "rep": "R10",
+   "flagged": false,
+   "belowCostOrders": 0,
+   "revenue": 406407,
+   "quarters": [
+    {
+     "q": "2025Q1",
+     "discount": 0.1081,
+     "marginPct": 0.3045,
+     "revenue": 67241,
+     "flag": false
+    },
+    {
+     "q": "2025Q2",
+     "discount": 0.1229,
+     "marginPct": 0.344,
+     "revenue": 37674,
+     "flag": false
+    },
+    {
+     "q": "2025Q3",
+     "discount": 0.0994,
+     "marginPct": 0.324,
+     "revenue": 48222,
+     "flag": false
+    },
+    {
+     "q": "2025Q4",
+     "discount": 0.1013,
+     "marginPct": 0.3429,
+     "revenue": 57997,
+     "flag": false
+    },
+    {
+     "q": "2026Q1",
+     "discount": 0.1203,
+     "marginPct": 0.3124,
+     "revenue": 70171,
+     "flag": false
+    },
+    {
+     "q": "2026Q2",
+     "discount": 0.1004,
+     "marginPct": 0.3293,
+     "revenue": 71666,
+     "flag": false
+    },
+    {
+     "q": "2026Q3",
+     "discount": 0.125,
+     "marginPct": 0.3183,
+     "revenue": 53437,
+     "flag": false
+    }
+   ]
+  },
+  {
+   "rep": "R11",
+   "flagged": false,
+   "belowCostOrders": 0,
+   "revenue": 387851,
+   "quarters": [
+    {
+     "q": "2025Q1",
+     "discount": 0.0968,
+     "marginPct": 0.3579,
+     "revenue": 30717,
+     "flag": false
+    },
+    {
+     "q": "2025Q2",
+     "discount": 0.1044,
+     "marginPct": 0.3354,
+     "revenue": 40056,
+     "flag": false
+    },
+    {
+     "q": "2025Q3",
+     "discount": 0.1026,
+     "marginPct": 0.3397,
+     "revenue": 55536,
+     "flag": false
+    },
+    {
+     "q": "2025Q4",
+     "discount": 0.1214,
+     "marginPct": 0.317,
+     "revenue": 46447,
+     "flag": false
+    },
+    {
+     "q": "2026Q1",
+     "discount": 0.1152,
+     "marginPct": 0.306,
+     "revenue": 86917,
+     "flag": false
+    },
+    {
+     "q": "2026Q2",
+     "discount": 0.1052,
+     "marginPct": 0.3085,
+     "revenue": 76435,
+     "flag": false
+    },
+    {
+     "q": "2026Q3",
+     "discount": 0.0934,
+     "marginPct": 0.354,
+     "revenue": 51743,
+     "flag": false
+    }
+   ]
+  }
+ ],
+ "quarterEnd": [
+  {
+   "week": 1,
+   "discount": 0.1095,
+   "orders": 260,
+   "discountExFlagged": 0.0953
+  },
+  {
+   "week": 2,
+   "discount": 0.1198,
+   "orders": 303,
+   "discountExFlagged": 0.1078
+  },
+  {
+   "week": 3,
+   "discount": 0.12,
+   "orders": 268,
+   "discountExFlagged": 0.0977
+  },
+  {
+   "week": 4,
+   "discount": 0.1109,
+   "orders": 265,
+   "discountExFlagged": 0.1004
+  },
+  {
+   "week": 5,
+   "discount": 0.1081,
+   "orders": 296,
+   "discountExFlagged": 0.0972
+  },
+  {
+   "week": 6,
+   "discount": 0.1147,
+   "orders": 280,
+   "discountExFlagged": 0.0979
+  },
+  {
+   "week": 7,
+   "discount": 0.1169,
+   "orders": 285,
+   "discountExFlagged": 0.0985
+  },
+  {
+   "week": 8,
+   "discount": 0.1091,
+   "orders": 280,
+   "discountExFlagged": 0.0951
+  },
+  {
+   "week": 9,
+   "discount": 0.1175,
+   "orders": 280,
+   "discountExFlagged": 0.102
+  },
+  {
+   "week": 10,
+   "discount": 0.1055,
+   "orders": 298,
+   "discountExFlagged": 0.0895
+  },
+  {
+   "week": 11,
+   "discount": 0.1168,
+   "orders": 275,
+   "discountExFlagged": 0.1034
+  },
+  {
+   "week": 12,
+   "discount": 0.1425,
+   "orders": 283,
+   "discountExFlagged": 0.1141
+  },
+  {
+   "week": 13,
+   "discount": 0.1831,
+   "orders": 291,
+   "discountExFlagged": 0.1429
+  }
+ ],
+ "returns": [
+  {
+   "product": "ErgoLift Standing Desk",
+   "reason": "Damaged in transit",
+   "refund": 248260,
+   "count": 79,
+   "share": 0.4502,
+   "flag": true
+  },
+  {
+   "product": "Monitor 27\"",
+   "reason": "Overstock / ordered in error",
+   "refund": 41254,
+   "count": 13,
+   "share": 0.0748,
+   "flag": false
+  },
+  {
+   "product": "Office Chair",
+   "reason": "Overstock / ordered in error",
+   "refund": 38981,
+   "count": 11,
+   "share": 0.0707,
+   "flag": false
+  },
+  {
+   "product": "ErgoLift Standing Desk",
+   "reason": "Overstock / ordered in error",
+   "refund": 38249,
+   "count": 6,
+   "share": 0.0694,
+   "flag": false
+  },
+  {
+   "product": "ErgoLift Standing Desk",
+   "reason": "Changed mind",
+   "refund": 36158,
+   "count": 9,
+   "share": 0.0656,
+   "flag": false
+  },
+  {
+   "product": "Monitor 24\"",
+   "reason": "Overstock / ordered in error",
+   "refund": 21806,
+   "count": 9,
+   "share": 0.0395,
+   "flag": false
+  },
+  {
+   "product": "Monitor 27\"",
+   "reason": "Changed mind",
+   "refund": 19104,
+   "count": 10,
+   "share": 0.0346,
+   "flag": false
+  },
+  {
+   "product": "Office Chair",
+   "reason": "Damaged in transit",
+   "refund": 12119,
+   "count": 6,
+   "share": 0.022,
+   "flag": false
+  },
+  {
+   "product": "USB-C Dock",
+   "reason": "Overstock / ordered in error",
+   "refund": 10248,
+   "count": 7,
+   "share": 0.0186,
+   "flag": false
+  },
+  {
+   "product": "Office Chair",
+   "reason": "Changed mind",
+   "refund": 8510,
+   "count": 5,
+   "share": 0.0154,
+   "flag": false
+  },
+  {
+   "product": "Monitor 24\"",
+   "reason": "Defective",
+   "refund": 8375,
+   "count": 5,
+   "share": 0.0152,
+   "flag": false
+  },
+  {
+   "product": "ErgoLift Standing Desk",
+   "reason": "Defective",
+   "refund": 7667,
+   "count": 3,
+   "share": 0.0139,
+   "flag": false
+  },
+  {
+   "product": "Monitor 27\"",
+   "reason": "Wrong item shipped",
+   "refund": 6895,
+   "count": 5,
+   "share": 0.0125,
+   "flag": false
+  },
+  {
+   "product": "ErgoLift Standing Desk",
+   "reason": "Wrong item shipped",
+   "refund": 6399,
+   "count": 3,
+   "share": 0.0116,
+   "flag": false
+  },
+  {
+   "product": "Monitor 24\"",
+   "reason": "Wrong item shipped",
+   "refund": 5756,
+   "count": 3,
+   "share": 0.0104,
+   "flag": false
+  },
+  {
+   "product": "Monitor 27\"",
+   "reason": "Defective",
+   "refund": 4792,
+   "count": 4,
+   "share": 0.0087,
+   "flag": false
+  },
+  {
+   "product": "Monitor 24\"",
+   "reason": "Changed mind",
+   "refund": 4260,
+   "count": 5,
+   "share": 0.0077,
+   "flag": false
+  },
+  {
+   "product": "Webcam HD",
+   "reason": "Changed mind",
+   "refund": 3895,
+   "count": 9,
+   "share": 0.0071,
+   "flag": false
+  },
+  {
+   "product": "Office Chair",
+   "reason": "Defective",
+   "refund": 3366,
+   "count": 2,
+   "share": 0.0061,
+   "flag": false
+  },
+  {
+   "product": "Webcam HD",
+   "reason": "Damaged in transit",
+   "refund": 3173,
+   "count": 3,
+   "share": 0.0058,
+   "flag": false
+  },
+  {
+   "product": "Mechanical Keyboard",
+   "reason": "Defective",
+   "refund": 3141,
+   "count": 4,
+   "share": 0.0057,
+   "flag": false
+  },
+  {
+   "product": "Monitor 27\"",
+   "reason": "Damaged in transit",
+   "refund": 2165,
+   "count": 3,
+   "share": 0.0039,
+   "flag": false
+  },
+  {
+   "product": "Mechanical Keyboard",
+   "reason": "Changed mind",
+   "refund": 1798,
+   "count": 8,
+   "share": 0.0033,
+   "flag": false
+  },
+  {
+   "product": "Monitor 24\"",
+   "reason": "Damaged in transit",
+   "refund": 1759,
+   "count": 2,
+   "share": 0.0032,
+   "flag": false
+  },
+  {
+   "product": "Laptop Stand",
+   "reason": "Changed mind",
+   "refund": 1711,
+   "count": 9,
+   "share": 0.0031,
+   "flag": false
+  },
+  {
+   "product": "Wireless Mouse",
+   "reason": "Changed mind",
+   "refund": 1472,
+   "count": 7,
+   "share": 0.0027,
+   "flag": false
+  },
+  {
+   "product": "USB-C Dock",
+   "reason": "Changed mind",
+   "refund": 1334,
+   "count": 3,
+   "share": 0.0024,
+   "flag": false
+  },
+  {
+   "product": "Desk Lamp",
+   "reason": "Defective",
+   "refund": 1117,
+   "count": 4,
+   "share": 0.002,
+   "flag": false
+  },
+  {
+   "product": "USB-C Dock",
+   "reason": "Defective",
+   "refund": 1022,
+   "count": 3,
+   "share": 0.0019,
+   "flag": false
+  },
+  {
+   "product": "Webcam HD",
+   "reason": "Wrong item shipped",
+   "refund": 1003,
+   "count": 3,
+   "share": 0.0018,
+   "flag": false
+  },
+  {
+   "product": "Mechanical Keyboard",
+   "reason": "Wrong item shipped",
+   "refund": 981,
+   "count": 2,
+   "share": 0.0018,
+   "flag": false
+  },
+  {
+   "product": "Wireless Mouse",
+   "reason": "Defective",
+   "refund": 892,
+   "count": 4,
+   "share": 0.0016,
+   "flag": false
+  },
+  {
+   "product": "Desk Lamp",
+   "reason": "Wrong item shipped",
+   "refund": 688,
+   "count": 4,
+   "share": 0.0012,
+   "flag": false
+  },
+  {
+   "product": "Desk Lamp",
+   "reason": "Changed mind",
+   "refund": 606,
+   "count": 4,
+   "share": 0.0011,
+   "flag": false
+  },
+  {
+   "product": "Laptop Stand",
+   "reason": "Wrong item shipped",
+   "refund": 557,
+   "count": 3,
+   "share": 0.001,
+   "flag": false
+  },
+  {
+   "product": "Laptop Stand",
+   "reason": "Damaged in transit",
+   "refund": 515,
+   "count": 3,
+   "share": 0.0009,
+   "flag": false
+  },
+  {
+   "product": "Wireless Mouse",
+   "reason": "Wrong item shipped",
+   "refund": 327,
+   "count": 3,
+   "share": 0.0006,
+   "flag": false
+  },
+  {
+   "product": "Wireless Mouse",
+   "reason": "Damaged in transit",
+   "refund": 323,
+   "count": 4,
+   "share": 0.0006,
+   "flag": false
+  },
+  {
+   "product": "Laptop Stand",
+   "reason": "Defective",
+   "refund": 316,
+   "count": 2,
+   "share": 0.0006,
+   "flag": false
+  },
+  {
+   "product": "Desk Lamp",
+   "reason": "Damaged in transit",
+   "refund": 271,
+   "count": 2,
+   "share": 0.0005,
+   "flag": false
+  },
+  {
+   "product": "USB-C Dock",
+   "reason": "Damaged in transit",
+   "refund": 140,
+   "count": 1,
+   "share": 0.0003,
+   "flag": false
+  }
+ ],
+ "returnsByQuarter": [
+  {
+   "q": "2025Q1",
+   "refund": 46530
+  },
+  {
+   "q": "2025Q2",
+   "refund": 57633
+  },
+  {
+   "q": "2025Q3",
+   "refund": 71139
+  },
+  {
+   "q": "2025Q4",
+   "refund": 82731
+  },
+  {
+   "q": "2026Q1",
+   "refund": 59439
+  },
+  {
+   "q": "2026Q2",
+   "refund": 147553
+  },
+  {
+   "q": "2026Q3",
+   "refund": 86378
+  }
+ ],
+ "returnRates": [
+  {
+   "product": "Desk Lamp",
+   "rate": 0.0242
+  },
+  {
+   "product": "ErgoLift Standing Desk",
+   "rate": 0.126
+  },
+  {
+   "product": "Laptop Stand",
+   "rate": 0.0212
+  },
+  {
+   "product": "Mechanical Keyboard",
+   "rate": 0.0144
+  },
+  {
+   "product": "Monitor 24\"",
+   "rate": 0.0472
+  },
+  {
+   "product": "Monitor 27\"",
+   "rate": 0.0529
+  },
+  {
+   "product": "Office Chair",
+   "rate": 0.0451
+  },
+  {
+   "product": "USB-C Dock",
+   "rate": 0.0245
+  },
+  {
+   "product": "Webcam HD",
+   "rate": 0.0267
+  },
+  {
+   "product": "Wireless Mouse",
+   "rate": 0.0241
+  }
+ ],
+ "returnReasons": [
+  {
+   "reason": "Changed mind",
+   "refund": 78847,
+   "topSegment": "Enterprise",
+   "topSegmentShare": 0.3806
+  },
+  {
+   "reason": "Damaged in transit",
+   "refund": 268725,
+   "topSegment": "Enterprise",
+   "topSegmentShare": 0.48
+  },
+  {
+   "reason": "Defective",
+   "refund": 30688,
+   "topSegment": "SMB",
+   "topSegmentShare": 0.494
+  },
+  {
+   "reason": "Overstock / ordered in error",
+   "refund": 150538,
+   "topSegment": "Reseller",
+   "topSegmentShare": 1.0
+  },
+  {
+   "reason": "Wrong item shipped",
+   "refund": 22606,
+   "topSegment": "SMB",
+   "topSegmentShare": 0.382
+  }
+ ],
+ "receivables": {
+  "openTotal": 250004,
+  "openInvoices": 92,
+  "overdueTotal": 135367,
+  "overdueInvoices": 54,
+  "aging": [
+   {
+    "bucket": "Not yet due",
+    "invoices": 38,
+    "amount": 114637
+   },
+   {
+    "bucket": "1-30 days",
+    "invoices": 34,
+    "amount": 82428
+   },
+   {
+    "bucket": "31-60 days",
+    "invoices": 11,
+    "amount": 24833
+   },
+   {
+    "bucket": "61-90 days",
+    "invoices": 3,
+    "amount": 14035
+   },
+   {
+    "bucket": "90+ days",
+    "invoices": 6,
+    "amount": 14070
+   }
+  ],
+  "customers": [
+   {
+    "customer": "C1170",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 75.6,
+    "pctLate": 1.0,
+    "invoices": 11,
+    "revenue": 40688,
+    "creditLimit": 60000,
+    "open": 4623,
+    "chronic": true,
+    "overLimit": false
+   },
+   {
+    "customer": "C1134",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 75.4,
+    "pctLate": 1.0,
+    "invoices": 23,
+    "revenue": 120411,
+    "creditLimit": 60000,
+    "open": 21368,
+    "chronic": true,
+    "overLimit": false
+   },
+   {
+    "customer": "C1156",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 75.2,
+    "pctLate": 1.0,
+    "invoices": 27,
+    "revenue": 99022,
+    "creditLimit": 60000,
+    "open": 11285,
+    "chronic": true,
+    "overLimit": false
+   },
+   {
+    "customer": "C1173",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 71.1,
+    "pctLate": 1.0,
+    "invoices": 28,
+    "revenue": 93432,
+    "creditLimit": 25000,
+    "open": 27579,
+    "chronic": true,
+    "overLimit": true
+   },
+   {
+    "customer": "C1035",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 32.0,
+    "pctLate": 1.0,
+    "invoices": 5,
+    "revenue": 1684,
+    "creditLimit": 5000,
+    "open": 0,
+    "chronic": true,
+    "overLimit": false
+   },
+   {
+    "customer": "C1005",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 17.1,
+    "pctLate": 0.8,
+    "invoices": 10,
+    "revenue": 8803,
+    "creditLimit": 5000,
+    "open": 0,
+    "chronic": true,
+    "overLimit": false
+   },
+   {
+    "customer": "C0919",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 15.3,
+    "pctLate": 0.333,
+    "invoices": 3,
+    "revenue": 585,
+    "creditLimit": 5000,
+    "open": 0,
+    "chronic": true,
+    "overLimit": false
+   },
+   {
+    "customer": "C1018",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 14.5,
+    "pctLate": 0.667,
+    "invoices": 6,
+    "revenue": 3813,
+    "creditLimit": 15000,
+    "open": 0,
+    "chronic": true,
+    "overLimit": false
+   },
+   {
+    "customer": "C1129",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 14.2,
+    "pctLate": 0.5,
+    "invoices": 8,
+    "revenue": 7034,
+    "creditLimit": 5000,
+    "open": 0,
+    "chronic": true,
+    "overLimit": false
+   },
+   {
+    "customer": "C0954",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 13.2,
+    "pctLate": 0.8,
+    "invoices": 5,
+    "revenue": 7796,
+    "creditLimit": 10000,
+    "open": 0,
+    "chronic": true,
+    "overLimit": false
+   },
+   {
+    "customer": "C0984",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 12.0,
+    "pctLate": 0.5,
+    "invoices": 4,
+    "revenue": 1569,
+    "creditLimit": 10000,
+    "open": 0,
+    "chronic": true,
+    "overLimit": false
+   },
+   {
+    "customer": "C1047",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 11.9,
+    "pctLate": 0.429,
+    "invoices": 7,
+    "revenue": 2116,
+    "creditLimit": 15000,
+    "open": 0,
+    "chronic": true,
+    "overLimit": false
+   },
+   {
+    "customer": "C1172",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 11.4,
+    "pctLate": 0.786,
+    "invoices": 14,
+    "revenue": 33956,
+    "creditLimit": 40000,
+    "open": 0,
+    "chronic": true,
+    "overLimit": false
+   },
+   {
+    "customer": "C0960",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 11.1,
+    "pctLate": 0.778,
+    "invoices": 9,
+    "revenue": 4559,
+    "creditLimit": 10000,
+    "open": 0,
+    "chronic": true,
+    "overLimit": false
+   },
+   {
+    "customer": "C1151",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 10.8,
+    "pctLate": 0.556,
+    "invoices": 9,
+    "revenue": 34056,
+    "creditLimit": 80000,
+    "open": 0,
+    "chronic": true,
+    "overLimit": false
+   },
+   {
+    "customer": "C1051",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 10.6,
+    "pctLate": 0.5,
+    "invoices": 10,
+    "revenue": 12946,
+    "creditLimit": 5000,
+    "open": 0,
+    "chronic": true,
+    "overLimit": false
+   },
+   {
+    "customer": "C1103",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 10.5,
+    "pctLate": 0.583,
+    "invoices": 12,
+    "revenue": 11382,
+    "creditLimit": 10000,
+    "open": 0,
+    "chronic": true,
+    "overLimit": false
+   },
+   {
+    "customer": "C0913",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 10.5,
+    "pctLate": 0.364,
+    "invoices": 11,
+    "revenue": 4160,
+    "creditLimit": 5000,
+    "open": 0,
+    "chronic": true,
+    "overLimit": false
+   },
+   {
+    "customer": "C1183",
+    "segment": "Reseller",
+    "terms": "Net 30",
+    "avgDaysLate": 10.2,
+    "pctLate": 0.65,
+    "invoices": 20,
+    "revenue": 52947,
+    "creditLimit": 20000,
+    "open": 0,
+    "chronic": true,
+    "overLimit": false
+   },
+   {
+    "customer": "C1163",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 7.1,
+    "pctLate": 0.375,
+    "invoices": 18,
+    "revenue": 58338,
+    "creditLimit": 60000,
+    "open": 7546,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C0961",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 6.8,
+    "pctLate": 0.625,
+    "invoices": 17,
+    "revenue": 11078,
+    "creditLimit": 5000,
+    "open": 225,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1193",
+    "segment": "Reseller",
+    "terms": "Net 30",
+    "avgDaysLate": 6.7,
+    "pctLate": 0.542,
+    "invoices": 25,
+    "revenue": 56961,
+    "creditLimit": 30000,
+    "open": 457,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1131",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 6.1,
+    "pctLate": 0.429,
+    "invoices": 23,
+    "revenue": 90986,
+    "creditLimit": 60000,
+    "open": 2999,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1038",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 5.8,
+    "pctLate": 0.714,
+    "invoices": 15,
+    "revenue": 13002,
+    "creditLimit": 15000,
+    "open": 217,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1207",
+    "segment": "Reseller",
+    "terms": "Net 30",
+    "avgDaysLate": 5.7,
+    "pctLate": 0.44,
+    "invoices": 26,
+    "revenue": 55854,
+    "creditLimit": 30000,
+    "open": 760,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1150",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 5.3,
+    "pctLate": 0.4,
+    "invoices": 27,
+    "revenue": 109056,
+    "creditLimit": 60000,
+    "open": 13177,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1168",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 5.1,
+    "pctLate": 0.542,
+    "invoices": 26,
+    "revenue": 115579,
+    "creditLimit": 80000,
+    "open": 8913,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C0930",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 4.9,
+    "pctLate": 0.211,
+    "invoices": 20,
+    "revenue": 15043,
+    "creditLimit": 5000,
+    "open": 738,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C0985",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 4.5,
+    "pctLate": 0.471,
+    "invoices": 18,
+    "revenue": 13974,
+    "creditLimit": 5000,
+    "open": 1459,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1136",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 4.3,
+    "pctLate": 0.65,
+    "invoices": 22,
+    "revenue": 91032,
+    "creditLimit": 60000,
+    "open": 13306,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1166",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 4.1,
+    "pctLate": 0.37,
+    "invoices": 28,
+    "revenue": 84669,
+    "creditLimit": 40000,
+    "open": 645,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1180",
+    "segment": "Reseller",
+    "terms": "Net 30",
+    "avgDaysLate": 4.0,
+    "pctLate": 0.5,
+    "invoices": 37,
+    "revenue": 117480,
+    "creditLimit": 30000,
+    "open": 7458,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1153",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 3.8,
+    "pctLate": 0.548,
+    "invoices": 32,
+    "revenue": 105961,
+    "creditLimit": 80000,
+    "open": 3869,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1137",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 3.8,
+    "pctLate": 0.5,
+    "invoices": 25,
+    "revenue": 90221,
+    "creditLimit": 80000,
+    "open": 6202,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1203",
+    "segment": "Reseller",
+    "terms": "Net 30",
+    "avgDaysLate": 3.5,
+    "pctLate": 0.471,
+    "invoices": 36,
+    "revenue": 118760,
+    "creditLimit": 20000,
+    "open": 8760,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1160",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 3.4,
+    "pctLate": 0.455,
+    "invoices": 23,
+    "revenue": 85593,
+    "creditLimit": 40000,
+    "open": 675,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1082",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 3.1,
+    "pctLate": 0.5,
+    "invoices": 15,
+    "revenue": 12016,
+    "creditLimit": 5000,
+    "open": 642,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1135",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 3.1,
+    "pctLate": 0.421,
+    "invoices": 20,
+    "revenue": 95014,
+    "creditLimit": 60000,
+    "open": 9750,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1060",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 3.0,
+    "pctLate": 0.333,
+    "invoices": 4,
+    "revenue": 8516,
+    "creditLimit": 10000,
+    "open": 3507,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1128",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 2.9,
+    "pctLate": 0.364,
+    "invoices": 23,
+    "revenue": 16541,
+    "creditLimit": 10000,
+    "open": 451,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1161",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 2.8,
+    "pctLate": 0.423,
+    "invoices": 29,
+    "revenue": 82695,
+    "creditLimit": 60000,
+    "open": 6531,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1143",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 2.6,
+    "pctLate": 0.455,
+    "invoices": 12,
+    "revenue": 54933,
+    "creditLimit": 60000,
+    "open": 941,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1191",
+    "segment": "Reseller",
+    "terms": "Net 30",
+    "avgDaysLate": 2.6,
+    "pctLate": 0.32,
+    "invoices": 26,
+    "revenue": 52972,
+    "creditLimit": 30000,
+    "open": 2288,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1174",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 2.6,
+    "pctLate": 0.423,
+    "invoices": 28,
+    "revenue": 110225,
+    "creditLimit": 80000,
+    "open": 5993,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1110",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 2.4,
+    "pctLate": 0.417,
+    "invoices": 13,
+    "revenue": 8284,
+    "creditLimit": 5000,
+    "open": 137,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1178",
+    "segment": "Reseller",
+    "terms": "Net 30",
+    "avgDaysLate": 2.2,
+    "pctLate": 0.5,
+    "invoices": 37,
+    "revenue": 124385,
+    "creditLimit": 30000,
+    "open": 2198,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1027",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 2.1,
+    "pctLate": 0.294,
+    "invoices": 18,
+    "revenue": 14063,
+    "creditLimit": 10000,
+    "open": 540,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1167",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 2.1,
+    "pctLate": 0.467,
+    "invoices": 32,
+    "revenue": 104523,
+    "creditLimit": 60000,
+    "open": 2637,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C0902",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 2.0,
+    "pctLate": 0.538,
+    "invoices": 14,
+    "revenue": 12044,
+    "creditLimit": 15000,
+    "open": 81,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C0997",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 1.9,
+    "pctLate": 0.316,
+    "invoices": 20,
+    "revenue": 18430,
+    "creditLimit": 5000,
+    "open": 2499,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1177",
+    "segment": "Reseller",
+    "terms": "Net 30",
+    "avgDaysLate": 1.9,
+    "pctLate": 0.436,
+    "invoices": 40,
+    "revenue": 117055,
+    "creditLimit": 30000,
+    "open": 6745,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1012",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 1.5,
+    "pctLate": 0.438,
+    "invoices": 17,
+    "revenue": 14825,
+    "creditLimit": 15000,
+    "open": 2959,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1181",
+    "segment": "Reseller",
+    "terms": "Net 30",
+    "avgDaysLate": 1.5,
+    "pctLate": 0.424,
+    "invoices": 35,
+    "revenue": 119355,
+    "creditLimit": 30000,
+    "open": 6197,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1107",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 1.4,
+    "pctLate": 0.429,
+    "invoices": 15,
+    "revenue": 13647,
+    "creditLimit": 15000,
+    "open": 875,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1190",
+    "segment": "Reseller",
+    "terms": "Net 30",
+    "avgDaysLate": 1.3,
+    "pctLate": 0.364,
+    "invoices": 34,
+    "revenue": 115740,
+    "creditLimit": 30000,
+    "open": 3422,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1155",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 1.2,
+    "pctLate": 0.37,
+    "invoices": 29,
+    "revenue": 89639,
+    "creditLimit": 60000,
+    "open": 3009,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C0923",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 1.0,
+    "pctLate": 0.4,
+    "invoices": 11,
+    "revenue": 11655,
+    "creditLimit": 5000,
+    "open": 132,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1144",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 0.6,
+    "pctLate": 0.375,
+    "invoices": 25,
+    "revenue": 71535,
+    "creditLimit": 40000,
+    "open": 10345,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1065",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 0.5,
+    "pctLate": 0.231,
+    "invoices": 14,
+    "revenue": 18375,
+    "creditLimit": 15000,
+    "open": 736,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1053",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 0.5,
+    "pctLate": 0.4,
+    "invoices": 11,
+    "revenue": 11443,
+    "creditLimit": 5000,
+    "open": 165,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1078",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": 0.5,
+    "pctLate": 0.444,
+    "invoices": 19,
+    "revenue": 15355,
+    "creditLimit": 10000,
+    "open": 2576,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1149",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 0.4,
+    "pctLate": 0.348,
+    "invoices": 24,
+    "revenue": 60225,
+    "creditLimit": 80000,
+    "open": 605,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1165",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 0.2,
+    "pctLate": 0.37,
+    "invoices": 28,
+    "revenue": 118476,
+    "creditLimit": 40000,
+    "open": 1047,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1175",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": 0.2,
+    "pctLate": 0.321,
+    "invoices": 29,
+    "revenue": 121895,
+    "creditLimit": 40000,
+    "open": 4087,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1162",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": -0.4,
+    "pctLate": 0.571,
+    "invoices": 8,
+    "revenue": 16352,
+    "creditLimit": 80000,
+    "open": 534,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1164",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": -0.6,
+    "pctLate": 0.214,
+    "invoices": 30,
+    "revenue": 101894,
+    "creditLimit": 40000,
+    "open": 2220,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1182",
+    "segment": "Reseller",
+    "terms": "Net 30",
+    "avgDaysLate": -0.6,
+    "pctLate": 0.538,
+    "invoices": 14,
+    "revenue": 65647,
+    "creditLimit": 30000,
+    "open": 10829,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1145",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": -0.7,
+    "pctLate": 0.385,
+    "invoices": 27,
+    "revenue": 149322,
+    "creditLimit": 60000,
+    "open": 1176,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1044",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": -1.0,
+    "pctLate": 0.333,
+    "invoices": 4,
+    "revenue": 3371,
+    "creditLimit": 10000,
+    "open": 443,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1071",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": -1.0,
+    "pctLate": 0.25,
+    "invoices": 5,
+    "revenue": 1278,
+    "creditLimit": 5000,
+    "open": 374,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1142",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": -1.6,
+    "pctLate": 0.286,
+    "invoices": 22,
+    "revenue": 83225,
+    "creditLimit": 40000,
+    "open": 945,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1159",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": -2.0,
+    "pctLate": 0.286,
+    "invoices": 9,
+    "revenue": 28660,
+    "creditLimit": 40000,
+    "open": 2271,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1133",
+    "segment": "Enterprise",
+    "terms": "Net 60",
+    "avgDaysLate": -2.0,
+    "pctLate": 0.318,
+    "invoices": 23,
+    "revenue": 76996,
+    "creditLimit": 60000,
+    "open": 4341,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1111",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": -2.1,
+    "pctLate": 0.143,
+    "invoices": 8,
+    "revenue": 6440,
+    "creditLimit": 15000,
+    "open": 223,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1048",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": -3.0,
+    "pctLate": 0.333,
+    "invoices": 4,
+    "revenue": 8307,
+    "creditLimit": 10000,
+    "open": 414,
+    "chronic": false,
+    "overLimit": false
+   },
+   {
+    "customer": "C1068",
+    "segment": "SMB",
+    "terms": "Net 30",
+    "avgDaysLate": -3.1,
+    "pctLate": 0.222,
+    "invoices": 19,
+    "revenue": 16914,
+    "creditLimit": 15000,
+    "open": 2876,
+    "chronic": false,
+    "overLimit": false
+   }
+  ],
+  "lateHistogram": [
+   {
+    "daysLate": -10,
+    "invoices": 2188,
+    "chronicInvoices": 44,
+    "amount": 3663527
+   },
+   {
+    "daysLate": 0,
+    "invoices": 1582,
+    "chronicInvoices": 49,
+    "amount": 2559192
+   },
+   {
+    "daysLate": 10,
+    "invoices": 87,
+    "chronicInvoices": 0,
+    "amount": 155215
+   },
+   {
+    "daysLate": 20,
+    "invoices": 104,
+    "chronicInvoices": 6,
+    "amount": 177376
+   },
+   {
+    "daysLate": 30,
+    "invoices": 103,
+    "chronicInvoices": 11,
+    "amount": 175504
+   },
+   {
+    "daysLate": 40,
+    "invoices": 89,
+    "chronicInvoices": 15,
+    "amount": 174276
+   },
+   {
+    "daysLate": 50,
+    "invoices": 98,
+    "chronicInvoices": 30,
+    "amount": 219710
+   },
+   {
+    "daysLate": 60,
+    "invoices": 8,
+    "chronicInvoices": 8,
+    "amount": 23030
+   },
+   {
+    "daysLate": 70,
+    "invoices": 7,
+    "chronicInvoices": 7,
+    "amount": 48420
+   },
+   {
+    "daysLate": 80,
+    "invoices": 13,
+    "chronicInvoices": 13,
+    "amount": 61020
+   },
+   {
+    "daysLate": 90,
+    "invoices": 7,
+    "chronicInvoices": 7,
+    "amount": 23724
+   },
+   {
+    "daysLate": 100,
+    "invoices": 11,
+    "chronicInvoices": 11,
+    "amount": 37160
+   }
+  ]
+ },
+ "scenarios": [
+  {
+   "id": "discountCap",
+   "label": "Cap discounts at 15%",
+   "kind": "profit",
+   "recovered": 231737,
+   "assumption": "If the same orders still sell at the lower discount."
+  },
+  {
+   "id": "deskShipping",
+   "label": "Stop desks arriving damaged",
+   "kind": "profit",
+   "recovered": 130516,
+   "assumption": "If better boxes or a new carrier stop all the damage."
+  },
+  {
+   "id": "collectOnTerms",
+   "label": "Collect past-due bills",
+   "kind": "cash",
+   "recovered": 135367,
+   "assumption": "Cash you get once. It is not extra profit."
+  }
+ ],
+ "detections": [
+  {
+   "id": "discountOutlier",
+   "title": "Rep discounting far above peers",
+   "rule": "Rep's quarterly discount rate is more than 1.5x the median rep's.",
+   "hits": 7,
+   "who": [
+    "R07"
+   ]
+  },
+  {
+   "id": "belowCost",
+   "title": "Orders sold below cost",
+   "rule": "Discounted price is lower than unit cost.",
+   "hits": 41,
+   "impact": -8791,
+   "who": [
+    "R07",
+    "R02"
+   ]
+  },
+  {
+   "id": "returnHotspot",
+   "title": "Return hot spot",
+   "rule": "One product-and-reason pair causes more than 10% of all refunds.",
+   "hits": 1,
+   "who": [
+    "ErgoLift Standing Desk: Damaged in transit"
+   ]
+  },
+  {
+   "id": "chronicLate",
+   "title": "Chronic late payers",
+   "rule": "Customer averages more than 10 days past terms over 3+ invoices.",
+   "hits": 19,
+   "who": [
+    "C1170",
+    "C1134",
+    "C1156",
+    "C1173",
+    "C1035",
+    "C1005"
+   ]
+  },
+  {
+   "id": "creditBreach",
+   "title": "Over credit limit",
+   "rule": "Open unpaid balance exceeds the customer's credit limit.",
+   "hits": 1,
+   "who": [
+    "C1173"
+   ]
+  }
+ ]
+}

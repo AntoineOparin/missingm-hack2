@@ -1,0 +1,178 @@
+.hook-title {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+  padding: 48px max(24px, 8vw);
+}
+.hook-title-inner {
+  max-width: 980px;
+  display: grid;
+  gap: 20px;
+}
+.hook-asker {
+  font-size: 0.95rem;
+  margin-top: 12px;
+}
+.hook-quote {
+  margin: 0;
+  display: grid;
+  gap: 18px;
+  border-left: 3px solid var(--oak);
+  padding-left: clamp(16px, 3vw, 32px);
+}
+.hook-quote p {
+  font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+  line-height: 1.4;
+  color: var(--muted);
+  max-width: 34ch;
+  text-wrap: pretty;
+}
+.hook-cue {
+  margin-top: 28px;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+
+#Hook-growth h3 {
+  font-size: 1.35rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.hook-chart {
+  width: 100%;
+  max-width: 820px;
+  max-height: 100%;
+  display: grid;
+  gap: 12px;
+}
+.hook-chart svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.hook-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.hook-stat {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: 8px;
+  row-gap: 2px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.8rem;
+}
+.hook-stat strong {
+  grid-column: 1 / -1;
+  font-size: clamp(1.2rem, 2.6vw, 1.9rem);
+  font-weight: 600;
+  line-height: 1.1;
+}
+.hook-key {
+  width: 14px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--oak);
+}
+.hook-key[data-k='prof'] {
+  background: var(--chrome);
+}
+.hook-key[data-k='gap'] {
+  height: 10px;
+  background: color-mix(in srgb, var(--leak) 45%, transparent);
+}
+
+/* SVG marks: only tokens */
+.hook-rev,
+.hook-prof {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.hook-rev {
+  stroke: var(--oak);
+}
+.hook-prof {
+  stroke: var(--chrome);
+}
+.hook-gap {
+  fill: var(--leak);
+  fill-opacity: 0.16;
+}
+.hook-grid {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.hook-base {
+  stroke: var(--muted);
+  stroke-opacity: 0.5;
+  stroke-width: 1;
+}
+.hook-tick {
+  fill: var(--muted);
+  font: 500 11px var(--font-num);
+}
+.hook-legend text {
+  fill: var(--muted);
+  font: 500 12px var(--font);
+}
+.hook-dot {
+  fill: var(--text);
+  stroke: var(--bg);
+  stroke-width: 2;
+}
+.hook-dot-rev {
+  fill: var(--oak);
+}
+.hook-dot-prof {
+  fill: var(--chrome);
+}
+.hook-end {
+  fill: var(--text);
+  font: 500 13px var(--font);
+}
+.hook-end .num {
+  font-weight: 600;
+}
+.hook-tip {
+  fill: var(--surface-2);
+  stroke: var(--line);
+}
+.hook-tip-title {
+  fill: var(--text);
+  font: 600 12px var(--font);
+}
+.hook-tip-row {
+  fill: var(--muted);
+  font: 500 12px var(--font);
+}
+.hook-tip-row .num {
+  fill: var(--text);
+}
+
+@media (max-width: 860px) {
+  /* The SVG shrinks to about half size on a phone; scale its type back up. */
+  .hook-tick {
+    font-size: 17px;
+  }
+  .hook-legend text,
+  .hook-end {
+    font-size: 19px;
+  }
+  .hook-stats {
+    gap: 6px;
+  }
+  .hook-stat {
+    padding: 8px 10px;
+    font-size: 0.7rem;
+  }
+}

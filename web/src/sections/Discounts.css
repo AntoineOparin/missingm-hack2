@@ -1,0 +1,136 @@
+.disc-stage {
+  display: grid;
+  width: min(100%, 720px);
+  aspect-ratio: 640 / 440;
+}
+.disc-stage > * {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+}
+.disc-stage svg {
+  overflow: visible;
+}
+.disc-stage [aria-hidden='true'] {
+  pointer-events: none;
+}
+
+.disc-title {
+  font: 600 15px var(--font);
+  fill: var(--text);
+}
+.disc-quarter {
+  font-size: 22px;
+  font-weight: 600;
+  fill: var(--text);
+}
+.disc-tick,
+.disc-legend text {
+  font-size: 12px;
+  fill: var(--muted);
+}
+.disc-ann {
+  font-size: 12px;
+  fill: var(--muted);
+}
+.disc-value {
+  font-size: 13px;
+  font-weight: 600;
+  fill: var(--text);
+}
+.disc-rep {
+  font-size: 12px;
+  fill: var(--muted);
+}
+.disc-rep.is-flag {
+  font-size: 13px;
+  font-weight: 600;
+  fill: var(--text);
+}
+
+.disc-grid {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.disc-median {
+  stroke: var(--chrome);
+  stroke-width: 1.5;
+}
+/* Dashed so the threshold reads as a rule, not a data mark. */
+.disc-flagline {
+  stroke: var(--leak);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+}
+
+.disc-dot {
+  fill: var(--chrome);
+  stroke: var(--bg);
+  stroke-width: 2;
+}
+.disc-dot.is-flag {
+  fill: var(--leak);
+}
+.disc-hit {
+  fill: transparent;
+}
+
+.disc-bar {
+  fill: var(--chrome);
+}
+.disc-bar.is-flag {
+  fill: var(--leak);
+}
+.disc-ex {
+  stroke: var(--text);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.disc-rules {
+  display: grid;
+  align-content: center;
+  gap: 16px;
+}
+.disc-rule {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  display: grid;
+  gap: 6px;
+}
+.disc-rule h3 {
+  font-size: 1.15rem;
+  margin: 0;
+}
+.disc-hits {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--leak);
+}
+
+@media (max-width: 860px) {
+  /* The 640-wide viewBox shrinks ~half on phones; scale SVG text back up. */
+  .disc-tick,
+  .disc-legend text,
+  .disc-ann,
+  .disc-rep {
+    font-size: 18px;
+  }
+  .disc-title,
+  .disc-value,
+  .disc-rep.is-flag {
+    font-size: 20px;
+  }
+  .disc-quarter {
+    font-size: 30px;
+  }
+  .disc-rule {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+  .disc-hits {
+    font-size: 1.2rem;
+  }
+}

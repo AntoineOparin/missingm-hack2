@@ -1,0 +1,178 @@
+.fix {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 56px 24px;
+  display: grid;
+  gap: 24px;
+}
+.fix-head {
+  display: grid;
+  gap: 10px;
+  max-width: 640px;
+}
+.fix-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.fix-levers {
+  display: grid;
+  gap: 10px;
+}
+.fix-group {
+  font: 600 0.75rem/1 var(--font-num);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+.fix-toggle {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: start;
+  width: 100%;
+  padding: 14px 16px;
+  text-align: left;
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.fix-toggle[aria-checked='true'] {
+  border-color: var(--ok);
+  background: color-mix(in srgb, var(--ok) 8%, var(--surface));
+}
+.fix-toggle:focus-visible {
+  outline: 2px solid var(--oak);
+  outline-offset: 2px;
+}
+@media (hover: hover) {
+  .fix-toggle:hover {
+    background: var(--surface-2);
+  }
+}
+.fix-toggle-text {
+  display: grid;
+  gap: 4px;
+}
+.fix-toggle-label {
+  font-weight: 600;
+}
+.fix-toggle-note {
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+.fix-toggle-amount {
+  font-size: 1.05rem;
+  color: var(--ok);
+}
+
+/* Switch: the track and thumb are drawn here; state comes from aria-checked on the button. */
+.fix-switch {
+  position: relative;
+  width: 36px;
+  height: 22px;
+  margin-top: 1px;
+  border-radius: 11px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  transition: background-color 0.15s ease;
+}
+.fix-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--muted);
+  transition: transform 0.15s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.15s ease;
+}
+.fix-toggle[aria-checked='true'] .fix-switch {
+  background: color-mix(in srgb, var(--ok) 35%, var(--surface-2));
+}
+.fix-toggle[aria-checked='true'] .fix-switch::after {
+  transform: translateX(14px);
+  background: var(--ok);
+}
+:root[data-quality='low'] .fix-toggle,
+:root[data-quality='low'] .fix-switch,
+:root[data-quality='low'] .fix-switch::after {
+  transition: none;
+}
+
+.fix-panel svg {
+  width: 100%;
+  max-height: 62svh;
+}
+.fix-tank {
+  fill: var(--surface-2);
+  stroke: var(--line);
+}
+.fix-recovered {
+  fill: var(--ok);
+}
+.fix-base {
+  fill: var(--oak);
+}
+.fix-gap {
+  stroke: var(--surface);
+  stroke-width: 2;
+}
+.fix-ref {
+  stroke: var(--muted);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+.fix-ref-target {
+  stroke: var(--chrome);
+  stroke-dasharray: 6 4;
+}
+.fix-label {
+  font: 500 12px var(--font);
+  fill: var(--muted);
+}
+.fix-label-value {
+  font-size: 14px;
+  fill: var(--text);
+}
+
+.fix-readout {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px 12px;
+  padding: 14px 16px;
+}
+.fix-stat-name {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.fix-stat {
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+.fix-was {
+  font-size: 0.8rem;
+}
+.fix-verdict {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 860px) {
+  .fix {
+    padding: 64px 16px;
+  }
+  .fix-grid {
+    grid-template-columns: 1fr;
+  }
+  .fix-stat {
+    font-size: 1.25rem;
+  }
+}
