@@ -15,6 +15,7 @@ python3 -m venv .venv && .venv/bin/pip install -r pipeline/requirements.txt   # 
 cd web && npm install && npm run dev      # http://localhost:5173
 npm run build                             # type-check + production build
 npx oxlint src                            # lint
+npm run format                            # Prettier: run before committing (config in web/.prettierrc.json)
 ```
 
 Force a performance tier with `?quality=low` or `?quality=mid` (useful if the demo machine stutters).

@@ -43,9 +43,18 @@ const DIM = 0.35
 const CALLOUT_FS = 12 // viewBox units; renders about 15px at desktop width
 
 // Monthly chart
-const mx = scaleLinear().domain([0, monthly.length - 1]).range([72, 604])
-const my = scaleLinear().domain([0, Math.max(...monthly.map((m) => m.billed))]).nice(4).range([340, 80])
-const monthPath = (key: 'billed' | 'collected') => line<(typeof monthly)[number]>((_, i) => mx(i), (d) => my(d[key]))(monthly) ?? ''
+const mx = scaleLinear()
+  .domain([0, monthly.length - 1])
+  .range([72, 604])
+const my = scaleLinear()
+  .domain([0, Math.max(...monthly.map((m) => m.billed))])
+  .nice(4)
+  .range([340, 80])
+const monthPath = (key: 'billed' | 'collected') =>
+  line<(typeof monthly)[number]>(
+    (_, i) => mx(i),
+    (d) => my(d[key]),
+  )(monthly) ?? ''
 const worstIdx = monthly.indexOf(worstMonth)
 const gapMidY = (my(worstMonth.billed) + my(worstMonth.collected)) / 2
 // Note sits right of the gap unless the gap is near the right edge.
@@ -75,7 +84,11 @@ const agingMax = Math.max(...R.aging.map((a) => a.amount))
 const ax = scaleLinear().domain([0, agingMax]).range([0, 300])
 const AGING_Y = 116
 const ROW = 36
-const limitScale = overLimit ? scaleLinear().domain([0, Math.max(overLimit.open, overLimit.creditLimit) * 1.15]).range([0, 420]) : null
+const limitScale = overLimit
+  ? scaleLinear()
+      .domain([0, Math.max(overLimit.open, overLimit.creditLimit) * 1.15])
+      .range([0, 420])
+  : null
 const LIMIT_Y = AGING_Y + R.aging.length * ROW + 36
 // Arrow target: the top of the owed bar, halfway along the part past the limit.
 const overTo: [number, number] = overLimit && limitScale ? [60 + (limitScale(overLimit.creditLimit) + limitScale(overLimit.open)) / 2, LIMIT_Y + 12] : [0, 0]
@@ -88,7 +101,9 @@ function labelFor(step: number) {
   if (step === 3)
     return `Zoomed in on late bills. All ${tailInvoices} bills paid ${tailStart} or more days late come from customers who always pay late: ${worst.map((c) => c.customer).join(', ')}.`
   const today = `${money(R.openTotal)} is unpaid today across ${R.openInvoices} bills; ${money(R.overdueTotal)} is past due.`
-  return step === 5 && overLimit ? `${today} ${overLimit.customer} owes ${money(overLimit.open)}, more than its ${money(overLimit.creditLimit)} credit limit.` : today
+  return step === 5 && overLimit
+    ? `${today} ${overLimit.customer} owes ${money(overLimit.open)}, more than its ${money(overLimit.creditLimit)} credit limit.`
+    : today
 }
 
 const EYEBROW = <p className="eyebrow">Unpaid bills</p>
@@ -110,8 +125,7 @@ const steps = [
     {EYEBROW}
     <h3>Most customers pay on time</h3>
     <p>
-      <span className="num">{pct(onTimeShare)}</span> of bills are paid early or within <span className="num">{binWidth}</span> days. Most
-      customers are fine.
+      <span className="num">{pct(onTimeShare)}</span> of bills are paid early or within <span className="num">{binWidth}</span> days. Most customers are fine.
     </p>
   </>,
   <>
@@ -126,8 +140,8 @@ const steps = [
     {EYEBROW}
     <h3>What you are owed today</h3>
     <p>
-      <span className="num">{moneyShort(R.openTotal)}</span> is unpaid. <span className="num leak">{moneyShort(R.overdueTotal)}</span> of it is
-      already past due.
+      <span className="num">{moneyShort(R.openTotal)}</span> is unpaid. <span className="num leak">{moneyShort(R.overdueTotal)}</span> of it is already past
+      due.
     </p>
   </>,
   overLimit ? (
@@ -166,7 +180,8 @@ function Chart({ step }: { step: number }) {
   const fade: Transition = low ? { duration: 0 } : { duration: 0.4, ease: EASE_OUT }
   const move: Transition = low ? { duration: 0 } : { duration: 0.7, ease: EASE_MOVE }
   const grow = (i: number): Transition => (low ? { duration: 0 } : { duration: 0.6, ease: EASE_OUT, delay: i * 0.05 })
-  const show = (on: boolean) => ({ animate: { opacity: on ? 1 : 0 }, initial: false, transition: fade, style: { pointerEvents: on ? 'auto' : 'none' } }) as const
+  const show = (on: boolean) =>
+    ({ animate: { opacity: on ? 1 : 0 }, initial: false, transition: fade, style: { pointerEvents: on ? 'auto' : 'none' } }) as const
   const dim = (on: boolean) => ({ animate: { opacity: on ? DIM : 1 }, initial: false, transition: fade }) as const
   const zoomed = step === 3
   const scaleY = zoomed ? 1 : zoomMax / fullMax
@@ -316,10 +331,7 @@ function Chart({ step }: { step: number }) {
             const s = 5 // slant of the break
             return (
               <g key={h.daysLate}>
-                <path
-                  className="rcv-break"
-                  d={`M${x - 3} ${y + s} L${x + BAR_W + 3} ${y - s} L${x + BAR_W + 3} ${y - s + 7} L${x - 3} ${y + s + 7} Z`}
-                />
+                <path className="rcv-break" d={`M${x - 3} ${y + s} L${x + BAR_W + 3} ${y - s} L${x + BAR_W + 3} ${y - s + 7} L${x - 3} ${y + s + 7} Z`} />
                 <path className="rcv-break-edge" d={`M${x - 3} ${y + s} L${x + BAR_W + 3} ${y - s} M${x - 3} ${y + s + 7} L${x + BAR_W + 3} ${y - s + 7}`} />
                 <text className="num t-muted t-small" x={binX(i) + BAND / 2} y={BAR_Y + BAR_H + 22} textAnchor="middle">
                   {count(h.invoices)}

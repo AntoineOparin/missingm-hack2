@@ -31,8 +31,8 @@ function ToolLink() {
         The tool lists the <span className="num">{queue.length}</span> bills to chase this week, biggest risk first, with an email ready to send for each.{' '}
         <span className="num">{moneyShort(pastDue)}</span> is already past due.
       </p>
-      <a className="button" href={TOOL}>
-        Open the chase list →
+      <a className="button" href={TOOL} target="_blank" rel="noopener">
+        Open the chase list ↗
       </a>
     </section>
   )

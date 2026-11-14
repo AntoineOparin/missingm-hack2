@@ -43,7 +43,9 @@
   border-radius: var(--radius);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  transition: border-color 0.15s ease, background-color 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
 }
 .fix-toggle[aria-checked='true'] {
   border-color: var(--ok);
@@ -94,7 +96,9 @@
   height: 16px;
   border-radius: 50%;
   background: var(--muted);
-  transition: transform 0.15s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.15s ease;
+  transition:
+    transform 0.15s cubic-bezier(0.23, 1, 0.32, 1),
+    background-color 0.15s ease;
 }
 .fix-toggle[aria-checked='true'] .fix-switch {
   background: color-mix(in srgb, var(--ok) 35%, var(--surface-2));

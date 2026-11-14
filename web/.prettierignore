@@ -1,0 +1,5 @@
+dist
+node_modules
+package-lock.json
+# written by pipeline/build_data.py
+src/data/*.json
