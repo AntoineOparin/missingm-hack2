@@ -28,12 +28,16 @@ const gap = keptPace - yoy['2026'].profitAfterRefunds
 const W = 640
 const H = 380
 const M = { t: 44, r: 128, b: 44, l: 40 }
-const x = scaleLinear().domain([0, last]).range([M.l, W - M.r])
+const x = scaleLinear()
+  .domain([0, last])
+  .range([M.l, W - M.r])
 const y = scaleLinear()
   .domain([Math.min(90, ...prof), Math.max(...rev) * 1.04])
   .nice()
   .range([H - M.b, M.t])
-const linePath = line<number>().x((_, i) => x(i)).y((v) => y(v))
+const linePath = line<number>()
+  .x((_, i) => x(i))
+  .y((v) => y(v))
 const revPath = linePath(rev)!
 const profPath = linePath(prof)!
 const gapPath = area<number>()
@@ -53,7 +57,12 @@ const usePhone = () => useSyncExternalStore(subscribe, () => phoneMq.matches)
 function Title() {
   return (
     <section id="Hook" className="hook-title">
-      <motion.div className="hook-title-inner" initial={{ opacity: 0, transform: 'translateY(12px)' }} animate={{ opacity: 1, transform: 'translateY(0px)' }} transition={{ duration: 0.6, ease: fade.ease }}>
+      <motion.div
+        className="hook-title-inner"
+        initial={{ opacity: 0, transform: 'translateY(12px)' }}
+        animate={{ opacity: 1, transform: 'translateY(0px)' }}
+        transition={{ duration: 0.6, ease: fade.ease }}
+      >
         <p className="eyebrow">Chrome &amp; Oak · {meta.comparison}</p>
         <p className="hook-asker muted">The CFO asked</p>
         <blockquote className="hook-quote">
@@ -119,9 +128,13 @@ function Chart({ step, progress }: { step: number; progress: MotionValue<number>
 
         <g className="hook-legend" transform={`translate(${M.l},18)`}>
           <line x1={0} x2={18} y1={0} y2={0} className="hook-rev" />
-          <text x={24} y={4}>Revenue</text>
+          <text x={24} y={4}>
+            Revenue
+          </text>
           <line x1={124} x2={142} y1={0} y2={0} className="hook-prof" />
-          <text x={148} y={4}>Profit</text>
+          <text x={148} y={4}>
+            Profit
+          </text>
         </g>
 
         {ticks.map((t) => (

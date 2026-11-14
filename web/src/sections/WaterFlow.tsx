@@ -60,7 +60,12 @@ function Drips({ x, count }: { x: number; count: number }) {
     <g transform={`translate(${x} ${LEAK_Y + 8})`}>
       {Array.from({ length: count }, (_, i) => (
         // --at: where this drop rests along the fall when the animation is off
-        <path key={`${count}-${i}`} className="water-drop" d={DROP} style={{ animationDelay: `${(-i * 1.7) / count}s`, '--at': (i + 0.5) / count } as CSSProperties} />
+        <path
+          key={`${count}-${i}`}
+          className="water-drop"
+          d={DROP}
+          style={{ animationDelay: `${(-i * 1.7) / count}s`, '--at': (i + 0.5) / count } as CSSProperties}
+        />
       ))}
     </g>
   )
@@ -170,7 +175,6 @@ function Scene({ step }: { step: number }) {
             {moneyShort(d.refunds)}
           </text>
         </motion.g>
-
       </g>
 
       {/* Dollar bar: the drawing shows the idea, this shows the real proportions. */}
@@ -179,7 +183,14 @@ function Scene({ step }: { step: number }) {
       </text>
       {bar.map((p) => (
         <g key={p.id}>
-          <motion.rect className="water-seg" data-part={p.id} y={BAR.y} height={BAR.h} initial={false} animate={{ attrX: p.x + 1, width: Math.max(0, p.w - 2) }} />
+          <motion.rect
+            className="water-seg"
+            data-part={p.id}
+            y={BAR.y}
+            height={BAR.h}
+            initial={false}
+            animate={{ attrX: p.x + 1, width: Math.max(0, p.w - 2) }}
+          />
           <motion.g initial={false} animate={{ x: p.x + p.w / 2 }}>
             <text className="water-seg-name" y={BAR.y + BAR.h + 16} textAnchor="middle">
               {p.name}
@@ -202,8 +213,24 @@ function Scene({ step }: { step: number }) {
       />
       <g className="water-notes">
         <Callout show={step === 1} from={[314, 214]} to={[352, 166]} text={[`${pct(yoy.change.gross)} more`, 'poured in']} fontSize={13} />
-        <Callout show={step === 2} tone="leak" from={[DISCOUNT_X, 60]} to={[DISCOUNT_X, LEAK_Y - 4]} bend={0.12} text={['This leak', `grew ${pct(yoy.change.discounts)}`]} fontSize={13} />
-        <Callout show={step === 2} tone="leak" from={[REFUND_X, 60]} to={[REFUND_X, LEAK_Y - 4]} bend={-0.12} text={['This leak', `grew ${pct(yoy.change.refunds)}`]} fontSize={13} />
+        <Callout
+          show={step === 2}
+          tone="leak"
+          from={[DISCOUNT_X, 60]}
+          to={[DISCOUNT_X, LEAK_Y - 4]}
+          bend={0.12}
+          text={['This leak', `grew ${pct(yoy.change.discounts)}`]}
+          fontSize={13}
+        />
+        <Callout
+          show={step === 2}
+          tone="leak"
+          from={[REFUND_X, 60]}
+          to={[REFUND_X, LEAK_Y - 4]}
+          bend={-0.12}
+          text={['This leak', `grew ${pct(yoy.change.refunds)}`]}
+          fontSize={13}
+        />
         <Callout
           show={step === 3}
           tone="leak"
@@ -236,8 +263,8 @@ export default function WaterFlow() {
       <p className="eyebrow">2026</p>
       <h3>More money poured in.</h3>
       <p>
-        Sales at list price grew <span className="num">{pct(yoy.change.gross)}</span>, to <span className="num">{moneyShort(b.gross)}</span>. That is the
-        growth everyone sees.
+        Sales at list price grew <span className="num">{pct(yoy.change.gross)}</span>, to <span className="num">{moneyShort(b.gross)}</span>. That is the growth
+        everyone sees.
       </p>
     </>,
     <>

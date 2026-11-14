@@ -9,9 +9,7 @@ const TIER_LABEL: Record<string, string> = { escalate: 'Call now', firm: 'Firm n
 const tierLabel = (t: string) => TIER_LABEL[t] ?? t
 
 const rows = [...queue].sort((a, b) => a.rank - b.rank)
-const tiers = [...new Set(rows.map((r) => r.tier))].sort(
-  (a, b) => (TIER_ORDER.indexOf(a) + 1 || 99) - (TIER_ORDER.indexOf(b) + 1 || 99),
-)
+const tiers = [...new Set(rows.map((r) => r.tier))].sort((a, b) => (TIER_ORDER.indexOf(a) + 1 || 99) - (TIER_ORDER.indexOf(b) + 1 || 99))
 const count = (t: string) => rows.filter((r) => r.tier === t).length
 const total = rows.reduce((sum, r) => sum + r.amount, 0)
 const overdue = rows.reduce((sum, r) => sum + (r.daysOverdue > 0 ? r.amount : 0), 0)
@@ -76,8 +74,8 @@ export default function Queue() {
         <p className="eyebrow">Your weekly list</p>
         <h2 id="queue-title">Who to chase this week</h2>
         <p className="muted">
-          Biggest bills first, moved up the longer they are late and the later that customer usually pays. It is rebuilt each week from fresh
-          data. This list is from {date(story.meta.asOf)}.
+          Biggest bills first, moved up the longer they are late and the later that customer usually pays. It is rebuilt each week from fresh data. This list is
+          from {date(story.meta.asOf)}.
         </p>
       </header>
 
@@ -118,13 +116,23 @@ export default function Queue() {
             </caption>
             <thead>
               <tr>
-                <th scope="col" className="q-rank">#</th>
+                <th scope="col" className="q-rank">
+                  #
+                </th>
                 <th scope="col">Customer</th>
-                <th scope="col" className="q-right">Amount</th>
-                <th scope="col" className="q-due">Due date</th>
-                <th scope="col" className="q-right">Days late</th>
+                <th scope="col" className="q-right">
+                  Amount
+                </th>
+                <th scope="col" className="q-due">
+                  Due date
+                </th>
+                <th scope="col" className="q-right">
+                  Days late
+                </th>
                 <th scope="col">Next step</th>
-                <th scope="col" className="q-action">What to do</th>
+                <th scope="col" className="q-action">
+                  What to do
+                </th>
               </tr>
             </thead>
             <tbody>

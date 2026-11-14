@@ -48,9 +48,7 @@ export default function Fix() {
       <header className="fix-head">
         <p className="eyebrow">What to do</p>
         <h2>Three fixes, priced in dollars</h2>
-        <p className="muted">
-          Switch each fix on. The first two add to profit. The third brings in cash once.
-        </p>
+        <p className="muted">Switch each fix on. The first two add to profit. The third brings in cash once.</p>
       </header>
 
       <div className="fix-grid">
@@ -118,8 +116,12 @@ export default function Fix() {
 function Label({ x, y, anchor, name, value }: { x: number; y: number; anchor: 'start' | 'end'; name: string; value: string }) {
   return (
     <text x={x} y={y} textAnchor={anchor} className="fix-label">
-      <tspan x={x} dy="-0.2em">{name}</tspan>
-      <tspan x={x} dy="1.15em" className="num fix-label-value">{value}</tspan>
+      <tspan x={x} dy="-0.2em">
+        {name}
+      </tspan>
+      <tspan x={x} dy="1.15em" className="num fix-label-value">
+        {value}
+      </tspan>
     </text>
   )
 }

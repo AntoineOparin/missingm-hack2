@@ -16,7 +16,10 @@ const overstockTotal = overstock.reduce((s, r) => s + r.refund, 0)
 const qLabel = (q: string) => `${q.slice(4)} ${q.slice(0, 4)}`
 const lastYear = returnsByQuarter[returnsByQuarter.length - 1].q.slice(0, 4)
 const spike = returnsByQuarter.reduce((a, b) => (b.refund > a.refund ? b : a))
-const others = returnsByQuarter.filter((d) => d !== spike).map((d) => d.refund).sort((a, b) => a - b)
+const others = returnsByQuarter
+  .filter((d) => d !== spike)
+  .map((d) => d.refund)
+  .sort((a, b) => a - b)
 // How many normal (typical) quarters the spike quarter is worth.
 const spikeRatio = Math.round(spike.refund / others[others.length >> 1])
 
@@ -31,7 +34,10 @@ const useNarrow = () => useSyncExternalStore(subscribeNarrow, () => narrowQuery.
 
 // --- Quarterly bars (steps 0-1)
 const PLOT = { top: 56, bottom: 352, left: 8, right: W - 8 }
-const x = scaleBand(returnsByQuarter.map((d) => d.q), [PLOT.left, PLOT.right]).padding(0.28)
+const x = scaleBand(
+  returnsByQuarter.map((d) => d.q),
+  [PLOT.left, PLOT.right],
+).padding(0.28)
 const y = scaleLinear([0, Math.max(...returnsByQuarter.map((d) => d.refund))], [PLOT.bottom, PLOT.top]).nice()
 
 // --- Treemap (steps 2-5): one row per product, one block per reason, area ∝ refund dollars.
@@ -209,7 +215,13 @@ function Graphic({ step }: { step: number }) {
               </rect>
               {/* the desk block gets its own big label below while it is the focus */}
               {c.w >= 56 && c.h >= 34 && text && (
-                <motion.g pointerEvents="none" fill="var(--bg)" initial={false} animate={{ opacity: lit(c) && !(c.r.flag && step >= 3) ? 1 : 0 }} transition={t}>
+                <motion.g
+                  pointerEvents="none"
+                  fill="var(--bg)"
+                  initial={false}
+                  animate={{ opacity: lit(c) && !(c.r.flag && step >= 3) ? 1 : 0 }}
+                  transition={t}
+                >
                   <text x={c.x + 6} y={c.y + 16} fontSize={11} fontWeight={600}>
                     {text}
                   </text>
@@ -287,7 +299,9 @@ export default function Returns() {
       <p>Each block is one product and one reason it came back. Bigger block, more money refunded.</p>
     </>,
     <>
-      <p className="eyebrow" style={{ color: 'var(--leak)' }}>The big one</p>
+      <p className="eyebrow" style={{ color: 'var(--leak)' }}>
+        The big one
+      </p>
       <h3>
         One desk problem: <span className="num leak">{pct(flagged.share)}</span> of refunds
       </h3>
@@ -296,7 +310,9 @@ export default function Returns() {
       </p>
     </>,
     <>
-      <p className="eyebrow" style={{ color: 'var(--ok)' }}>What to do</p>
+      <p className="eyebrow" style={{ color: 'var(--ok)' }}>
+        What to do
+      </p>
       <h3>Fix the packing, not the desk</h3>
       <p>The desks break on the way to the customer. Better packing or a new carrier would cut these refunds.</p>
     </>,
@@ -304,8 +320,8 @@ export default function Returns() {
       <p className="eyebrow">Second biggest reason</p>
       <h3>Wrong orders come second</h3>
       <p>
-        Wrong orders cost <span className="num">{moneyShort(overstockTotal)}</span> in refunds. <span className="num">{pct(overstockWho.topSegmentShare)}</span> came from{' '}
-        {overstockWho.topSegment.toLowerCase()}s: a restocking fee would curb them.
+        Wrong orders cost <span className="num">{moneyShort(overstockTotal)}</span> in refunds. <span className="num">{pct(overstockWho.topSegmentShare)}</span>{' '}
+        came from {overstockWho.topSegment.toLowerCase()}s: a restocking fee would curb them.
       </p>
     </>,
   ]

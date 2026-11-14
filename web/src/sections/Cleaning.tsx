@@ -42,10 +42,6 @@ export default function Cleaning() {
           </li>
         ))}
       </ol>
-
-      <p className="muted cleaning-foot">
-        Data as of <span className="num">{meta.asOf}</span>. The same clean-up runs again every time the charts are rebuilt.
-      </p>
     </section>
   )
 }

@@ -42,11 +42,23 @@ export function Callout({ from, to, text, show, tone = 'text', bend = 0.25, font
   // Put the note on the far side of the arrow start.
   const textX = textAnchor === 'middle' ? x1 : x1 + (dx >= 0 ? -6 : 6)
   const below = mostlyVertical && dy < 0
-  const textY = mostlyVertical ? (below ? y1 + fontSize + 4 : y1 - 6 - (lines.length - 1) * fontSize * 1.2) : y1 - ((lines.length - 1) * fontSize * 1.2) / 2 + fontSize * 0.35
+  const textY = mostlyVertical
+    ? below
+      ? y1 + fontSize + 4
+      : y1 - 6 - (lines.length - 1) * fontSize * 1.2
+    : y1 - ((lines.length - 1) * fontSize * 1.2) / 2 + fontSize * 0.35
   const t = tier === 'low' ? { duration: 0 } : { duration: 0.45, ease: 'easeOut' as const }
 
   return (
-    <motion.g className="callout" data-tone={tone} initial={false} animate={{ opacity: show ? 1 : 0 }} transition={t} aria-hidden={!show} style={{ pointerEvents: 'none' }}>
+    <motion.g
+      className="callout"
+      data-tone={tone}
+      initial={false}
+      animate={{ opacity: show ? 1 : 0 }}
+      transition={t}
+      aria-hidden={!show}
+      style={{ pointerEvents: 'none' }}
+    >
       <motion.path d={`M${x1} ${y1} Q${cx} ${cy} ${tx} ${ty}`} initial={false} animate={{ pathLength: show ? 1 : 0 }} transition={t} />
       <path d={`${head(0.45)} ${head(-0.45)}`} />
       <text x={textX} y={textY} textAnchor={textAnchor} fontSize={fontSize}>

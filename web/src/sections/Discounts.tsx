@@ -55,7 +55,9 @@ const W = 640
 const H = 440
 const M = { top: 84, right: 28, bottom: 48, left: 64 }
 const xMax = Math.ceil(Math.max(...reps.flatMap((r) => r.quarters.flatMap((q) => [q.discount, q.marginPct]))) * 10) / 10
-const x = scaleLinear().domain([0, xMax]).range([M.left, W - M.right])
+const x = scaleLinear()
+  .domain([0, xMax])
+  .range([M.left, W - M.right])
 const y = scaleBand<string>()
   .domain(reps.map((r) => r.rep))
   .range([M.top, H - M.bottom])
@@ -123,7 +125,11 @@ function Graphic({ step, progress }: { step: number; progress: MotionValue<numbe
         ))}
 
         {/* Rule line (discount view only) */}
-        <motion.g initial={false} animate={{ transform: `translateX(${x(medianAt[qi] * ruleFactor)}px)`, opacity: flagOn && !margin ? 1 : 0 }} transition={move}>
+        <motion.g
+          initial={false}
+          animate={{ transform: `translateX(${x(medianAt[qi] * ruleFactor)}px)`, opacity: flagOn && !margin ? 1 : 0 }}
+          transition={move}
+        >
           <line y1={M.top - 8} y2={H - M.bottom} className="disc-flagline" />
           <text y={M.top - 14} textAnchor="middle" className="disc-ann">
             rule: {ruleFactor}× typical
@@ -203,7 +209,9 @@ function Graphic({ step, progress }: { step: number; progress: MotionValue<numbe
 
 function WeekChart({ visible, focus, fade, noteFont }: { visible: boolean; focus: boolean; fade: Transition; noteFont: number }) {
   const yMax = Math.ceil(Math.max(...weeks.map((w) => w.discount)) * 20) / 20
-  const yS = scaleLinear().domain([0, yMax]).range([H - M.bottom, M.top])
+  const yS = scaleLinear()
+    .domain([0, yMax])
+    .range([H - M.bottom, M.top])
   const xS = scaleBand<number>()
     .domain(weeks.map((w) => w.week))
     .range([M.left, W - M.right])
@@ -300,8 +308,8 @@ const steps = [
     <p className="eyebrow">What it costs</p>
     <h3>{flagged.rep} keeps far less per sale</h3>
     <p>
-      {flagged.rep} keeps <span className="num leak">{pct(flaggedMargin)}</span> of each sale; the others keep about <span className="num">{pct(peerMargin)}</span>.
-      {isTopSeller && ` And ${flagged.rep} sells the most, so this costs you the most.`}
+      {flagged.rep} keeps <span className="num leak">{pct(flaggedMargin)}</span> of each sale; the others keep about{' '}
+      <span className="num">{pct(peerMargin)}</span>.{isTopSeller && ` And ${flagged.rep} sells the most, so this costs you the most.`}
     </p>
   </>,
   <>
@@ -315,7 +323,8 @@ const steps = [
     <p className="eyebrow">Quarter end</p>
     <h3>Then they jump at quarter end</h3>
     <p>
-      In the last week, discounts hit <span className="num leak">{pct(late[1].discount)}</span>. The white lines leave out {flagged.rep}, and they jump too: the whole team does it.
+      In the last week, discounts hit <span className="num leak">{pct(late[1].discount)}</span>. The white lines leave out {flagged.rep}, and they jump too: the
+      whole team does it.
     </p>
   </>,
   <>
