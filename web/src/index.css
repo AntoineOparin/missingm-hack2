@@ -166,3 +166,42 @@ h2 {
   stroke: var(--bg);
   stroke-width: 4px; /* halo keeps the note readable over chart marks */
 }
+
+/* Link from the story to the chase-list tool page, and the way back. */
+.button {
+  display: inline-block;
+  padding: 14px 22px;
+  border-radius: var(--radius);
+  background: var(--oak);
+  color: var(--bg);
+  font-weight: 700;
+  text-decoration: none;
+}
+.button:hover {
+  filter: brightness(1.08);
+}
+.button:focus-visible,
+.tool-nav a:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+.tool-link {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 96px 24px 120px;
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+}
+.tool-nav {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 24px 24px 0;
+}
+.tool-nav a {
+  color: var(--muted);
+  text-decoration: none;
+}
+.tool-nav a:hover {
+  color: var(--text);
+}
