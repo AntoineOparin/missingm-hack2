@@ -205,6 +205,17 @@ export default function Queue() {
               {sort ? `, sorted by ${sort.key === 'amount' ? 'amount' : sort.key === 'dueDate' ? 'due date' : 'days late'}` : ', most urgent first'}
               {visible.length < shown.length && `, showing ${visible.length} of ${shown.length}`}. Select a customer to open the ready-to-send email.
             </caption>
+            {/* Fixed column widths (desktop): sorting or ticking never moves a column. */}
+            <colgroup>
+              <col className="q-col-tick" />
+              <col className="q-col-rank" />
+              <col />
+              <col className="q-col-amount" />
+              <col className="q-col-due" />
+              <col className="q-col-late" />
+              <col className="q-col-step" />
+              <col />
+            </colgroup>
             <thead>
               <tr>
                 <th scope="col" className="q-tick">

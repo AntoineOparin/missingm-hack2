@@ -381,3 +381,29 @@
     color: var(--text);
   }
 }
+
+/* Desktop: fixed layout so column widths come from here, not from whichever rows are showing.
+   Customer and "What to do" share what is left. Phones keep auto layout (columns hide, the table scrolls). */
+@media (min-width: 861px) {
+  .q-table {
+    table-layout: fixed;
+  }
+  .q-col-tick {
+    width: 56px;
+  }
+  .q-col-rank {
+    width: 52px;
+  }
+  .q-col-amount {
+    width: 116px;
+  }
+  .q-col-due {
+    width: 150px;
+  }
+  .q-col-late {
+    width: 120px;
+  }
+  .q-col-step {
+    width: 200px;
+  }
+}
