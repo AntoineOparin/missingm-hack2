@@ -88,17 +88,17 @@ function Graphic({ step }: { step: number }) {
 
   return (
     <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} role="img" aria-label={label} style={{ width: '100%', height: 'auto', overflow: 'visible' }}>
-      <text x={0} y={16} fontSize={13} fill="var(--muted)">
+      <text x={0} y={16} fontSize={14} fill="var(--muted)">
         What was sent back, and why
       </text>
 
       {rows.map((row) => (
         <g key={row.name}>
-          <text x={0} y={row.y + Math.min(row.h / 2, 18) + 4} fontSize={12} fill="var(--text)">
+          <text x={0} y={row.y + Math.min(row.h / 2, 18) + 4} fontSize={14} fill="var(--text)">
             {row.name}
           </text>
           {row.h >= 36 && (
-            <text className="num" x={0} y={row.y + 36} fontSize={11} fill="var(--muted)">
+            <text className="num" x={0} y={row.y + 36} fontSize={13} fill="var(--muted)">
               {moneyShort(row.sum)}
             </text>
           )}
@@ -113,16 +113,22 @@ function Graphic({ step }: { step: number }) {
             animate={{ opacity: lit(c) ? 1 : DIM }}
             transition={{ ...t, delay: tier === 'low' || step !== 0 ? 0 : Math.min(i, 20) * 0.02 }}
           >
-            <rect x={c.x} y={c.y} width={c.w} height={c.h} rx={3} fill="var(--chrome)" fillOpacity={0.7}>
+            <rect x={c.x} y={c.y} width={c.w} height={c.h} fill="var(--chrome)" fillOpacity={0.35}>
               <title>{`${c.r.product}, ${c.r.reason}: ${money(c.r.refund)} (${c.r.count} sent back, ${pct(c.r.share, 1)} of refunds)`}</title>
             </rect>
             {/* the desk block gets its own big label below while it is the focus */}
-            {c.w >= 56 && c.h >= 34 && text && (
-              <motion.g pointerEvents="none" fill="var(--bg)" initial={false} animate={{ opacity: lit(c) && !(c.r.flag && step >= 1) ? 1 : 0 }} transition={t}>
-                <text x={c.x + 6} y={c.y + 16} fontSize={11} fontWeight={600}>
+            {c.w >= 72 && c.h >= 38 && text && (
+              <motion.g
+                pointerEvents="none"
+                fill="var(--text)"
+                initial={false}
+                animate={{ opacity: lit(c) && !(c.r.flag && step >= 1) ? 1 : 0 }}
+                transition={t}
+              >
+                <text x={c.x + 6} y={c.y + 17} fontSize={13} fontWeight={600}>
                   {text}
                 </text>
-                <text className="num" x={c.x + 6} y={c.y + 30} fontSize={11}>
+                <text className="num" x={c.x + 6} y={c.y + 32} fontSize={13}>
                   {moneyShort(c.r.refund)}
                 </text>
               </motion.g>
@@ -133,7 +139,7 @@ function Graphic({ step }: { step: number }) {
 
       {/* the desk block: red fill and a large label while the story is on it */}
       <motion.g pointerEvents="none" initial={false} animate={{ opacity: step >= 1 ? 1 : 0 }} transition={t}>
-        <rect x={flaggedCell.x} y={flaggedCell.y} width={flaggedCell.w} height={flaggedCell.h} rx={3} fill="var(--leak)" />
+        <rect x={flaggedCell.x} y={flaggedCell.y} width={flaggedCell.w} height={flaggedCell.h} fill="var(--leak)" />
         <g fill="var(--bg)">
           <text className="num" x={flaggedCell.x + 16} y={flaggedCell.y + 60} fontSize={52} fontWeight={700}>
             {pct(flagged.share)}
@@ -166,7 +172,6 @@ function Graphic({ step }: { step: number }) {
 export default function Returns() {
   const steps = [
     <>
-      <p className="eyebrow">Refunds</p>
       <h3>Where the refund money goes</h3>
       <p>
         Refunds grew <span className="num leak">{pct(yoy.change.refunds)}</span> this year, sales only <span className="num">{pct(yoy.change.revenue)}</span>.
@@ -174,9 +179,6 @@ export default function Returns() {
       </p>
     </>,
     <>
-      <p className="eyebrow" style={{ color: 'var(--leak)' }}>
-        The big one
-      </p>
       <h3>
         One desk problem: <span className="num leak">{pct(flagged.share)}</span> of refunds
       </h3>
@@ -185,14 +187,10 @@ export default function Returns() {
       </p>
     </>,
     <>
-      <p className="eyebrow" style={{ color: 'var(--ok)' }}>
-        What to do
-      </p>
       <h3>Fix the packing, not the desk</h3>
       <p>The desks break on the way to the customer. Better packing or a new carrier would cut these refunds.</p>
     </>,
     <>
-      <p className="eyebrow">Catch it next time</p>
       <h3>A rule that catches it</h3>
       <p>
         Flag any product and reason behind more than <span className="num">{threshold}</span> of all refunds. It went off{' '}
@@ -209,7 +207,7 @@ export default function Returns() {
   ]
 
   return (
-    <Scrolly id="Returns" steps={steps}>
+    <Scrolly id="Returns" title="Refunds" steps={steps}>
       {({ step }) => <Graphic step={step} />}
     </Scrolly>
   )

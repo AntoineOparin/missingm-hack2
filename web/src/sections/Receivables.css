@@ -11,7 +11,7 @@
 }
 .rcv-chart text {
   fill: var(--text);
-  font: 400 13px var(--font);
+  font: 400 14px var(--font);
 }
 .rcv-chart .num {
   font-family: var(--font-num);
@@ -20,7 +20,7 @@
   fill: var(--muted);
 }
 .rcv-chart .t-small {
-  font-size: 12px;
+  font-size: 13px;
 }
 .rcv-chart .t-big {
   font-size: 40px;

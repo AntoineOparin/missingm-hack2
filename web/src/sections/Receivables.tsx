@@ -2,6 +2,7 @@ import { motion, type Transition } from 'motion/react'
 import { story } from '../data'
 import { Scrolly } from '../components/Scrolly'
 import { Callout } from '../components/Callout'
+import { SvgArrow } from '../components/Arrow'
 import { money, moneyShort, pct } from '../lib/format'
 import { useQuality } from '../lib/quality'
 import './Receivables.css'
@@ -61,17 +62,14 @@ function labelFor(step: number) {
   return `A rule flags customers who always pay late: ${rule.rule} It caught ${rule.hits} customers.`
 }
 
-const EYEBROW = <p className="eyebrow">Unpaid bills</p>
 const steps = [
   <>
-    {EYEBROW}
     <h3>Most customers pay on time</h3>
     <p>
       <span className="num">{pct(onTimeShare)}</span> of bills are paid early or within <span className="num">{binWidth}</span> days. Most customers are fine.
     </p>
   </>,
   <>
-    {EYEBROW}
     <h3>
       <span className="num">{rule.hits}</span> customers always pay late
     </h3>
@@ -81,7 +79,6 @@ const steps = [
     </p>
   </>,
   <>
-    {EYEBROW}
     <h3>Cash you are still waiting for</h3>
     <p>
       <span className="num">{moneyShort(R.openTotal)}</span> is unpaid today. <span className="num leak">{moneyShort(R.overdueTotal)}</span> of it is already
@@ -89,7 +86,6 @@ const steps = [
     </p>
   </>,
   <>
-    {EYEBROW}
     <h3>A rule that spots them</h3>
     <p>
       The rule: {rule.rule} It caught <span className="num">{rule.hits}</span> customers.
@@ -101,7 +97,7 @@ const steps = [
 export default function Receivables() {
   return (
     <div className="rcv">
-      <Scrolly id="Receivables" steps={steps}>
+      <Scrolly id="Receivables" title="Unpaid bills" steps={steps}>
         {({ step }) => <Chart step={step} />}
       </Scrolly>
     </div>
@@ -160,9 +156,10 @@ function Chart({ step }: { step: number }) {
           {d}
         </text>
       ))}
-      <text className="t-muted t-small" x={W - X0} y={24} textAnchor="end">
-        days late →
+      <text className="t-muted t-small" x={W - X0 - 18} y={24} textAnchor="end">
+        days late
       </text>
+      <SvgArrow x={W - X0 - 15} y={20} size={14} />
       <line x1={dayX(0)} x2={dayX(0)} y1={32} y2={BAR_Y + BAR_H + 4} stroke="var(--text)" strokeWidth={1.5} />
       <text x={dayX(0)} y={24} textAnchor="middle">
         Due date

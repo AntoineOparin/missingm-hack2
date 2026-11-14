@@ -75,7 +75,7 @@
 }
 .cleaning-fix {
   font: 500 0.8rem/1.4 var(--font-num);
-  color: var(--chrome);
+  color: var(--muted);
 }
 .cleaning-fix::before {
   content: 'Fix · ';

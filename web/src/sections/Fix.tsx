@@ -46,7 +46,6 @@ export default function Fix() {
   return (
     <section id="Fix" className="fix">
       <header className="fix-head">
-        <p className="eyebrow">What to do</p>
         <h2>Three fixes, priced in dollars</h2>
         <p className="muted">Switch each fix on. The first two add to profit. The third brings in cash once.</p>
       </header>
@@ -57,20 +56,26 @@ export default function Fix() {
           {profitLevers.map(lever)}
           <p className="fix-group">Brings in cash once</p>
           {cashLevers.map(lever)}
-          <div className="card fix-readout" aria-live="polite">
-            <div>
-              <p className="fix-stat-name">Sales growth</p>
-              <p className="num fix-stat">{signedPct(yoy.change.revenue)}</p>
-            </div>
-            <div>
-              <p className="fix-stat-name">Profit growth</p>
-              <p className={`num fix-stat ${added > 0 ? 'ok' : 'leak'}`}>{signedPct(growth)}</p>
-              {added > 0 && <p className="muted fix-was">was {signedPct(yoy.change.profitAfterRefunds)}</p>}
-            </div>
-            <div>
-              <p className="fix-stat-name">Cash in, once</p>
-              <p className={`num fix-stat ${cash > 0 ? 'ok' : 'muted'}`}>{moneyShort(cash)}</p>
-            </div>
+          <div className="fix-readout" aria-live="polite">
+            <table className="ledger">
+              <tbody>
+                <tr>
+                  <td>Sales growth</td>
+                  <td className="fig">{signedPct(yoy.change.revenue)}</td>
+                </tr>
+                <tr className="total">
+                  <td>
+                    Profit growth
+                    {added > 0 && <span className="muted fix-was"> (was {signedPct(yoy.change.profitAfterRefunds)})</span>}
+                  </td>
+                  <td className={`fig ${catchesUp ? 'ok' : 'leak'}`}>{signedPct(growth)}</td>
+                </tr>
+                <tr>
+                  <td>Cash in, once</td>
+                  <td className={`fig ${cash > 0 ? 'ok' : 'muted'}`}>{moneyShort(cash)}</td>
+                </tr>
+              </tbody>
+            </table>
             <p className="fix-verdict">
               {catchesUp
                 ? 'Now profit grows as fast as sales.'
@@ -87,7 +92,7 @@ export default function Fix() {
             role="img"
             aria-label={`Profit: ${money(base)} this year, ${money(profit)} with the fixes you picked. If profit had kept up with sales it would be ${money(target)}.`}
           >
-            <rect x={BAR_X} y={TOP} width={BAR_W} height={BOTTOM - TOP} rx={6} className="fix-tank" />
+            <rect x={BAR_X} y={TOP} width={BAR_W} height={BOTTOM - TOP} className="fix-tank" />
             <motion.rect
               x={BAR_X}
               width={BAR_W}

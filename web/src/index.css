@@ -1,20 +1,23 @@
 /* Design tokens: every section uses these, never raw colours. */
 :root {
-  --bg: #0e0f13;
-  --surface: #171920;
-  --surface-2: #20232c;
-  --line: #2c303b;
-  --text: #f1eee8;
-  --muted: #9a9daa;
-  --oak: #d9a15b; /* money in, the healthy colour */
-  --chrome: #a9c1d9; /* neutral data, peers, baselines */
-  --leak: #ef6a5b; /* losses, flags, anything escaping */
-  --ok: #6fcf97; /* recovered, fixed */
-  --radius: 14px;
-  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-num: ui-monospace, 'SF Mono', Menlo, monospace;
+  /* The ledger: green ruled paper, inks by meaning. Every text ink is at least 4.5:1 on --bg. */
+  --bg: #e4ead6; /* ledger paper */
+  --surface: #eef2e6; /* a clean slip laid on the page */
+  --surface-2: #d8e1c9; /* selected, hovered */
+  --line: #a9bd9e; /* ruled lines and borders */
+  --rule: #d8e2cc; /* the paper's own faint ruling, quieter than chart gridlines */
+  --margin: #c9584e; /* the red double margin rule */
+  --text: #1d2a24; /* green-black ink */
+  --muted: #565b52; /* pencil */
+  --oak: #24456b; /* money in: blue-black ink */
+  --chrome: #6f7769; /* neutral data, peers, baselines: pencil marks */
+  --leak: #a3221a; /* losses, flags: red ink */
+  --ok: #2c6a35; /* recovered, fixed: ledger-green ink */
+  --radius: 0;
+  --font: 'Libre Franklin', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-num: 'Courier Prime', 'Courier New', monospace; /* figures in ruled tables only */
   --step-width: 380px;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 * {
@@ -22,6 +25,44 @@
 }
 html {
   background: var(--bg);
+}
+/* Ledger ruling on the page itself; slips and the reading text sit on plain paper above it. */
+body {
+  background-image: repeating-linear-gradient(180deg, transparent 0 31px, var(--rule) 31px 32px);
+}
+/* The red double margin rule down the left of every sheet. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0 auto 0 52px; /* a real margin column to the left, as on a ledger sheet */
+  width: 6px;
+  border-left: 1.5px solid var(--margin);
+  border-right: 1.5px solid var(--margin);
+  pointer-events: none;
+  z-index: -1;
+}
+@media (max-width: 860px) {
+  body::before {
+    left: 4px;
+    width: 5px;
+  }
+}
+/* Read by screen readers, not shown. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+::selection {
+  background: var(--surface-2);
+  color: var(--text);
+}
+a {
+  color: var(--oak);
+  text-underline-offset: 3px;
 }
 body {
   margin: 0;
@@ -35,6 +76,14 @@ h3,
 p {
   margin: 0;
 }
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
 h1 {
   font-size: clamp(2.2rem, 6vw, 4.5rem);
   line-height: 1.05;
@@ -45,9 +94,9 @@ h2 {
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
+/* Figures in prose stay in the text face, lined up; ruled tables opt into --font-num. */
 .num {
-  font-family: var(--font-num);
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: tabular-nums lining-nums;
 }
 .muted {
   color: var(--muted);
@@ -61,19 +110,101 @@ h2 {
 .ok {
   color: var(--ok);
 }
-.eyebrow {
-  font: 600 0.75rem/1 var(--font-num);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--oak);
+/* A slip of plain paper laid on the ruled sheet: square, one ruled edge, no shadow. */
+/* A ledger: entries on the left, figures right-aligned in the adding-machine face, totals closed by a double rule. */
+.ledger {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.ledger th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--muted);
+  padding: 4px 12px;
+  border-bottom: 1.5px solid var(--text);
+}
+.ledger td {
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--line);
+}
+.ledger .fig {
+  text-align: right;
+  font-family: var(--font-num);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.ledger tr.total td {
+  border-top: 1.5px solid var(--text);
+  border-bottom: 3px double var(--text);
+  font-weight: 700;
 }
 .card {
-  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 22px 24px;
   display: grid;
   gap: 10px;
+}
+.card h3 {
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+/* An entry's date sits in the right-hand column beside its heading, like a ledger date. */
+.card:has(.entry-date) {
+  grid-template-columns: 1fr auto;
+  column-gap: 16px;
+}
+.card:has(.entry-date) > * {
+  grid-column: 1 / -1;
+}
+.card:has(.entry-date) > h3 {
+  grid-column: 1;
+  grid-row: 1;
+}
+.card > .entry-date {
+  grid-column: 2;
+  grid-row: 1;
+  font: 400 0.95rem/1.6 var(--font-num);
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* Inked arrow (components/Arrow.tsx): the Callout's stroke at text size. */
+.arrow {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.12em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.arrow-path {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Top line of the first sheet: whose books, which period. */
+.running-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 16px;
+  padding-bottom: 8px;
+  border-bottom: 1.5px solid var(--text);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.running-head span {
+  white-space: nowrap;
 }
 
 /* Scrolly: pinned graphic, text cards scroll past on the left. */
@@ -87,12 +218,18 @@ h2 {
   height: 100svh;
   display: grid;
   place-items: center;
-  padding: 24px 24px 24px calc(var(--step-width) + 72px);
+  padding: 24px 24px 24px calc(var(--step-width) + 128px);
   overflow: hidden;
 }
 .scrolly-graphic svg {
   max-width: 100%;
   max-height: 100%;
+}
+/* Each chart sits on a plain slip, so its own gridlines never fight the page's ruling. */
+.scrolly-graphic > * {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 20px;
 }
 .scrolly-steps {
   position: relative;
@@ -105,7 +242,7 @@ h2 {
   min-height: 100svh;
   display: flex;
   align-items: center;
-  padding: 0 0 0 48px;
+  padding: 0 0 0 96px;
 }
 .scrolly-step .card {
   width: var(--step-width);
@@ -129,14 +266,6 @@ h2 {
     width: 100%;
     opacity: 0; /* inactive cards would otherwise slide over the pinned graphic */
   }
-}
-
-.placeholder {
-  min-height: 100svh;
-  display: grid;
-  place-items: center;
-  border-bottom: 1px dashed var(--line);
-  color: var(--muted);
 }
 
 /* Callout: arrow + short note pointing at one mark (components/Callout.tsx). */
@@ -171,14 +300,16 @@ h2 {
 .button {
   display: inline-block;
   padding: 14px 22px;
+  border: 1.5px solid var(--text);
   border-radius: var(--radius);
-  background: var(--oak);
-  color: var(--bg);
-  font-weight: 700;
+  background: var(--text);
+  color: var(--surface);
+  font-weight: 800;
   text-decoration: none;
 }
 .button:hover {
-  filter: brightness(1.08);
+  background: var(--oak);
+  border-color: var(--oak);
 }
 .button:focus-visible,
 .tool-nav a:focus-visible {

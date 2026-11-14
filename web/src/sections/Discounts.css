@@ -22,24 +22,24 @@
   fill: var(--text);
 }
 .disc-tick {
-  font-size: 12px;
+  font-size: 14px;
   fill: var(--muted);
 }
 .disc-ann {
-  font-size: 12px;
+  font-size: 14px;
   fill: var(--muted);
 }
 .disc-value {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   fill: var(--text);
 }
 .disc-rep {
-  font-size: 12px;
+  font-size: 14px;
   fill: var(--muted);
 }
 .disc-rep.is-flag {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   fill: var(--text);
 }

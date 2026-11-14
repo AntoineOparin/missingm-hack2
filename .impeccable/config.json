@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "repeating-stripes-gradient",
+        "value": "*",
+        "files": [
+          "web/src/index.css"
+        ],
+        "createdAt": "2026-11-14T20:04:56.381Z",
+        "reason": "Ledger ruling is the chosen world's paper (direction contract OWN-WORLD, user chose The Columnar Ledger on the decision page)"
+      }
+    ]
+  }
+}

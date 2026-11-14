@@ -4,6 +4,7 @@ import { scaleLinear } from 'd3-scale'
 import { area, line } from 'd3-shape'
 import { story } from '../data'
 import { Scrolly } from '../components/Scrolly'
+import { Arrow } from '../components/Arrow'
 import { Callout } from '../components/Callout'
 import { moneyShort, pct, signedPct } from '../lib/format'
 import { useQuality } from '../lib/quality'
@@ -57,20 +58,23 @@ const usePhone = () => useSyncExternalStore(subscribe, () => phoneMq.matches)
 function Title() {
   return (
     <section id="Hook" className="hook-title">
+      <header className="running-head">
+        <span>Chrome &amp; Oak · the books</span>
+        <span>{meta.comparison}</span>
+      </header>
       <motion.div
         className="hook-title-inner"
-        initial={{ opacity: 0, transform: 'translateY(12px)' }}
+        initial={{ opacity: 1, transform: 'translateY(12px)' }}
         animate={{ opacity: 1, transform: 'translateY(0px)' }}
         transition={{ duration: 0.6, ease: fade.ease }}
       >
-        <p className="eyebrow">Chrome &amp; Oak · {meta.comparison}</p>
-        <p className="hook-asker muted">The CFO asked</p>
         <blockquote className="hook-quote">
           <h1>“Then why is cash so tight?</h1>
           <p>Revenue is growing but profit isn’t keeping up, and I’m chasing unpaid invoices every week.”</p>
+          <footer className="hook-attrib muted">— the CFO</footer>
         </blockquote>
         <p className="hook-cue muted" aria-hidden="true">
-          Scroll to follow the money ↓
+          Scroll to follow the money <Arrow dir="down" />
         </p>
       </motion.div>
     </section>
@@ -80,7 +84,7 @@ function Title() {
 function Chart({ step, progress }: { step: number; progress: MotionValue<number> }) {
   const { tier } = useQuality()
   const [hover, setHover] = useState<number | null>(null)
-  const fs = usePhone() ? 23 : 11
+  const fs = usePhone() ? 23 : 13
 
   // Step 0 draws the first year, step 1 the rest; scroll-linked on mid/high, instant on low.
   const scrubW = useTransform(progress, [0, 0.18, 0.27, 0.45], [x(0), x(firstYearEnd), x(firstYearEnd), x(last)])
@@ -97,21 +101,49 @@ function Chart({ step, progress }: { step: number; progress: MotionValue<number>
   return (
     <div className="hook-chart">
       <motion.div className="hook-stats" initial={false} animate={{ opacity: step === 3 ? 1 : 0 }} transition={fade} aria-hidden={step !== 3}>
-        <div className="hook-stat">
-          <span className="hook-key" data-k="rev" />
-          <span className="muted">Revenue</span>
-          <strong className="num">{signedPct(yoy.change.revenue)}</strong>
-        </div>
-        <div className="hook-stat">
-          <span className="hook-key" data-k="prof" />
-          <span className="muted">Profit</span>
-          <strong className="num">{signedPct(yoy.change.profitAfterRefunds)}</strong>
-        </div>
-        <div className="hook-stat">
-          <span className="hook-key" data-k="gap" />
-          <span className="muted">Missed profit</span>
-          <strong className="num">{moneyShort(gap)}</strong>
-        </div>
+        {/* The headline in the books: two entries, then the shortfall carried in red. */}
+        <table className="ledger">
+          <thead>
+            <tr>
+              <th scope="col">Jan to Sep</th>
+              <th scope="col" className="fig">
+                2025
+              </th>
+              <th scope="col" className="fig">
+                2026
+              </th>
+              <th scope="col" className="fig">
+                Change
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <span className="hook-key" data-k="rev" /> Revenue
+              </td>
+              <td className="fig">{moneyShort(yoy['2025'].revenue)}</td>
+              <td className="fig">{moneyShort(yoy['2026'].revenue)}</td>
+              <td className="fig">{signedPct(yoy.change.revenue)}</td>
+            </tr>
+            <tr>
+              <td>
+                <span className="hook-key" data-k="prof" /> Profit
+              </td>
+              <td className="fig">{moneyShort(yoy['2025'].profitAfterRefunds)}</td>
+              <td className="fig">{moneyShort(yoy['2026'].profitAfterRefunds)}</td>
+              <td className="fig">{signedPct(yoy.change.profitAfterRefunds)}</td>
+            </tr>
+            <tr className="total">
+              <td>
+                <span className="hook-key" data-k="gap" /> Missed profit
+              </td>
+              <td />
+              <td className="fig leak">({moneyShort(gap)})</td>
+              <td />
+            </tr>
+          </tbody>
+        </table>
       </motion.div>
 
       <svg
@@ -197,7 +229,7 @@ function Chart({ step, progress }: { step: number; progress: MotionValue<number>
           <g pointerEvents="none">
             <line x1={x(hover)} x2={x(hover)} y1={M.t} y2={H - M.b} className="hook-grid" />
             <g transform={`translate(${hover > last / 2 ? x(hover) - 170 : x(hover) + 10},${M.t})`}>
-              <rect width={160} height={64} rx={8} className="hook-tip" />
+              <rect width={160} height={64} className="hook-tip" />
               <text x={12} y={20} className="hook-tip-title">
                 {qLabel(quarters[hover].q)}
               </text>
@@ -232,24 +264,23 @@ function Chart({ step, progress }: { step: number; progress: MotionValue<number>
 export default function Hook() {
   const steps = [
     <>
-      <p className="eyebrow">{quarters[0].q.slice(0, 4)}</p>
       <h3>At first, they moved together</h3>
+      <p className="entry-date">{quarters[0].q.slice(0, 4)}</p>
       <p>Both lines start at 100, so you can compare growth. Profit here means what you keep after refunds.</p>
     </>,
     <>
-      <p className="eyebrow">{laterYear[0].q.slice(0, 4)}</p>
       <h3>Then they split apart</h3>
+      <p className="entry-date">{laterYear[0].q.slice(0, 4)}</p>
       <p>Revenue kept climbing. Profit did not keep up.</p>
     </>,
     <>
-      <p className="eyebrow">{qLabel(dipQuarter.q)}</p>
       <h3>Refunds pulled profit down</h3>
+      <p className="entry-date">{qLabel(dipQuarter.q)}</p>
       <p>
         Refunds jumped to <span className="num">{moneyShort(dipQuarter.refunds)}</span> in one quarter. Profit fell, even while revenue grew.
       </p>
     </>,
     <>
-      <p className="eyebrow">{meta.comparison}</p>
       <h3>
         You missed <span className="num leak">{moneyShort(gap)}</span> of profit
       </h3>
@@ -262,7 +293,7 @@ export default function Hook() {
   return (
     <>
       <Title />
-      <Scrolly id="Hook-growth" steps={steps}>
+      <Scrolly id="Hook-growth" title="Sales and profit" steps={steps}>
         {(state) => <Chart {...state} />}
       </Scrolly>
     </>

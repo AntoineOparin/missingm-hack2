@@ -252,28 +252,26 @@ export default function WaterFlow() {
   const b = YEARS['2026']
   const steps = [
     <>
-      <p className="eyebrow">2025</p>
       <h3>Every sale pours down one pipe.</h3>
+      <p className="entry-date">2025</p>
       <p>
         At list price, <span className="num">{moneyShort(a.gross)}</span> poured in. After discounts, costs and refunds,{' '}
         <span className="num">{moneyShort(a.profitAfterRefunds)}</span> stayed. That is your profit.
       </p>
     </>,
     <>
-      <p className="eyebrow">2026</p>
       <h3>More money poured in.</h3>
+      <p className="entry-date">2026</p>
       <p>
         Sales at list price grew <span className="num">{pct(yoy.change.gross)}</span>, to <span className="num">{moneyShort(b.gross)}</span>. That is the growth
         everyone sees.
       </p>
     </>,
     <>
-      <p className="eyebrow leak">The leaks</p>
       <h3>The leaks grew faster than sales.</h3>
       <p>Discounts and refunds both grew much faster than sales. So more of every sale drips away before it reaches you.</p>
     </>,
     <>
-      <p className="eyebrow">What stayed</p>
       <h3>Profit barely went up.</h3>
       <p>
         Profit grew only <span className="num">{pct(yoy.change.profitAfterRefunds)}</span>. If it had kept up with revenue, you would have{' '}
@@ -283,7 +281,7 @@ export default function WaterFlow() {
   ]
 
   return (
-    <Scrolly id="Flow" steps={steps}>
+    <Scrolly id="Flow" title="Where the money goes" steps={steps}>
       {({ step }) => <Scene step={step} />}
     </Scrolly>
   )

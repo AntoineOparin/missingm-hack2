@@ -3,6 +3,8 @@
   margin: 0 auto;
   padding: 72px 24px;
   display: grid;
+  /* minmax(0, …): the table's box clips rather than scrolls, so it must not widen the page. */
+  grid-template-columns: minmax(0, 1fr);
   gap: 24px;
 }
 .q-head {
@@ -11,29 +13,15 @@
   max-width: 720px;
 }
 .q-head p {
-  max-width: 65ch;
+  max-width: 36rem; /* about 70 characters of Libre Franklin */
 }
+/* Totals are a short ledger (.ledger in index.css), sized to read from the back of the room. */
 .q-totals {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-}
-.q-totals > div {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 16px 18px;
-}
-.q-stat-name {
-  font-size: 0.8rem;
-  color: var(--muted);
-}
-.q-stat {
-  font-size: 1.6rem;
-  line-height: 1.2;
+  max-width: 640px;
+  font-size: 1.1rem;
 }
 .q-stat-note {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
 }
 
 /* Tier colour lives in one place; every use also prints the tier name. */
@@ -44,7 +32,7 @@
   --tier: var(--oak);
 }
 .q [data-tier='reminder'] {
-  --tier: var(--chrome);
+  --tier: var(--text);
 }
 .q [data-tier='pre-due'] {
   --tier: var(--muted);
@@ -65,7 +53,7 @@
   color: var(--text);
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: var(--radius);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
@@ -76,13 +64,17 @@
   color: var(--oak);
 }
 .q-filter[aria-pressed='true'] {
-  background: var(--surface-2);
+  background: var(--text);
   border-color: var(--text);
+  color: var(--surface);
+}
+.q-filter[aria-pressed='true'] .num {
+  color: inherit;
 }
 .q-dot {
   width: 8px;
   height: 8px;
-  border-radius: 50%;
+  border-radius: 0;
   background: var(--tier, var(--muted));
 }
 
@@ -104,10 +96,9 @@
   z-index: 1;
   background: var(--surface-2);
   text-align: left;
-  font: 600 0.72rem/1.2 var(--font-num);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font: 600 0.85rem/1.2 var(--font);
   color: var(--muted);
+  border-bottom: 1.5px solid var(--text);
   padding: 12px 14px;
   white-space: nowrap;
 }
@@ -131,6 +122,9 @@
   text-align: right !important;
   white-space: nowrap;
 }
+.q-table td.num {
+  font-family: var(--font-num);
+}
 .q-due {
   white-space: nowrap;
 }
@@ -142,14 +136,14 @@
   min-width: 200px;
 }
 .q-open {
-  font: 600 1rem var(--font-num);
-  color: var(--text);
+  font: 700 1rem var(--font-num);
+  color: var(--oak);
   background: none;
   border: 0;
   padding: 0;
   cursor: pointer;
   text-decoration: underline;
-  text-decoration-color: var(--line);
+  text-decoration-thickness: 1.5px;
   text-underline-offset: 3px;
 }
 .q-sub {
@@ -166,24 +160,18 @@
 .q-more {
   justify-self: start;
 }
+/* A chase step is a rubber stamp in its ink; the stamp always prints the step's name. */
 .q-tier {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 2px 10px 2px 8px;
-  font-size: 0.8rem;
+  display: inline-block;
+  padding: 1px 8px;
+  font: 700 0.8rem/1.4 var(--font-num);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   white-space: nowrap;
-  color: var(--text);
-  border: 1px solid color-mix(in srgb, var(--tier, var(--muted)) 55%, transparent);
-  background: color-mix(in srgb, var(--tier, var(--muted)) 14%, transparent);
-  border-radius: 999px;
-}
-.q-tier::before {
-  content: '';
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--tier, var(--muted));
+  color: var(--tier, var(--muted));
+  border: 2px solid currentColor;
+  border-radius: 0;
+  rotate: -1.5deg;
 }
 
 .q-filter:focus-visible,
@@ -242,7 +230,7 @@
   white-space: pre-wrap;
   background: var(--bg);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius);
 }
 .q-email-actions {
   display: flex;
@@ -261,14 +249,13 @@
   font: 600 0.9rem var(--font);
   color: var(--text);
   background: var(--surface-2);
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  border: 1.5px solid var(--text);
+  border-radius: var(--radius);
   cursor: pointer;
 }
 .q-btn-primary {
-  color: var(--bg);
-  background: var(--oak);
-  border-color: var(--oak);
+  color: var(--surface);
+  background: var(--text);
 }
 @media (prefers-reduced-motion: no-preference) {
   :root:not([data-quality='low']) .q-btn {
@@ -283,15 +270,6 @@
   .q {
     padding: 64px 16px;
   }
-  .q-totals {
-    grid-template-columns: 1fr 1fr;
-  }
-  .q-totals > div:first-child {
-    grid-column: 1 / -1;
-  }
-  .q-stat {
-    font-size: 1.25rem;
-  }
   .q-action,
   .q-due,
   .q-rank {
@@ -304,54 +282,113 @@
   .q-table th {
     white-space: normal;
   }
+  .q-tier {
+    white-space: normal;
+  }
+  /* A phone cannot fit every column: the table scrolls sideways inside its box, never the page. */
+  .q-scroll {
+    overflow-x: auto;
+  }
 }
 
 /* Log of what the automation did on its last runs. */
-/* The proof the automation runs leads the page: one line per run, newest first, then what happens next. */
-.q-runs {
-  display: grid;
-  gap: 14px;
-  padding: 22px 24px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--surface);
-}
-.q-runs h3 {
-  margin: 0;
-  font-size: 1.25rem;
-}
-.q-run-list {
-  list-style: none;
+
+/* Range filters: square ruled fields in the ledger's figure face. */
+.q-ranges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 28px;
   margin: 0;
   padding: 0;
-  display: grid;
-  gap: 12px;
+  border: 0;
 }
-.q-run {
-  display: grid;
-  grid-template-columns: 8.5rem 1fr;
-  gap: 4px 20px;
-  align-items: baseline;
+.q-range {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--muted);
 }
-.q-run-date {
-  font-size: 1.05rem;
+.q-range-name {
+  font-weight: 600;
+  color: var(--text);
 }
-.q-run-detail {
-  font-size: 0.85rem;
+.q-range input {
+  width: 10.5em;
+  min-height: 40px;
+  padding: 6px 8px;
+  font: 400 0.95rem var(--font-num);
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-bottom: 1.5px solid var(--text);
+  border-radius: var(--radius);
 }
-.q-path {
-  font: 0.9em var(--font-num);
-  white-space: nowrap;
+.q-range input[type='number'] {
+  width: 6.5em;
 }
-.q-run-next {
-  padding-top: 12px;
-  border-top: 1px solid var(--line);
+.q-range input::placeholder {
+  color: var(--muted);
 }
-.q-run-note {
-  font-size: 0.85rem;
+.q-range input:focus-visible,
+.q-tickbox:focus-visible,
+.q-hide input:focus-visible {
+  outline: 2px solid var(--oak);
+  outline-offset: 2px;
 }
-@media (max-width: 860px) {
-  .q-run {
-    grid-template-columns: 1fr;
-  }
+.q-hide {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.q-clear {
+  min-height: 40px;
+}
+.q-empty {
+  padding: 24px 0;
+}
+
+/* Tick box: the same ledger tick as the Fix section, drawn on a native checkbox. */
+.q-tick {
+  width: 1%;
+  cursor: default;
+}
+.q-tickbox,
+.q-hide input {
+  appearance: none;
+  position: relative;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  border: 1.5px solid var(--text);
+  background: var(--surface);
+  cursor: pointer;
+}
+.q-tickbox::after,
+.q-hide input::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 1px;
+  width: 7px;
+  height: 13px;
+  border: solid var(--ok);
+  border-width: 0 3px 3px 0;
+  rotate: 40deg;
+  opacity: 0;
+}
+.q-tickbox:checked::after,
+.q-hide input:checked::after {
+  opacity: 1;
+}
+/* A ticked bill stays in its place, struck through in pencil. */
+.q-table tr[data-ticked] td:not(.q-tick) {
+  opacity: 0.45;
+}
+.q-table tr[data-ticked] .q-open,
+.q-table tr[data-ticked] td.num {
+  text-decoration: line-through;
 }

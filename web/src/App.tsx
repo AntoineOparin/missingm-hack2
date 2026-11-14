@@ -1,4 +1,5 @@
 import { useEffect, useSyncExternalStore } from 'react'
+import { Arrow } from './components/Arrow'
 import { MotionConfig } from 'motion/react'
 import { QualityProvider, useQuality } from './lib/quality'
 import { queue } from './data'
@@ -25,7 +26,6 @@ function ToolLink() {
   const pastDue = queue.filter((q) => q.daysOverdue > 0).reduce((sum, q) => sum + q.amount, 0)
   return (
     <section id="Tool-link" className="tool-link">
-      <p className="eyebrow">The part that runs every week</p>
       <h2>Stop chasing bills by hand.</h2>
       <p className="muted">
         The tool lists the <span className="num">{queue.length}</span> bills to chase this week, biggest risk first, with an email ready to send for each.{' '}
@@ -54,7 +54,9 @@ function Pages() {
       {tool ? (
         <main>
           <nav className="tool-nav">
-            <a href="#Tool-link">← Back to the story</a>
+            <a href="#Tool-link">
+              <Arrow dir="left" /> Back to the story
+            </a>
           </nav>
           <Queue />
         </main>

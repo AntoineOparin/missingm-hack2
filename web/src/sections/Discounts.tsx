@@ -174,15 +174,14 @@ function Graphic({ step, progress }: { step: number; progress: MotionValue<numbe
 
 const steps = [
   <>
-    <p className="eyebrow">Discounts · {qLabel(quarters[0])}</p>
     <h3>Most salespeople give similar discounts</h3>
+    <p className="entry-date">{qLabel(quarters[0])}</p>
     <p>
       In {qLabel(quarters[0])}, most salespeople took <span className="num">{pct(Math.min(...peerRange0))}</span> to{' '}
       <span className="num">{pct(Math.max(...peerRange0))}</span> off the list price. One did not.
     </p>
   </>,
   <>
-    <p className="eyebrow">Scroll through {Q} quarters</p>
     <h3>{flagged.rep} gives far bigger discounts</h3>
     <p>
       In {qLabel(quarters[jumpI])}, {flagged.rep}'s discount jumped to <span className="num leak">{pct(flagged.quarters[jumpI].discount)}</span>. That is about{' '}
@@ -190,7 +189,6 @@ const steps = [
     </p>
   </>,
   <>
-    <p className="eyebrow">Why it matters</p>
     <h3>{flagged.rep} keeps far less per sale</h3>
     <p>
       {flagged.rep} keeps <span className="num leak">{pct(flaggedMargin)}</span> of each sale; the others keep about{' '}
@@ -198,7 +196,6 @@ const steps = [
     </p>
   </>,
   <>
-    <p className="eyebrow">How we catch it</p>
     <h3>One rule catches it</h3>
     <p>
       We flag any salesperson whose discount in a quarter is over {ruleFactor}x the typical one: it went off{' '}
@@ -210,7 +207,7 @@ const steps = [
 
 export default function Discounts() {
   return (
-    <Scrolly id="Discounts" steps={steps}>
+    <Scrolly id="Discounts" title="Discounts" steps={steps}>
       {(state) => <Graphic {...state} />}
     </Scrolly>
   )

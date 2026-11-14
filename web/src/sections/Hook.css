@@ -2,24 +2,30 @@
   min-height: 100vh;
   min-height: 100svh;
   display: grid;
+  grid-template-rows: auto 1fr;
   align-items: center;
-  padding: 48px max(24px, 8vw);
+  padding: 32px max(24px, 8vw) 48px;
+}
+.hook-title h1 {
+  /* Hang the opening quote mark in the margin so the words align with the lede. */
+  text-indent: -0.4em;
+  font-weight: 800;
+  font-size: clamp(2.6rem, 7.5vw, 6rem);
+  letter-spacing: -0.035em;
+  line-height: 0.98;
 }
 .hook-title-inner {
   max-width: 980px;
   display: grid;
   gap: 20px;
 }
-.hook-asker {
-  font-size: 0.95rem;
-  margin-top: 12px;
+.hook-attrib {
+  font-size: 1rem;
 }
 .hook-quote {
   margin: 0;
   display: grid;
   gap: 18px;
-  border-left: 3px solid var(--oak);
-  padding-left: clamp(16px, 3vw, 32px);
 }
 .hook-quote p {
   font-size: clamp(1.15rem, 2.2vw, 1.6rem);
@@ -53,28 +59,13 @@
   height: auto;
   overflow: visible;
 }
-.hook-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+.hook-stats .ledger {
+  font-size: 1.05rem;
 }
-.hook-stat {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  column-gap: 8px;
-  row-gap: 2px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 10px 14px;
-  font-size: 0.8rem;
-}
-.hook-stat strong {
-  grid-column: 1 / -1;
-  font-size: clamp(1.2rem, 2.6vw, 1.9rem);
-  font-weight: 600;
-  line-height: 1.1;
+.hook-key {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
 }
 .hook-key {
   width: 14px;
@@ -119,7 +110,7 @@
 }
 .hook-tick {
   fill: var(--muted);
-  font: 500 11px var(--font-num);
+  font: 500 13px var(--font-num);
 }
 .hook-legend text {
   fill: var(--muted);
