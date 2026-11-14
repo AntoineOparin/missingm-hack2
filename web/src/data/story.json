@@ -182,118 +182,10 @@
    "marginPct": 0.2762
   }
  ],
- "monthly": [
-  {
-   "month": "2025-01",
-   "billed": 321195,
-   "collected": 23558
-  },
-  {
-   "month": "2025-02",
-   "billed": 220167,
-   "collected": 133424
-  },
-  {
-   "month": "2025-03",
-   "billed": 347003,
-   "collected": 283801
-  },
-  {
-   "month": "2025-04",
-   "billed": 252951,
-   "collected": 276120
-  },
-  {
-   "month": "2025-05",
-   "billed": 357528,
-   "collected": 301620
-  },
-  {
-   "month": "2025-06",
-   "billed": 421391,
-   "collected": 277398
-  },
-  {
-   "month": "2025-07",
-   "billed": 303853,
-   "collected": 444999
-  },
-  {
-   "month": "2025-08",
-   "billed": 384184,
-   "collected": 332007
-  },
-  {
-   "month": "2025-09",
-   "billed": 322377,
-   "collected": 292794
-  },
-  {
-   "month": "2025-10",
-   "billed": 398554,
-   "collected": 425028
-  },
-  {
-   "month": "2025-11",
-   "billed": 327026,
-   "collected": 296218
-  },
-  {
-   "month": "2025-12",
-   "billed": 418505,
-   "collected": 420802
-  },
-  {
-   "month": "2026-01",
-   "billed": 367319,
-   "collected": 356245
-  },
-  {
-   "month": "2026-02",
-   "billed": 349528,
-   "collected": 334946
-  },
-  {
-   "month": "2026-03",
-   "billed": 570606,
-   "collected": 391614
-  },
-  {
-   "month": "2026-04",
-   "billed": 357282,
-   "collected": 464703
-  },
-  {
-   "month": "2026-05",
-   "billed": 433025,
-   "collected": 456259
-  },
-  {
-   "month": "2026-06",
-   "billed": 571562,
-   "collected": 430925
-  },
-  {
-   "month": "2026-07",
-   "billed": 373851,
-   "collected": 492089
-  },
-  {
-   "month": "2026-08",
-   "billed": 364462,
-   "collected": 373202
-  },
-  {
-   "month": "2026-09",
-   "billed": 510923,
-   "collected": 434773
-  }
- ],
  "reps": [
   {
    "rep": "R01",
    "flagged": false,
-   "belowCostOrders": 0,
    "revenue": 556718,
    "quarters": [
     {
@@ -350,7 +242,6 @@
   {
    "rep": "R02",
    "flagged": false,
-   "belowCostOrders": 1,
    "revenue": 266686,
    "quarters": [
     {
@@ -407,7 +298,6 @@
   {
    "rep": "R03",
    "flagged": false,
-   "belowCostOrders": 0,
    "revenue": 620995,
    "quarters": [
     {
@@ -464,7 +354,6 @@
   {
    "rep": "R04",
    "flagged": false,
-   "belowCostOrders": 0,
    "revenue": 740713,
    "quarters": [
     {
@@ -521,7 +410,6 @@
   {
    "rep": "R05",
    "flagged": false,
-   "belowCostOrders": 0,
    "revenue": 740245,
    "quarters": [
     {
@@ -578,7 +466,6 @@
   {
    "rep": "R06",
    "flagged": false,
-   "belowCostOrders": 0,
    "revenue": 1074825,
    "quarters": [
     {
@@ -635,7 +522,6 @@
   {
    "rep": "R07",
    "flagged": true,
-   "belowCostOrders": 40,
    "revenue": 1976828,
    "quarters": [
     {
@@ -692,7 +578,6 @@
   {
    "rep": "R08",
    "flagged": false,
-   "belowCostOrders": 0,
    "revenue": 440174,
    "quarters": [
     {
@@ -749,7 +634,6 @@
   {
    "rep": "R09",
    "flagged": false,
-   "belowCostOrders": 0,
    "revenue": 356716,
    "quarters": [
     {
@@ -806,7 +690,6 @@
   {
    "rep": "R10",
    "flagged": false,
-   "belowCostOrders": 0,
    "revenue": 406407,
    "quarters": [
     {
@@ -863,7 +746,6 @@
   {
    "rep": "R11",
    "flagged": false,
-   "belowCostOrders": 0,
    "revenue": 387851,
    "quarters": [
     {
@@ -916,86 +798,6 @@
      "flag": false
     }
    ]
-  }
- ],
- "quarterEnd": [
-  {
-   "week": 1,
-   "discount": 0.1095,
-   "orders": 260,
-   "discountExFlagged": 0.0953
-  },
-  {
-   "week": 2,
-   "discount": 0.1198,
-   "orders": 303,
-   "discountExFlagged": 0.1078
-  },
-  {
-   "week": 3,
-   "discount": 0.12,
-   "orders": 268,
-   "discountExFlagged": 0.0977
-  },
-  {
-   "week": 4,
-   "discount": 0.1109,
-   "orders": 265,
-   "discountExFlagged": 0.1004
-  },
-  {
-   "week": 5,
-   "discount": 0.1081,
-   "orders": 296,
-   "discountExFlagged": 0.0972
-  },
-  {
-   "week": 6,
-   "discount": 0.1147,
-   "orders": 280,
-   "discountExFlagged": 0.0979
-  },
-  {
-   "week": 7,
-   "discount": 0.1169,
-   "orders": 285,
-   "discountExFlagged": 0.0985
-  },
-  {
-   "week": 8,
-   "discount": 0.1091,
-   "orders": 280,
-   "discountExFlagged": 0.0951
-  },
-  {
-   "week": 9,
-   "discount": 0.1175,
-   "orders": 280,
-   "discountExFlagged": 0.102
-  },
-  {
-   "week": 10,
-   "discount": 0.1055,
-   "orders": 298,
-   "discountExFlagged": 0.0895
-  },
-  {
-   "week": 11,
-   "discount": 0.1168,
-   "orders": 275,
-   "discountExFlagged": 0.1034
-  },
-  {
-   "week": 12,
-   "discount": 0.1425,
-   "orders": 283,
-   "discountExFlagged": 0.1141
-  },
-  {
-   "week": 13,
-   "discount": 0.1831,
-   "orders": 291,
-   "discountExFlagged": 0.1429
   }
  ],
  "returns": [
@@ -1328,1204 +1130,528 @@
    "flag": false
   }
  ],
- "returnsByQuarter": [
-  {
-   "q": "2025Q1",
-   "refund": 46530
-  },
-  {
-   "q": "2025Q2",
-   "refund": 57633
-  },
-  {
-   "q": "2025Q3",
-   "refund": 71139
-  },
-  {
-   "q": "2025Q4",
-   "refund": 82731
-  },
-  {
-   "q": "2026Q1",
-   "refund": 59439
-  },
-  {
-   "q": "2026Q2",
-   "refund": 147553
-  },
-  {
-   "q": "2026Q3",
-   "refund": 86378
-  }
- ],
- "returnRates": [
-  {
-   "product": "Desk Lamp",
-   "rate": 0.0242
-  },
-  {
-   "product": "ErgoLift Standing Desk",
-   "rate": 0.126
-  },
-  {
-   "product": "Laptop Stand",
-   "rate": 0.0212
-  },
-  {
-   "product": "Mechanical Keyboard",
-   "rate": 0.0144
-  },
-  {
-   "product": "Monitor 24\"",
-   "rate": 0.0472
-  },
-  {
-   "product": "Monitor 27\"",
-   "rate": 0.0529
-  },
-  {
-   "product": "Office Chair",
-   "rate": 0.0451
-  },
-  {
-   "product": "USB-C Dock",
-   "rate": 0.0245
-  },
-  {
-   "product": "Webcam HD",
-   "rate": 0.0267
-  },
-  {
-   "product": "Wireless Mouse",
-   "rate": 0.0241
-  }
- ],
- "returnReasons": [
-  {
-   "reason": "Changed mind",
-   "refund": 78847,
-   "topSegment": "Enterprise",
-   "topSegmentShare": 0.3806
-  },
-  {
-   "reason": "Damaged in transit",
-   "refund": 268725,
-   "topSegment": "Enterprise",
-   "topSegmentShare": 0.48
-  },
-  {
-   "reason": "Defective",
-   "refund": 30688,
-   "topSegment": "SMB",
-   "topSegmentShare": 0.494
-  },
-  {
-   "reason": "Overstock / ordered in error",
-   "refund": 150538,
-   "topSegment": "Reseller",
-   "topSegmentShare": 1.0
-  },
-  {
-   "reason": "Wrong item shipped",
-   "refund": 22606,
-   "topSegment": "SMB",
-   "topSegmentShare": 0.382
-  }
- ],
  "receivables": {
   "openTotal": 250004,
   "openInvoices": 92,
   "overdueTotal": 135367,
-  "overdueInvoices": 54,
-  "aging": [
-   {
-    "bucket": "Not yet due",
-    "invoices": 38,
-    "amount": 114637
-   },
-   {
-    "bucket": "1-30 days",
-    "invoices": 34,
-    "amount": 82428
-   },
-   {
-    "bucket": "31-60 days",
-    "invoices": 11,
-    "amount": 24833
-   },
-   {
-    "bucket": "61-90 days",
-    "invoices": 3,
-    "amount": 14035
-   },
-   {
-    "bucket": "90+ days",
-    "invoices": 6,
-    "amount": 14070
-   }
-  ],
   "customers": [
    {
     "customer": "C1170",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 75.6,
-    "pctLate": 1.0,
-    "invoices": 11,
-    "revenue": 40688,
-    "creditLimit": 60000,
     "open": 4623,
-    "chronic": true,
-    "overLimit": false
+    "chronic": true
    },
    {
     "customer": "C1134",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 75.4,
-    "pctLate": 1.0,
-    "invoices": 23,
-    "revenue": 120411,
-    "creditLimit": 60000,
     "open": 21368,
-    "chronic": true,
-    "overLimit": false
+    "chronic": true
    },
    {
     "customer": "C1156",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 75.2,
-    "pctLate": 1.0,
-    "invoices": 27,
-    "revenue": 99022,
-    "creditLimit": 60000,
     "open": 11285,
-    "chronic": true,
-    "overLimit": false
+    "chronic": true
    },
    {
     "customer": "C1173",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 71.1,
-    "pctLate": 1.0,
-    "invoices": 28,
-    "revenue": 93432,
-    "creditLimit": 25000,
     "open": 27579,
-    "chronic": true,
-    "overLimit": true
+    "chronic": true
    },
    {
     "customer": "C1035",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 32.0,
-    "pctLate": 1.0,
-    "invoices": 5,
-    "revenue": 1684,
-    "creditLimit": 5000,
     "open": 0,
-    "chronic": true,
-    "overLimit": false
+    "chronic": true
    },
    {
     "customer": "C1005",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 17.1,
-    "pctLate": 0.8,
-    "invoices": 10,
-    "revenue": 8803,
-    "creditLimit": 5000,
     "open": 0,
-    "chronic": true,
-    "overLimit": false
+    "chronic": true
    },
    {
     "customer": "C0919",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 15.3,
-    "pctLate": 0.333,
-    "invoices": 3,
-    "revenue": 585,
-    "creditLimit": 5000,
     "open": 0,
-    "chronic": true,
-    "overLimit": false
+    "chronic": true
    },
    {
     "customer": "C1018",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 14.5,
-    "pctLate": 0.667,
-    "invoices": 6,
-    "revenue": 3813,
-    "creditLimit": 15000,
     "open": 0,
-    "chronic": true,
-    "overLimit": false
+    "chronic": true
    },
    {
     "customer": "C1129",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 14.2,
-    "pctLate": 0.5,
-    "invoices": 8,
-    "revenue": 7034,
-    "creditLimit": 5000,
     "open": 0,
-    "chronic": true,
-    "overLimit": false
+    "chronic": true
    },
    {
     "customer": "C0954",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 13.2,
-    "pctLate": 0.8,
-    "invoices": 5,
-    "revenue": 7796,
-    "creditLimit": 10000,
     "open": 0,
-    "chronic": true,
-    "overLimit": false
+    "chronic": true
    },
    {
     "customer": "C0984",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 12.0,
-    "pctLate": 0.5,
-    "invoices": 4,
-    "revenue": 1569,
-    "creditLimit": 10000,
     "open": 0,
-    "chronic": true,
-    "overLimit": false
+    "chronic": true
    },
    {
     "customer": "C1047",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 11.9,
-    "pctLate": 0.429,
-    "invoices": 7,
-    "revenue": 2116,
-    "creditLimit": 15000,
     "open": 0,
-    "chronic": true,
-    "overLimit": false
+    "chronic": true
    },
    {
     "customer": "C1172",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 11.4,
-    "pctLate": 0.786,
-    "invoices": 14,
-    "revenue": 33956,
-    "creditLimit": 40000,
     "open": 0,
-    "chronic": true,
-    "overLimit": false
+    "chronic": true
    },
    {
     "customer": "C0960",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 11.1,
-    "pctLate": 0.778,
-    "invoices": 9,
-    "revenue": 4559,
-    "creditLimit": 10000,
     "open": 0,
-    "chronic": true,
-    "overLimit": false
+    "chronic": true
    },
    {
     "customer": "C1151",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 10.8,
-    "pctLate": 0.556,
-    "invoices": 9,
-    "revenue": 34056,
-    "creditLimit": 80000,
     "open": 0,
-    "chronic": true,
-    "overLimit": false
+    "chronic": true
    },
    {
     "customer": "C1051",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 10.6,
-    "pctLate": 0.5,
-    "invoices": 10,
-    "revenue": 12946,
-    "creditLimit": 5000,
     "open": 0,
-    "chronic": true,
-    "overLimit": false
+    "chronic": true
    },
    {
     "customer": "C1103",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 10.5,
-    "pctLate": 0.583,
-    "invoices": 12,
-    "revenue": 11382,
-    "creditLimit": 10000,
     "open": 0,
-    "chronic": true,
-    "overLimit": false
+    "chronic": true
    },
    {
     "customer": "C0913",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 10.5,
-    "pctLate": 0.364,
-    "invoices": 11,
-    "revenue": 4160,
-    "creditLimit": 5000,
     "open": 0,
-    "chronic": true,
-    "overLimit": false
+    "chronic": true
    },
    {
     "customer": "C1183",
-    "segment": "Reseller",
-    "terms": "Net 30",
     "avgDaysLate": 10.2,
-    "pctLate": 0.65,
-    "invoices": 20,
-    "revenue": 52947,
-    "creditLimit": 20000,
     "open": 0,
-    "chronic": true,
-    "overLimit": false
+    "chronic": true
    },
    {
     "customer": "C1163",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 7.1,
-    "pctLate": 0.375,
-    "invoices": 18,
-    "revenue": 58338,
-    "creditLimit": 60000,
     "open": 7546,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C0961",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 6.8,
-    "pctLate": 0.625,
-    "invoices": 17,
-    "revenue": 11078,
-    "creditLimit": 5000,
     "open": 225,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1193",
-    "segment": "Reseller",
-    "terms": "Net 30",
     "avgDaysLate": 6.7,
-    "pctLate": 0.542,
-    "invoices": 25,
-    "revenue": 56961,
-    "creditLimit": 30000,
     "open": 457,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1131",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 6.1,
-    "pctLate": 0.429,
-    "invoices": 23,
-    "revenue": 90986,
-    "creditLimit": 60000,
     "open": 2999,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1038",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 5.8,
-    "pctLate": 0.714,
-    "invoices": 15,
-    "revenue": 13002,
-    "creditLimit": 15000,
     "open": 217,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1207",
-    "segment": "Reseller",
-    "terms": "Net 30",
     "avgDaysLate": 5.7,
-    "pctLate": 0.44,
-    "invoices": 26,
-    "revenue": 55854,
-    "creditLimit": 30000,
     "open": 760,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1150",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 5.3,
-    "pctLate": 0.4,
-    "invoices": 27,
-    "revenue": 109056,
-    "creditLimit": 60000,
     "open": 13177,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1168",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 5.1,
-    "pctLate": 0.542,
-    "invoices": 26,
-    "revenue": 115579,
-    "creditLimit": 80000,
     "open": 8913,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C0930",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 4.9,
-    "pctLate": 0.211,
-    "invoices": 20,
-    "revenue": 15043,
-    "creditLimit": 5000,
     "open": 738,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C0985",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 4.5,
-    "pctLate": 0.471,
-    "invoices": 18,
-    "revenue": 13974,
-    "creditLimit": 5000,
     "open": 1459,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1136",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 4.3,
-    "pctLate": 0.65,
-    "invoices": 22,
-    "revenue": 91032,
-    "creditLimit": 60000,
     "open": 13306,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1166",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 4.1,
-    "pctLate": 0.37,
-    "invoices": 28,
-    "revenue": 84669,
-    "creditLimit": 40000,
     "open": 645,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1180",
-    "segment": "Reseller",
-    "terms": "Net 30",
     "avgDaysLate": 4.0,
-    "pctLate": 0.5,
-    "invoices": 37,
-    "revenue": 117480,
-    "creditLimit": 30000,
     "open": 7458,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1153",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 3.8,
-    "pctLate": 0.548,
-    "invoices": 32,
-    "revenue": 105961,
-    "creditLimit": 80000,
     "open": 3869,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1137",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 3.8,
-    "pctLate": 0.5,
-    "invoices": 25,
-    "revenue": 90221,
-    "creditLimit": 80000,
     "open": 6202,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1203",
-    "segment": "Reseller",
-    "terms": "Net 30",
     "avgDaysLate": 3.5,
-    "pctLate": 0.471,
-    "invoices": 36,
-    "revenue": 118760,
-    "creditLimit": 20000,
     "open": 8760,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1160",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 3.4,
-    "pctLate": 0.455,
-    "invoices": 23,
-    "revenue": 85593,
-    "creditLimit": 40000,
     "open": 675,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1082",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 3.1,
-    "pctLate": 0.5,
-    "invoices": 15,
-    "revenue": 12016,
-    "creditLimit": 5000,
     "open": 642,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1135",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 3.1,
-    "pctLate": 0.421,
-    "invoices": 20,
-    "revenue": 95014,
-    "creditLimit": 60000,
     "open": 9750,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1060",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 3.0,
-    "pctLate": 0.333,
-    "invoices": 4,
-    "revenue": 8516,
-    "creditLimit": 10000,
     "open": 3507,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1128",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 2.9,
-    "pctLate": 0.364,
-    "invoices": 23,
-    "revenue": 16541,
-    "creditLimit": 10000,
     "open": 451,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1161",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 2.8,
-    "pctLate": 0.423,
-    "invoices": 29,
-    "revenue": 82695,
-    "creditLimit": 60000,
     "open": 6531,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1143",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 2.6,
-    "pctLate": 0.455,
-    "invoices": 12,
-    "revenue": 54933,
-    "creditLimit": 60000,
     "open": 941,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1191",
-    "segment": "Reseller",
-    "terms": "Net 30",
     "avgDaysLate": 2.6,
-    "pctLate": 0.32,
-    "invoices": 26,
-    "revenue": 52972,
-    "creditLimit": 30000,
     "open": 2288,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1174",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 2.6,
-    "pctLate": 0.423,
-    "invoices": 28,
-    "revenue": 110225,
-    "creditLimit": 80000,
     "open": 5993,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1110",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 2.4,
-    "pctLate": 0.417,
-    "invoices": 13,
-    "revenue": 8284,
-    "creditLimit": 5000,
     "open": 137,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1178",
-    "segment": "Reseller",
-    "terms": "Net 30",
     "avgDaysLate": 2.2,
-    "pctLate": 0.5,
-    "invoices": 37,
-    "revenue": 124385,
-    "creditLimit": 30000,
     "open": 2198,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1027",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 2.1,
-    "pctLate": 0.294,
-    "invoices": 18,
-    "revenue": 14063,
-    "creditLimit": 10000,
     "open": 540,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1167",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 2.1,
-    "pctLate": 0.467,
-    "invoices": 32,
-    "revenue": 104523,
-    "creditLimit": 60000,
     "open": 2637,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C0902",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 2.0,
-    "pctLate": 0.538,
-    "invoices": 14,
-    "revenue": 12044,
-    "creditLimit": 15000,
     "open": 81,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C0997",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 1.9,
-    "pctLate": 0.316,
-    "invoices": 20,
-    "revenue": 18430,
-    "creditLimit": 5000,
     "open": 2499,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1177",
-    "segment": "Reseller",
-    "terms": "Net 30",
     "avgDaysLate": 1.9,
-    "pctLate": 0.436,
-    "invoices": 40,
-    "revenue": 117055,
-    "creditLimit": 30000,
     "open": 6745,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1012",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 1.5,
-    "pctLate": 0.438,
-    "invoices": 17,
-    "revenue": 14825,
-    "creditLimit": 15000,
     "open": 2959,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1181",
-    "segment": "Reseller",
-    "terms": "Net 30",
     "avgDaysLate": 1.5,
-    "pctLate": 0.424,
-    "invoices": 35,
-    "revenue": 119355,
-    "creditLimit": 30000,
     "open": 6197,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1107",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 1.4,
-    "pctLate": 0.429,
-    "invoices": 15,
-    "revenue": 13647,
-    "creditLimit": 15000,
     "open": 875,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1190",
-    "segment": "Reseller",
-    "terms": "Net 30",
     "avgDaysLate": 1.3,
-    "pctLate": 0.364,
-    "invoices": 34,
-    "revenue": 115740,
-    "creditLimit": 30000,
     "open": 3422,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1155",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 1.2,
-    "pctLate": 0.37,
-    "invoices": 29,
-    "revenue": 89639,
-    "creditLimit": 60000,
     "open": 3009,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C0923",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 1.0,
-    "pctLate": 0.4,
-    "invoices": 11,
-    "revenue": 11655,
-    "creditLimit": 5000,
     "open": 132,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1144",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 0.6,
-    "pctLate": 0.375,
-    "invoices": 25,
-    "revenue": 71535,
-    "creditLimit": 40000,
     "open": 10345,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1065",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 0.5,
-    "pctLate": 0.231,
-    "invoices": 14,
-    "revenue": 18375,
-    "creditLimit": 15000,
     "open": 736,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1053",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 0.5,
-    "pctLate": 0.4,
-    "invoices": 11,
-    "revenue": 11443,
-    "creditLimit": 5000,
     "open": 165,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1078",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": 0.5,
-    "pctLate": 0.444,
-    "invoices": 19,
-    "revenue": 15355,
-    "creditLimit": 10000,
     "open": 2576,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1149",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 0.4,
-    "pctLate": 0.348,
-    "invoices": 24,
-    "revenue": 60225,
-    "creditLimit": 80000,
     "open": 605,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1165",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 0.2,
-    "pctLate": 0.37,
-    "invoices": 28,
-    "revenue": 118476,
-    "creditLimit": 40000,
     "open": 1047,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1175",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": 0.2,
-    "pctLate": 0.321,
-    "invoices": 29,
-    "revenue": 121895,
-    "creditLimit": 40000,
     "open": 4087,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1162",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": -0.4,
-    "pctLate": 0.571,
-    "invoices": 8,
-    "revenue": 16352,
-    "creditLimit": 80000,
     "open": 534,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1164",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": -0.6,
-    "pctLate": 0.214,
-    "invoices": 30,
-    "revenue": 101894,
-    "creditLimit": 40000,
     "open": 2220,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1182",
-    "segment": "Reseller",
-    "terms": "Net 30",
     "avgDaysLate": -0.6,
-    "pctLate": 0.538,
-    "invoices": 14,
-    "revenue": 65647,
-    "creditLimit": 30000,
     "open": 10829,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1145",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": -0.7,
-    "pctLate": 0.385,
-    "invoices": 27,
-    "revenue": 149322,
-    "creditLimit": 60000,
     "open": 1176,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1044",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": -1.0,
-    "pctLate": 0.333,
-    "invoices": 4,
-    "revenue": 3371,
-    "creditLimit": 10000,
     "open": 443,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1071",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": -1.0,
-    "pctLate": 0.25,
-    "invoices": 5,
-    "revenue": 1278,
-    "creditLimit": 5000,
     "open": 374,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1142",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": -1.6,
-    "pctLate": 0.286,
-    "invoices": 22,
-    "revenue": 83225,
-    "creditLimit": 40000,
     "open": 945,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1159",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": -2.0,
-    "pctLate": 0.286,
-    "invoices": 9,
-    "revenue": 28660,
-    "creditLimit": 40000,
     "open": 2271,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1133",
-    "segment": "Enterprise",
-    "terms": "Net 60",
     "avgDaysLate": -2.0,
-    "pctLate": 0.318,
-    "invoices": 23,
-    "revenue": 76996,
-    "creditLimit": 60000,
     "open": 4341,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1111",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": -2.1,
-    "pctLate": 0.143,
-    "invoices": 8,
-    "revenue": 6440,
-    "creditLimit": 15000,
     "open": 223,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1048",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": -3.0,
-    "pctLate": 0.333,
-    "invoices": 4,
-    "revenue": 8307,
-    "creditLimit": 10000,
     "open": 414,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    },
    {
     "customer": "C1068",
-    "segment": "SMB",
-    "terms": "Net 30",
     "avgDaysLate": -3.1,
-    "pctLate": 0.222,
-    "invoices": 19,
-    "revenue": 16914,
-    "creditLimit": 15000,
     "open": 2876,
-    "chronic": false,
-    "overLimit": false
+    "chronic": false
    }
   ],
   "lateHistogram": [
    {
     "daysLate": -10,
     "invoices": 2188,
-    "chronicInvoices": 44,
-    "amount": 3663527
+    "chronicInvoices": 44
    },
    {
     "daysLate": 0,
     "invoices": 1582,
-    "chronicInvoices": 49,
-    "amount": 2559192
+    "chronicInvoices": 49
    },
    {
     "daysLate": 10,
     "invoices": 87,
-    "chronicInvoices": 0,
-    "amount": 155215
+    "chronicInvoices": 0
    },
    {
     "daysLate": 20,
     "invoices": 104,
-    "chronicInvoices": 6,
-    "amount": 177376
+    "chronicInvoices": 6
    },
    {
     "daysLate": 30,
     "invoices": 103,
-    "chronicInvoices": 11,
-    "amount": 175504
+    "chronicInvoices": 11
    },
    {
     "daysLate": 40,
     "invoices": 89,
-    "chronicInvoices": 15,
-    "amount": 174276
+    "chronicInvoices": 15
    },
    {
     "daysLate": 50,
     "invoices": 98,
-    "chronicInvoices": 30,
-    "amount": 219710
+    "chronicInvoices": 30
    },
    {
     "daysLate": 60,
     "invoices": 8,
-    "chronicInvoices": 8,
-    "amount": 23030
+    "chronicInvoices": 8
    },
    {
     "daysLate": 70,
     "invoices": 7,
-    "chronicInvoices": 7,
-    "amount": 48420
+    "chronicInvoices": 7
    },
    {
     "daysLate": 80,
     "invoices": 13,
-    "chronicInvoices": 13,
-    "amount": 61020
+    "chronicInvoices": 13
    },
    {
     "daysLate": 90,
     "invoices": 7,
-    "chronicInvoices": 7,
-    "amount": 23724
+    "chronicInvoices": 7
    },
    {
     "daysLate": 100,
     "invoices": 11,
-    "chronicInvoices": 11,
-    "amount": 37160
+    "chronicInvoices": 11
    }
   ]
  },
@@ -2555,28 +1681,17 @@
  "detections": [
   {
    "id": "discountOutlier",
-   "title": "Rep discounting far above peers",
-   "rule": "Rep's quarterly discount rate is more than 1.5x the median rep's.",
+   "title": "Salesperson discounting far above the rest",
+   "rule": "A salesperson's discount is more than 1.5x the typical salesperson's that quarter.",
    "hits": 7,
    "who": [
     "R07"
    ]
   },
   {
-   "id": "belowCost",
-   "title": "Orders sold below cost",
-   "rule": "Discounted price is lower than unit cost.",
-   "hits": 41,
-   "impact": -8791,
-   "who": [
-    "R07",
-    "R02"
-   ]
-  },
-  {
    "id": "returnHotspot",
-   "title": "Return hot spot",
-   "rule": "One product-and-reason pair causes more than 10% of all refunds.",
+   "title": "One product and reason behind too many refunds",
+   "rule": "One product and one reason are behind more than 10% of all refunds.",
    "hits": 1,
    "who": [
     "ErgoLift Standing Desk: Damaged in transit"
@@ -2584,8 +1699,8 @@
   },
   {
    "id": "chronicLate",
-   "title": "Chronic late payers",
-   "rule": "Customer averages more than 10 days past terms over 3+ invoices.",
+   "title": "Customers who always pay late",
+   "rule": "A customer pays more than 10 days after the due date on average.",
    "hits": 19,
    "who": [
     "C1170",
@@ -2594,15 +1709,6 @@
     "C1173",
     "C1035",
     "C1005"
-   ]
-  },
-  {
-   "id": "creditBreach",
-   "title": "Over credit limit",
-   "rule": "Open unpaid balance exceeds the customer's credit limit.",
-   "hits": 1,
-   "who": [
-    "C1173"
    ]
   }
  ]

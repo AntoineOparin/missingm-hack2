@@ -4,6 +4,26 @@ Hackathon project (Hack 2 the Future 2026, business track, option B: Sales & Fin
 
 Judged on reasoning in a 5-minute live demo. The reader is a business owner, not an analyst.
 
+## Scope: the minimum, done well
+
+The brief asks for 2+ insights, 2+ visualizations, 2+ detections and 1+ automation. The team's rule is the minimum, never more than 3 of anything, each one finished. Do not add a fourth.
+
+| Insight (one section, one chart each) | Detection rule | What to do |
+|---|---|---|
+| One salesperson (R07) gives about 3x the typical discount | Discount more than 1.5x the typical salesperson's that quarter | Discounts above the cap need a manager's OK |
+| One desk damaged in shipping is 45% of refund dollars | One product and reason behind more than 10% of refunds | Fix the packing or the carrier |
+| A few customers always pay late | Pays more than 10 days after the due date on average | The automation below chases them |
+
+Each insight section has exactly four scroll steps: the whole picture, an arrow on the thing to look at, why it matters or what to do, and the rule that catches it. The opening (Hook) and the illustration (WaterFlow) frame the problem; Fix prices the three actions in dollars.
+
+## The automation (30 of 100 judging points)
+
+- **Trigger:** `.github/workflows/chase-bills.yml` runs the pipeline every Monday, whenever files in `ChromeAndOak_SalesFinance_Data/` change on push, and on demand with an optional date.
+- **Action:** `send_new_emails` in `build_data.py`. Each unpaid bill has a step based on days late (heads-up, friendly reminder, firm notice, call now). A bill is emailed once per step: the email is written to `outbox/<date>/` as a `.eml` file and the run is logged in `web/src/data/activity.json`, which is also the memory of what was already sent. Re-running sends nothing new; a paid bill drops off the list.
+- **Results:** the tool page shows what each run sent and when each bill was last emailed.
+- **Demo:** `.venv/bin/python pipeline/build_data.py --as-of 2026-11-07` plays "one week later" and sends only the bills that moved to a new step. To reset, delete `outbox/` and `activity.json` and run with no date.
+- **Limit:** emails are files, not delivered, because the data has no customer addresses. `outbox/` is git-ignored; the workflow uploads it as an artifact.
+
 ## Run it
 
 ```bash
@@ -24,9 +44,11 @@ Force a performance tier with `?quality=low` or `?quality=mid` (useful if the de
 
 ```
 ChromeAndOak_SalesFinance_Data/   raw orders.csv, customers.csv, returns.csv (dirty on purpose)
-pipeline/build_data.py            cleaning + 5 detection rules + chase list -> JSON. Asserts on the headline numbers.
+pipeline/build_data.py            cleaning + 3 detection rules + chase list + automated emails -> JSON. Asserts on the headline numbers.
+.github/workflows/chase-bills.yml the automation's trigger (weekly, on new data, on demand)
 web/src/data/story.json           every chart number          web/src/data/queue.json   the chase list
-web/src/data/index.ts             exports `story`, `queue`; types are inferred from the JSON
+web/src/data/activity.json        what the automation sent on each run
+web/src/data/index.ts             exports `story`, `queue`, `activity`; types are inferred from the JSON
 web/src/lib/format.ts             money, moneyShort, pct, signedPct
 web/src/lib/quality.tsx           useQuality() -> tier 'low' | 'mid' | 'high'
 web/src/components/Scrolly.tsx    pinned graphic + text cards that scroll past
@@ -35,11 +57,11 @@ web/src/index.css                 design tokens and shared classes
 web/src/sections/                 one file per section, in App.tsx order:
   Hook         CFO quote, then revenue vs profit lines splitting apart
   WaterFlow    the illustration: sales pour from a pipe, discounts and refunds drip away
-  Discounts    one salesperson (R07) far above the rest; everyone discounts more at quarter end
-  Returns      refunds by quarter; one desk damaged in shipping is 45% of refund dollars
-  Receivables  billed vs collected; a few customers always pay late; one is over its credit limit
+  Discounts    one salesperson (R07) far above the rest
+  Returns      one desk damaged in shipping is 45% of refund dollars
+  Receivables  a few customers always pay late (shown to readers as "Unpaid bills")
   Fix          three what-if switches with dollar estimates
-  Queue        the automation: who to chase this week, with ready-to-send emails
+  Queue        the tool page: who to chase this week, what the automation sent, ready-to-send emails
   Cleaning     appendix: each data problem, how many rows, what we did, why
 ```
 

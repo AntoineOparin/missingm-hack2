@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { queue, story, type QueueItem } from '../data'
+import { activity, queue, story, type QueueItem } from '../data'
 import { money } from '../lib/format'
 import './Queue.css'
 
@@ -12,6 +12,8 @@ const rows = [...queue].sort((a, b) => a.rank - b.rank)
 const tiers = [...new Set(rows.map((r) => r.tier))].sort((a, b) => (TIER_ORDER.indexOf(a) + 1 || 99) - (TIER_ORDER.indexOf(b) + 1 || 99))
 const count = (t: string) => rows.filter((r) => r.tier === t).length
 const total = rows.reduce((sum, r) => sum + r.amount, 0)
+// Newest automation runs first.
+const runs = [...activity].reverse().slice(0, 3)
 const overdue = rows.reduce((sum, r) => sum + (r.daysOverdue > 0 ? r.amount : 0), 0)
 
 const dateFmt = new Intl.DateTimeFormat('en-CA', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
@@ -74,10 +76,30 @@ export default function Queue() {
         <p className="eyebrow">Your weekly list</p>
         <h2 id="queue-title">Who to chase this week</h2>
         <p className="muted">
-          Biggest bills first, moved up the longer they are late and the later that customer usually pays. It is rebuilt each week from fresh data. This list is
-          from {date(story.meta.asOf)}.
+          Every week, and whenever new payment data arrives, this list rebuilds itself and emails each customer whose bill reached a new step. Biggest bills
+          first, moved up the longer they are late and the later that customer usually pays. This list is from {date(story.meta.asOf)}.
         </p>
       </header>
+
+      <div className="q-runs" aria-label="What the automation did">
+        <p className="q-stat-name">What ran by itself</p>
+        <ul>
+          {runs.map((run) => (
+            <li key={run.date}>
+              <span className="num">{date(run.date)}</span>
+              <span>
+                <span className="num">{run.actions.length}</span> emails sent
+              </span>
+              <span className="muted">
+                {tiers
+                  .filter((t) => run.actions.some((a) => a.tier === t))
+                  .map((t) => `${run.actions.filter((a) => a.tier === t).length} ${tierLabel(t).toLowerCase()}`)
+                  .join(' · ')}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <div className="q-totals">
         <div>
@@ -144,9 +166,8 @@ export default function Queue() {
                       {r.customer}
                     </button>
                     <span className="q-sub muted">
-                      Bill {r.orderId} · usually pays {Math.round(r.customerAvgDaysLate)} days late
+                      Bill {r.orderId} · usually pays {Math.round(r.customerAvgDaysLate)} days late · emailed {date(r.sentOn)}
                     </span>
-                    {r.overLimit && <span className="q-flag">Over credit limit</span>}
                   </td>
                   <td className="num q-right">{money(r.amount)}</td>
                   <td className="num q-due">{date(r.dueDate)}</td>

@@ -27,23 +27,8 @@
   font-weight: 600;
   letter-spacing: -0.02em;
 }
-.rcv-chart .t-mid {
-  font-size: 22px;
-  font-weight: 600;
-}
 .rcv-chart .t-flag {
   fill: var(--leak);
-  font-weight: 600;
-}
-.rcv-chart .grid {
-  stroke: var(--line);
-  stroke-width: 1;
-}
-.rcv-chart .hit {
-  fill: transparent;
-}
-.rcv-chart .hit:hover {
-  fill: color-mix(in srgb, var(--text) 6%, transparent);
 }
 .rcv-chart .rcv-fill {
   transition: fill 0.4s cubic-bezier(0.23, 1, 0.32, 1);

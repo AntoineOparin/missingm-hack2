@@ -1,0 +1,361 @@
+[
+ {
+  "date": "2026-10-31",
+  "actions": [
+   {
+    "orderId": "SO-003498",
+    "customer": "C1173",
+    "amount": 6307,
+    "tier": "escalate"
+   },
+   {
+    "orderId": "SO-005306",
+    "customer": "C1134",
+    "amount": 7062,
+    "tier": "escalate"
+   },
+   {
+    "orderId": "SO-005834",
+    "customer": "C1134",
+    "amount": 9741,
+    "tier": "firm"
+   },
+   {
+    "orderId": "SO-005236",
+    "customer": "C1173",
+    "amount": 5142,
+    "tier": "escalate"
+   },
+   {
+    "orderId": "SO-005114",
+    "customer": "C1156",
+    "amount": 3122,
+    "tier": "escalate"
+   },
+   {
+    "orderId": "SO-006167",
+    "customer": "C1156",
+    "amount": 6581,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-004460",
+    "customer": "C1173",
+    "amount": 1517,
+    "tier": "escalate"
+   },
+   {
+    "orderId": "SO-004196",
+    "customer": "C1173",
+    "amount": 1355,
+    "tier": "escalate"
+   },
+   {
+    "orderId": "SO-003872",
+    "customer": "C1173",
+    "amount": 1095,
+    "tier": "escalate"
+   },
+   {
+    "orderId": "SO-006607",
+    "customer": "C1173",
+    "amount": 7604,
+    "tier": "pre-due"
+   },
+   {
+    "orderId": "SO-005370",
+    "customer": "C1173",
+    "amount": 1831,
+    "tier": "escalate"
+   },
+   {
+    "orderId": "SO-005735",
+    "customer": "C1170",
+    "amount": 1738,
+    "tier": "firm"
+   },
+   {
+    "orderId": "SO-005905",
+    "customer": "C1137",
+    "amount": 6202,
+    "tier": "firm"
+   },
+   {
+    "orderId": "SO-005817",
+    "customer": "C1156",
+    "amount": 1582,
+    "tier": "firm"
+   },
+   {
+    "orderId": "SO-006684",
+    "customer": "C1182",
+    "amount": 10829,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-004661",
+    "customer": "C1173",
+    "amount": 673,
+    "tier": "escalate"
+   },
+   {
+    "orderId": "SO-006726",
+    "customer": "C1180",
+    "amount": 7458,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-005579",
+    "customer": "C1170",
+    "amount": 805,
+    "tier": "firm"
+   },
+   {
+    "orderId": "SO-006690",
+    "customer": "C1177",
+    "amount": 6745,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006637",
+    "customer": "C1203",
+    "amount": 5498,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006470",
+    "customer": "C1134",
+    "amount": 2005,
+    "tier": "pre-due"
+   },
+   {
+    "orderId": "SO-006073",
+    "customer": "C0997",
+    "amount": 2499,
+    "tier": "firm"
+   },
+   {
+    "orderId": "SO-006730",
+    "customer": "C1173",
+    "amount": 2054,
+    "tier": "pre-due"
+   },
+   {
+    "orderId": "SO-006713",
+    "customer": "C1181",
+    "amount": 5981,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006602",
+    "customer": "C1134",
+    "amount": 1872,
+    "tier": "pre-due"
+   },
+   {
+    "orderId": "SO-006612",
+    "customer": "C1060",
+    "amount": 3507,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006555",
+    "customer": "C1170",
+    "amount": 1353,
+    "tier": "pre-due"
+   },
+   {
+    "orderId": "SO-006462",
+    "customer": "C1068",
+    "amount": 2876,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006047",
+    "customer": "C1168",
+    "amount": 2308,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006543",
+    "customer": "C1012",
+    "amount": 2959,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006656",
+    "customer": "C1190",
+    "amount": 3422,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006303",
+    "customer": "C1161",
+    "amount": 3637,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006737",
+    "customer": "C1203",
+    "amount": 3263,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006530",
+    "customer": "C1191",
+    "amount": 2288,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006121",
+    "customer": "C1134",
+    "amount": 687,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006179",
+    "customer": "C1170",
+    "amount": 727,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006310",
+    "customer": "C0985",
+    "amount": 1459,
+    "tier": "firm"
+   },
+   {
+    "orderId": "SO-006625",
+    "customer": "C1078",
+    "amount": 2576,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006688",
+    "customer": "C1178",
+    "amount": 2198,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006281",
+    "customer": "C1174",
+    "amount": 1871,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006557",
+    "customer": "C0930",
+    "amount": 738,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006476",
+    "customer": "C1082",
+    "amount": 642,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006638",
+    "customer": "C1207",
+    "amount": 760,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006069",
+    "customer": "C1071",
+    "amount": 374,
+    "tier": "firm"
+   },
+   {
+    "orderId": "SO-006731",
+    "customer": "C1107",
+    "amount": 875,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006706",
+    "customer": "C1065",
+    "amount": 736,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006453",
+    "customer": "C1044",
+    "amount": 443,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006563",
+    "customer": "C1128",
+    "amount": 451,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006675",
+    "customer": "C1027",
+    "amount": 540,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006654",
+    "customer": "C1193",
+    "amount": 457,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006619",
+    "customer": "C1048",
+    "amount": 414,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006368",
+    "customer": "C1181",
+    "amount": 215,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006536",
+    "customer": "C0961",
+    "amount": 225,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006273",
+    "customer": "C1053",
+    "amount": 165,
+    "tier": "firm"
+   },
+   {
+    "orderId": "SO-006196",
+    "customer": "C0923",
+    "amount": 132,
+    "tier": "firm"
+   },
+   {
+    "orderId": "SO-006649",
+    "customer": "C1038",
+    "amount": 217,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006311",
+    "customer": "C1110",
+    "amount": 137,
+    "tier": "firm"
+   },
+   {
+    "orderId": "SO-006667",
+    "customer": "C1111",
+    "amount": 223,
+    "tier": "reminder"
+   },
+   {
+    "orderId": "SO-006703",
+    "customer": "C0902",
+    "amount": 81,
+    "tier": "reminder"
+   }
+  ]
+ }
+]

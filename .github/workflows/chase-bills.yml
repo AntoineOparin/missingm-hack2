@@ -1,0 +1,43 @@
+# The trigger for the automation. Runs the pipeline, which emails every unpaid bill
+# that reached a new step, then publishes the updated list and log.
+name: Chase unpaid bills
+
+on:
+  schedule:
+    - cron: '0 13 * * 1' # every Monday, 8am Eastern (schedules only fire from the default branch)
+  push:
+    paths: ['ChromeAndOak_SalesFinance_Data/**'] # new orders or payments arrived
+  workflow_dispatch:
+    inputs:
+      as_of:
+        description: 'Run as if today were this date (YYYY-MM-DD). Empty = last payment in the data.'
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  chase:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r pipeline/requirements.txt
+      - name: Run detections and send new emails
+        env:
+          AS_OF: ${{ inputs.as_of }}
+        run: python pipeline/build_data.py ${AS_OF:+--as-of "$AS_OF"}
+      - name: Keep the emails that were sent
+        uses: actions/upload-artifact@v4
+        with:
+          name: outbox
+          path: outbox/
+          if-no-files-found: ignore
+      - name: Publish the updated list and log
+        run: |
+          git config user.name "chase-bills"
+          git config user.email "chase-bills@users.noreply.github.com"
+          git add web/src/data
+          git diff --cached --quiet || (git commit -m "Weekly chase list: automated run" && git push)

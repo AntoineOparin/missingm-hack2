@@ -11,9 +11,6 @@
 .disc-stage svg {
   overflow: visible;
 }
-.disc-stage [aria-hidden='true'] {
-  pointer-events: none;
-}
 
 .disc-title {
   font: 600 15px var(--font);
@@ -24,8 +21,7 @@
   font-weight: 600;
   fill: var(--text);
 }
-.disc-tick,
-.disc-legend text {
+.disc-tick {
   font-size: 12px;
   fill: var(--muted);
 }
@@ -75,45 +71,9 @@
   fill: transparent;
 }
 
-.disc-bar {
-  fill: var(--chrome);
-}
-.disc-bar.is-flag {
-  fill: var(--leak);
-}
-.disc-ex {
-  stroke: var(--text);
-  stroke-width: 2;
-  stroke-linecap: round;
-}
-
-.disc-rules {
-  display: grid;
-  align-content: center;
-  gap: 16px;
-}
-.disc-rule {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 18px 20px;
-  display: grid;
-  gap: 6px;
-}
-.disc-rule h3 {
-  font-size: 1.15rem;
-  margin: 0;
-}
-.disc-hits {
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: var(--leak);
-}
-
 @media (max-width: 860px) {
   /* The 640-wide viewBox shrinks ~half on phones; scale SVG text back up. */
   .disc-tick,
-  .disc-legend text,
   .disc-ann,
   .disc-rep {
     font-size: 18px;
@@ -125,12 +85,5 @@
   }
   .disc-quarter {
     font-size: 30px;
-  }
-  .disc-rule {
-    padding: 12px 14px;
-    font-size: 14px;
-  }
-  .disc-hits {
-    font-size: 1.2rem;
   }
 }

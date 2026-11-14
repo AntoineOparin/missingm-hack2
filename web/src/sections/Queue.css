@@ -148,21 +148,6 @@
   display: block;
   font-size: 0.8rem;
 }
-.q-flag {
-  display: inline-block;
-  white-space: nowrap;
-  margin-top: 4px;
-  padding: 1px 8px;
-  font-size: 0.75rem;
-  color: var(--text);
-  border: 1px solid var(--leak);
-  border-radius: 999px;
-}
-.q-flag::before {
-  content: '! ';
-  color: var(--leak);
-  font-weight: 700;
-}
 .q-tier {
   display: inline-flex;
   align-items: center;
@@ -302,4 +287,24 @@
   .q-table th {
     white-space: normal;
   }
+}
+
+/* Log of what the automation did on its last runs. */
+.q-runs {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 16px 18px;
+}
+.q-runs ul {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.q-runs li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
 }
