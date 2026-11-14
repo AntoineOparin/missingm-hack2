@@ -70,9 +70,13 @@
   stroke-width: 1.2;
   animation: water-fall 1.7s cubic-bezier(0.5, 0, 0.9, 0.6) infinite;
 }
-.water[data-moving='false'] .water-streaks,
-.water[data-moving='false'] .water-drips {
-  display: none; /* the artwork already shows still water */
+.water[data-moving='false'] .water-streaks {
+  display: none; /* the artwork already shows the still stream */
+}
+/* The painted drips were removed from the image, so still drops stand in for them. */
+.water[data-moving='false'] .water-drop {
+  animation: none;
+  transform: translateY(calc(var(--at) * 110px));
 }
 @keyframes water-run {
   to {

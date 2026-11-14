@@ -42,6 +42,10 @@ web/src/sections/                 one file per section, in App.tsx order:
   Cleaning     appendix: each data problem, how many rows, what we did, why
 ```
 
+Two pages, switched by the URL hash in `App.tsx` (no router): the story at `/`, and the chase-list tool (`Queue`) at `/#/tool`. A button after `Fix` opens the tool; the tool links back to that spot.
+
+Hosting: the app is fully static. On Cloudflare (Pages or Workers static assets) or any static host, set the root directory to `web`, the build command to `npm run build`, and the output directory to `dist`. The JSON is committed, so the host does not need Python. To refresh the weekly list, rerun the pipeline, commit the JSON, and redeploy.
+
 The pipeline is the single source of truth. Words that describe data (cleaning issues, fix labels, chase-list actions) live in `build_data.py`, not in the pages.
 
 ## Rules that keep it coherent
@@ -61,7 +65,9 @@ The pipeline is the single source of truth. Words that describe data (cleaning i
 
 The section draws on top of the picture in the picture's own pixel coordinates (660 x 506):
 - The scene is widened by mirroring the left part of the image at x = 44, which adds a second thin figure under a second leak. The mirrored copy of the signature is covered with a strip of real floor texture; the original signature stays.
-- Moving water is CSS only: dashed streaks clipped to the traced stream shape, and drops falling from the two leaks. Drop count scales with dollars. On `low` or off screen the overlay is hidden and the still artwork shows.
+- The app's copy of the image has the three painted drips under the leak removed (covered with nearby wall texture), so they do not double up with the animated drops. The untouched original is `Guy_Who_Have_Lot_A_Water.jpg` at the repo root.
+- Moving water is CSS only: dashed streaks clipped to the traced stream shape, and drops falling from the two leaks. Drop count scales with dollars. On `low` or off screen the streaks are hidden and the drops stand still.
+- Profit is labelled on the armchair; sales on the pipe; discounts and refunds beside their leaks.
 - The drawing carries the idea; the bar underneath carries the real proportions. Keep both.
 - If the image is swapped, re-measure the constants at the top of `WaterFlow.tsx`.
 

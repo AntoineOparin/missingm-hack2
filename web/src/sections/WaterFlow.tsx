@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, type CSSProperties } from 'react'
 import { motion, useInView } from 'motion/react'
 import { Scrolly } from '../components/Scrolly'
 import { Callout } from '../components/Callout'
@@ -29,6 +29,7 @@ const DISCOUNT_X = 2 * SEAM - REFUND_X // its mirror image
 // The poured stream, traced from the artwork: pipe mouth down to the open mouth.
 const STREAM_SHAPE = '300,97 340,113 380,140 420,172 455,205 490,240 498,250 450,243 420,232 400,222 385,205 365,180 340,152 300,141'
 const STREAM_LINE = 'M292 119 C340 126 385 158 425 198 S480 246 505 262'
+const PROFIT_AT = [488, 402] // the plain front panel of the armchair
 const STREAKS = [-3, -2, -1, 0, 1, 2, 3]
 const DROP = 'M0 -10 C1 -4 4.2 0 4.2 4 A4.2 4.2 0 1 1 -4.2 4 C-4.2 0 -1 -4 0 -10 Z'
 // One falling drop per this many dollars, so a bigger leak drips more.
@@ -58,7 +59,8 @@ function Drips({ x, count }: { x: number; count: number }) {
   return (
     <g transform={`translate(${x} ${LEAK_Y + 8})`}>
       {Array.from({ length: count }, (_, i) => (
-        <path key={`${count}-${i}`} className="water-drop" d={DROP} style={{ animationDelay: `${(-i * 1.7) / count}s` }} />
+        // --at: where this drop rests along the fall when the animation is off
+        <path key={`${count}-${i}`} className="water-drop" d={DROP} style={{ animationDelay: `${(-i * 1.7) / count}s`, '--at': (i + 0.5) / count } as CSSProperties} />
       ))}
     </g>
   )
@@ -143,6 +145,15 @@ function Scene({ step }: { step: number }) {
           </text>
           <text className="water-label water-value num" x={268} y={66}>
             {moneyShort(d.gross)}
+          </text>
+        </motion.g>
+        {/* profit sits on the armchair: it is what the business gets to keep */}
+        <motion.g initial={false} animate={dim(step === 0 || step === 3)}>
+          <text className="water-label" x={PROFIT_AT[0]} y={PROFIT_AT[1]} textAnchor="middle">
+            Kept as profit
+          </text>
+          <text className="water-label water-value num" x={PROFIT_AT[0]} y={PROFIT_AT[1] + 20} textAnchor="middle">
+            {moneyShort(d.profitAfterRefunds)}
           </text>
         </motion.g>
         <motion.g initial={false} animate={dim(step !== 1 && step !== 3)}>
