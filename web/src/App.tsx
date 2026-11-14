@@ -1,7 +1,7 @@
 import { MotionConfig } from 'motion/react'
 import { QualityProvider, useQuality } from './lib/quality'
 import Hook from './sections/Hook'
-import Bucket from './sections/Bucket'
+import WaterFlow from './sections/WaterFlow'
 import Discounts from './sections/Discounts'
 import Returns from './sections/Returns'
 import Receivables from './sections/Receivables'
@@ -15,7 +15,7 @@ function Story() {
     <MotionConfig reducedMotion={tier === 'low' ? 'always' : 'user'}>
       <main>
         <Hook />
-        <Bucket />
+        <WaterFlow />
         <Discounts />
         <Returns />
         <Receivables />

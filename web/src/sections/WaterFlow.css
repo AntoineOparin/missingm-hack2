@@ -1,0 +1,126 @@
+/* Colours sampled from the illustration, so everything drawn on top of it matches. */
+.water {
+  --ink: #2b241a;
+  --paper: #dcb878;
+  --ink-leak: #a8321f;
+  width: 100%;
+  height: 100%;
+}
+.water h3 {
+  font-size: 1.15rem;
+}
+
+/* Labels on the artwork: ink on paper, with a paper halo. */
+.water-label,
+.water-year {
+  fill: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  paint-order: stroke;
+  stroke: var(--paper);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+.water-value {
+  font-size: 17px;
+  font-weight: 700;
+}
+.water-year {
+  font-size: 24px;
+  font-weight: 700;
+  opacity: 0.7;
+}
+.water-notes .callout {
+  color: var(--ink);
+}
+.water-notes .callout[data-tone='leak'] {
+  color: var(--ink-leak);
+}
+.water-notes .callout text {
+  stroke: var(--paper);
+}
+
+/* Moving water. Looping, so it only runs on capable machines and while on screen (data-moving). */
+.water-streak {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-dasharray: 10 26;
+  opacity: 0.9;
+  animation: water-run 1s linear infinite;
+}
+.water-streak-ink {
+  stroke: #6e5a3c;
+  stroke-width: 1;
+  opacity: 0.45;
+}
+.water-streak[data-extra='true'] {
+  display: none;
+}
+.water[data-year='2026'] .water-streak {
+  animation-duration: 0.7s; /* more money, faster pour */
+}
+.water[data-year='2026'] .water-streak[data-extra='true'] {
+  display: inline;
+}
+.water-drop {
+  fill: #fff;
+  stroke: var(--ink);
+  stroke-width: 1.2;
+  animation: water-fall 1.7s cubic-bezier(0.5, 0, 0.9, 0.6) infinite;
+}
+.water[data-moving='false'] .water-streaks,
+.water[data-moving='false'] .water-drips {
+  display: none; /* the artwork already shows still water */
+}
+@keyframes water-run {
+  to {
+    stroke-dashoffset: -36;
+  }
+}
+@keyframes water-fall {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  12%,
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(122px);
+    opacity: 0;
+  }
+}
+
+/* Dollar bar under the artwork, in the app's own colours. */
+.water-bar-title,
+.water-seg-name,
+.water-credit {
+  fill: var(--muted);
+  font-size: 12px;
+}
+.water-seg-value {
+  fill: var(--text);
+  font-size: 13px;
+}
+.water-credit {
+  font-size: 9px;
+}
+.water-seg {
+  fill: var(--chrome);
+}
+.water-seg[data-part='discounts'],
+.water-seg[data-part='refunds'] {
+  fill: var(--leak);
+}
+.water-seg[data-part='kept'] {
+  fill: var(--oak);
+}
+.water-gap {
+  fill: none;
+  stroke: var(--leak);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
