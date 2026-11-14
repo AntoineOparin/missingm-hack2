@@ -23,6 +23,7 @@ REGION_ALIASES = {"on": "Ontario", "ontario": "Ontario", "qc": "Quebec", "québe
 DISCOUNT_CAP = 0.15        # scenario: max discount without approval
 PEER_MULTIPLE = 1.5        # detection: rep discount > 1.5x peer median
 CHRONIC_LATE_DAYS = 10     # detection: avg days past terms
+HOTSPOT_SHARE = 0.10       # detection: product x reason share of all refunds
 
 
 def r0(x):
@@ -80,6 +81,69 @@ def clean():
     return o, c, r, log
 
 
+# Each detection returns its flags plus the summary entry the story shows under `detections`.
+
+def detect_discount_outliers(o):
+    """Detection 1: a rep's quarterly discount is more than PEER_MULTIPLE x the median rep's that quarter."""
+    rq = (o[o.sales_rep.notna()].groupby(["sales_rep", "q"])
+          .agg(gross=("gross", "sum"), rev=("rev", "sum"), gm=("gm", "sum")).reset_index())
+    rq["discount"] = 1 - rq.rev / rq.gross
+    rq["peerMedian"] = rq.groupby("q").discount.transform("median")
+    rq["flag"] = rq.discount > PEER_MULTIPLE * rq.peerMedian
+    return rq, {"id": "discountOutlier", "title": "Rep discounting far above peers",
+                "rule": f"Rep's quarterly discount rate is more than {PEER_MULTIPLE}x the median rep's.",
+                "hits": int(rq.flag.sum()), "who": sorted(rq[rq.flag].sales_rep.unique())}
+
+
+def detect_below_cost(o):
+    """Detection 2: orders whose discounted price is lower than unit cost."""
+    bc = o[o.gm < 0]
+    return {"id": "belowCost", "title": "Orders sold below cost",
+            "rule": "Discounted price is lower than unit cost.", "hits": len(bc), "impact": r0(bc.gm.sum()),
+            "who": bc.sales_rep.dropna().value_counts().index.tolist()}
+
+
+def detect_return_hotspots(rr):
+    """Detection 3: one product-and-reason pair causes more than HOTSPOT_SHARE of all refunds."""
+    cells = rr.groupby(["product", "reason"]).refund_amount.agg(["sum", "count"]).reset_index()
+    total_refunds = cells["sum"].sum()
+    returns = [{"product": x.product, "reason": x.reason, "refund": r0(x.sum), "count": int(x.count),
+                "share": round(x.sum / total_refunds, 4), "flag": bool(x.sum / total_refunds > HOTSPOT_SHARE)}
+               for x in cells.sort_values("sum", ascending=False).itertuples()]
+    return returns, {"id": "returnHotspot", "title": "Return hot spot",
+                     "rule": f"One product-and-reason pair causes more than {HOTSPOT_SHARE:.0%} of all refunds.",
+                     "hits": sum(x["flag"] for x in returns),
+                     "who": [f'{x["product"]}: {x["reason"]}' for x in returns if x["flag"]]}
+
+
+def customer_payment_stats(ar, open_inv):
+    """Per-customer payment history on invoiced (non-prepaid) orders; input to detections 4 and 5."""
+    cust = ar.groupby("customer_id").agg(avgLate=("late", "mean"), pctLate=("late", lambda s: (s.dropna() > 0).mean()),
+                                         invoices=("order_id", "count"), revenue=("rev", "sum"),
+                                         segment=("segment", "first"), terms=("payment_terms", "first"),
+                                         creditLimit=("credit_limit", "first"))
+    cust["open"] = open_inv.groupby("customer_id").rev.sum().reindex(cust.index).fillna(0)
+    cust["avgLate"] = cust.avgLate.fillna(0)
+    return cust
+
+
+def detect_late_payers(cust):
+    """Detection 4: customer averages more than CHRONIC_LATE_DAYS past terms over 3+ invoices."""
+    chronic = (cust.avgLate > CHRONIC_LATE_DAYS) & (cust.invoices >= 3)
+    return chronic, {"id": "chronicLate", "title": "Chronic late payers",
+                     "rule": f"Customer averages more than {CHRONIC_LATE_DAYS} days past terms over 3+ invoices.",
+                     "hits": int(chronic.sum()),
+                     "who": cust[chronic].sort_values("avgLate", ascending=False).index[:6].tolist()}
+
+
+def detect_credit_breach(cust):
+    """Detection 5: open unpaid balance exceeds the customer's credit limit."""
+    over = cust.open > cust.creditLimit
+    return over, {"id": "creditBreach", "title": "Over credit limit",
+                  "rule": "Open unpaid balance exceeds the customer's credit limit.",
+                  "hits": int(over.sum()), "who": cust[over].index.tolist()}
+
+
 def main():
     o, c, r, log = clean()
     o = o.merge(c[["customer_id", "segment", "payment_terms", "credit_limit"]], on="customer_id", how="left")
@@ -114,18 +178,14 @@ def main():
     monthly = [{"month": m, "billed": r0(billed.get(m, 0)), "collected": r0(collected.get(m, 0))} for m in billed.index]
 
     # --- Detection 1: rep discount outlier vs peer median, per quarter
-    reps_o = o[o.sales_rep.notna()]
-    rq = reps_o.groupby(["sales_rep", "q"]).agg(gross=("gross", "sum"), rev=("rev", "sum"), gm=("gm", "sum")).reset_index()
-    rq["discount"] = 1 - rq.rev / rq.gross
-    rq["peerMedian"] = rq.groupby("q").discount.transform("median")
-    rq["flag"] = rq.discount > PEER_MULTIPLE * rq.peerMedian
-    below = reps_o[reps_o.gm < 0].groupby("sales_rep").size()
+    rq, discount_outlier = detect_discount_outliers(o)
+    flagged_reps = discount_outlier["who"]
+    below = o[o.sales_rep.notna() & (o.gm < 0)].groupby("sales_rep").size()
     reps = [{"rep": rep, "flagged": bool(d.flag.any()), "belowCostOrders": int(below.get(rep, 0)),
              "revenue": r0(d.rev.sum()),
              "quarters": [{"q": x.q, "discount": round(x.discount, 4), "marginPct": round(x.gm / x.rev, 4),
                            "revenue": r0(x.rev), "flag": bool(x.flag)} for x in d.itertuples()]}
             for rep, d in rq.groupby("sales_rep")]
-    flagged_reps = [x["rep"] for x in reps if x["flagged"]]
 
     # Quarter-end pattern: discount by week of quarter (direct sales), with and without the flagged reps
     ds = o[o.sales_channel == "Direct Sales"].copy()
@@ -136,14 +196,10 @@ def main():
                    for w, d in ds.groupby("week")]
 
     # --- Detection 2: below-cost orders
-    bc = o[o.gm < 0]
+    below_cost = detect_below_cost(o)
     # --- Detection 3: return hot spots (product x reason share of all refunds)
     rr = r.merge(o[["order_id", "product", "segment", "q"]], on="order_id")
-    cells = rr.groupby(["product", "reason"]).refund_amount.agg(["sum", "count"]).reset_index()
-    total_refunds = cells["sum"].sum()
-    returns = [{"product": x.product, "reason": x.reason, "refund": r0(x.sum), "count": int(x.count),
-                "share": round(x.sum / total_refunds, 4), "flag": bool(x.sum / total_refunds > 0.10)}
-               for x in cells.sort_values("sum", ascending=False).itertuples()]
+    returns, return_hotspot = detect_return_hotspots(rr)
     returns_q = [{"q": q, "refund": r0(d.refund_amount.sum())} for q, d in rr.groupby("q")]
     # Which customer segment drives each return reason (backs the "resellers send stock back" claim)
     seg = rr.groupby(["reason", "segment"]).refund_amount.sum()
@@ -156,14 +212,9 @@ def main():
     ar = o[o.terms > 0]
     open_inv = ar[ar.payment_date.isna()].copy()
     open_inv["daysOverdue"] = (as_of - open_inv.due).dt.days
-    cust = ar.groupby("customer_id").agg(avgLate=("late", "mean"), pctLate=("late", lambda s: (s.dropna() > 0).mean()),
-                                         invoices=("order_id", "count"), revenue=("rev", "sum"),
-                                         segment=("segment", "first"), terms=("payment_terms", "first"),
-                                         creditLimit=("credit_limit", "first"))
-    cust["open"] = open_inv.groupby("customer_id").rev.sum().reindex(cust.index).fillna(0)
-    cust["avgLate"] = cust.avgLate.fillna(0)
-    cust["chronic"] = (cust.avgLate > CHRONIC_LATE_DAYS) & (cust.invoices >= 3)
-    cust["overLimit"] = cust.open > cust.creditLimit
+    cust = customer_payment_stats(ar, open_inv)
+    cust["chronic"], chronic_late = detect_late_payers(cust)
+    cust["overLimit"], credit_breach = detect_credit_breach(cust)
     watch = cust[cust.chronic | cust.overLimit | (cust.open > 0)].sort_values("avgLate", ascending=False)
     customers = [{"customer": i, "segment": x.segment, "terms": x.terms, "avgDaysLate": round(x.avgLate, 1),
                   "pctLate": round(x.pctLate, 3), "invoices": int(x.invoices), "revenue": r0(x.revenue),
@@ -235,23 +286,7 @@ def main():
          "assumption": "Cash you get once. It is not extra profit."},
     ]
 
-    detections = [
-        {"id": "discountOutlier", "title": "Rep discounting far above peers",
-         "rule": f"Rep's quarterly discount rate is more than {PEER_MULTIPLE}x the median rep's.",
-         "hits": int(rq.flag.sum()), "who": flagged_reps},
-        {"id": "belowCost", "title": "Orders sold below cost",
-         "rule": "Discounted price is lower than unit cost.", "hits": len(bc), "impact": r0(bc.gm.sum()),
-         "who": bc.sales_rep.dropna().value_counts().index.tolist()},
-        {"id": "returnHotspot", "title": "Return hot spot",
-         "rule": "One product-and-reason pair causes more than 10% of all refunds.",
-         "hits": sum(x["flag"] for x in returns), "who": [f'{x["product"]}: {x["reason"]}' for x in returns if x["flag"]]},
-        {"id": "chronicLate", "title": "Chronic late payers",
-         "rule": f"Customer averages more than {CHRONIC_LATE_DAYS} days past terms over 3+ invoices.",
-         "hits": int(cust.chronic.sum()), "who": cust[cust.chronic].sort_values("avgLate", ascending=False).index[:6].tolist()},
-        {"id": "creditBreach", "title": "Over credit limit",
-         "rule": "Open unpaid balance exceeds the customer's credit limit.",
-         "hits": int(cust.overLimit.sum()), "who": cust[cust.overLimit].index.tolist()},
-    ]
+    detections = [discount_outlier, below_cost, return_hotspot, chronic_late, credit_breach]
 
     story = {
         "meta": {"asOf": f"{as_of:%Y-%m-%d}", "comparison": "January to September, 2025 vs 2026",
