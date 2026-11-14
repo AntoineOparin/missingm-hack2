@@ -125,6 +125,9 @@
 .q-table td.num {
   font-family: var(--font-num);
 }
+.q-table td.q-not-due {
+  font-size: 0.85rem;
+}
 .q-due {
   white-space: nowrap;
 }
@@ -401,7 +404,7 @@
     width: 150px;
   }
   .q-col-late {
-    width: 120px;
+    width: 136px;
   }
   .q-col-step {
     width: 200px;

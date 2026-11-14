@@ -260,7 +260,8 @@ export default function Queue() {
                   </td>
                   <td className="num q-right">{money(r.amount)}</td>
                   <td className="num q-due">{date(r.dueDate)}</td>
-                  <td className={`num q-right ${r.daysOverdue > 0 ? '' : 'muted'}`}>{r.daysOverdue > 0 ? r.daysOverdue : late(r.daysOverdue)}</td>
+                  {/* Days late is a figure; a bill not due yet gets words instead, set in the text face. */}
+                  {r.daysOverdue > 0 ? <td className="num q-right">{r.daysOverdue}</td> : <td className="q-right q-not-due muted">{late(r.daysOverdue)}</td>}
                   <td>
                     <Tier tier={r.tier} />
                   </td>
