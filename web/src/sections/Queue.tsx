@@ -13,7 +13,18 @@ const tiers = [...new Set(rows.map((r) => r.tier))].sort((a, b) => (TIER_ORDER.i
 const count = (t: string) => rows.filter((r) => r.tier === t).length
 const total = rows.reduce((sum, r) => sum + r.amount, 0)
 // Newest automation runs first.
-const runs = [...activity].reverse().slice(0, 3)
+const allRuns = [...activity].reverse()
+const runs = allRuns.slice(0, 4)
+// A bill is "new" when the latest run emailed it, which only means something once there is an earlier run.
+const isNew = (r: QueueItem) => allRuns.length > 1 && r.sentOn === allRuns[0].date
+const TRIGGER_LABEL: Record<string, string> = { schedule: 'Monday schedule', 'new data': 'New payment data', 'by hand': 'Started by hand' }
+// Older runs were logged before the pipeline recorded a trigger.
+const trigger = (run: (typeof activity)[number]) => ('trigger' in run && typeof run.trigger === 'string' ? (TRIGGER_LABEL[run.trigger] ?? run.trigger) : null)
+// Filter value for "what the latest run changed"; tiers are the other filter values.
+const NEW = 'new'
+const newCount = rows.filter(isNew).length
+// Bills shown before "Show all"; the top of the list is what gets acted on.
+const FIRST = 10
 const overdue = rows.reduce((sum, r) => sum + (r.daysOverdue > 0 ? r.amount : 0), 0)
 
 const dateFmt = new Intl.DateTimeFormat('en-CA', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
@@ -30,6 +41,13 @@ const TIER_NOUN: Record<string, [string, string]> = {
   'pre-due': ['heads-up', 'heads-ups'],
 }
 const tierCount = (t: string, n: number) => `${n} ${TIER_NOUN[t]?.[n === 1 ? 0 : 1] ?? tierLabel(t).toLowerCase()}`
+// The workflow's schedule fires on Mondays (.github/workflows/chase-bills.yml): the first Monday after `iso`.
+const nextMonday = (iso: string) => {
+  const d = new Date(`${iso}T00:00:00Z`)
+  d.setUTCDate(d.getUTCDate() + ((8 - d.getUTCDay()) % 7 || 7))
+  return d.toISOString().slice(0, 10)
+}
+const nextRun = nextMonday(allRuns[0]?.date ?? story.meta.asOf)
 
 function Tier({ tier }: { tier: string }) {
   return (
@@ -48,7 +66,9 @@ export default function Queue() {
   const copyBtn = useRef<HTMLButtonElement>(null)
   const lastId = useRef('')
 
-  const shown = filter ? rows.filter((r) => r.tier === filter) : rows
+  const [all, setAll] = useState(false)
+  const shown = filter === NEW ? rows.filter(isNew) : filter ? rows.filter((r) => r.tier === filter) : rows
+  const visible = all ? shown : shown.slice(0, FIRST)
 
   const show = (item: QueueItem) => {
     lastId.current = item.orderId
@@ -92,25 +112,38 @@ export default function Queue() {
         </p>
       </header>
 
-      <div className="q-runs" aria-label="What the automation did">
-        <p className="q-stat-name">What ran by itself</p>
-        <ul>
-          {runs.map((run) => (
-            <li key={run.date}>
-              <span className="num">{date(run.date)}</span>
-              <span>
-                <span className="num">{run.actions.length}</span> emails written
-              </span>
-              <span className="muted">
-                {tiers
-                  .filter((t) => run.actions.some((a) => a.tier === t))
-                  .map((t) => tierCount(t, run.actions.filter((a) => a.tier === t).length))
-                  .join(' · ')}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <section className="q-runs" aria-labelledby="queue-runs-title">
+        <h3 id="queue-runs-title">What the automation did</h3>
+        {runs.length === 0 ? (
+          <p className="muted">It has not run yet.</p>
+        ) : (
+          <ol className="q-run-list">
+            {runs.map((run) => (
+              <li key={run.date} className="q-run">
+                <p className="num q-run-date">{date(run.date)}</p>
+                <div>
+                  <p>
+                    <span className="num">{run.actions.length}</span> {run.actions.length === 1 ? 'email' : 'emails'} written to{' '}
+                    <code className="q-path">outbox/{run.date}/</code>
+                    {trigger(run) && <span className="muted"> · {trigger(run)}</span>}
+                  </p>
+                  <p className="muted q-run-detail">
+                    {tiers
+                      .filter((t) => run.actions.some((a) => a.tier === t))
+                      .map((t) => tierCount(t, run.actions.filter((a) => a.tier === t).length))
+                      .join(' · ')}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        )}
+        <p className="q-run-next">
+          Next run: <span className="num">Monday, {date(nextRun)}</span>, or sooner if new payment data arrives. A run only writes emails for bills that moved
+          to a new step.
+        </p>
+        <p className="muted q-run-note">The emails are saved as files, ready to send. They are not delivered: the data has no customer email addresses.</p>
+      </section>
 
       <div className="q-totals">
         <div>
@@ -134,6 +167,11 @@ export default function Queue() {
         <button type="button" className="q-filter" aria-pressed={filter === null} onClick={() => setFilter(null)}>
           All <span className="num">{rows.length}</span>
         </button>
+        {newCount > 0 && (
+          <button type="button" className="q-filter q-filter-new" aria-pressed={filter === NEW} onClick={() => setFilter(NEW)}>
+            New this run <span className="num">{newCount}</span>
+          </button>
+        )}
         {tiers.map((t) => (
           <button key={t} type="button" className="q-filter" data-tier={t} aria-pressed={filter === t} onClick={() => setFilter(t)}>
             <span className="q-dot" aria-hidden="true" />
@@ -145,10 +183,11 @@ export default function Queue() {
       {rows.length === 0 ? (
         <p className="card">Nothing to chase this week.</p>
       ) : (
-        <div className="q-scroll" role="region" aria-label="Bills to chase" tabIndex={0}>
+        <div className="q-scroll" role="region" aria-label="Bills to chase">
           <table className="q-table">
             <caption className="q-sr">
-              {filter ? `${tierLabel(filter)} bills` : 'All bills'}, most urgent first. Select a customer to open the ready-to-send email.
+              {filter === NEW ? 'Bills emailed on the latest run' : filter ? `${tierLabel(filter)} bills` : 'All bills'}, most urgent first
+              {visible.length < shown.length && `, showing ${visible.length} of ${shown.length}`}. Select a customer to open the ready-to-send email.
             </caption>
             <thead>
               <tr>
@@ -172,15 +211,17 @@ export default function Queue() {
               </tr>
             </thead>
             <tbody>
-              {shown.map((r) => (
+              {visible.map((r) => (
+                // The button's click (mouse or keyboard) bubbles here, so the email opens once.
                 <tr key={r.orderId} onClick={() => show(r)}>
                   <td className="num q-rank muted">{r.rank}</td>
                   <td>
-                    <button type="button" className="q-open" data-order={r.orderId} onClick={() => show(r)} aria-haspopup="dialog">
+                    <button type="button" className="q-open" data-order={r.orderId} aria-haspopup="dialog">
                       {r.customer}
                     </button>
                     <span className="q-sub muted">
-                      Bill {r.orderId} · {habit(r.customerAvgDaysLate)} · emailed {date(r.sentOn)}
+                      <span className="q-id">Bill {r.orderId}</span> · {habit(r.customerAvgDaysLate)} ·{' '}
+                      {isNew(r) ? <strong className="q-new">emailed this run</strong> : `last emailed ${date(r.sentOn)}`}
                     </span>
                   </td>
                   <td className="num q-right">{money(r.amount)}</td>
@@ -195,6 +236,11 @@ export default function Queue() {
             </tbody>
           </table>
         </div>
+      )}
+      {!all && shown.length > FIRST && (
+        <button type="button" className="q-btn q-more" onClick={() => setAll(true)}>
+          Show all <span className="num">{shown.length}</span> bills
+        </button>
       )}
 
       <dialog

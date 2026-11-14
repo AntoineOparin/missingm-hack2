@@ -8,6 +8,7 @@ gets its email written to outbox/ and logged in activity.json, once per step.
 """
 import argparse
 import json
+import os
 from email.message import EmailMessage
 from pathlib import Path
 
@@ -18,6 +19,8 @@ DATA = ROOT / "ChromeAndOak_SalesFinance_Data"
 OUT = ROOT / "web" / "src" / "data"
 ACTIVITY = OUT / "activity.json"   # what the automation did on each run; also its memory of what was already sent
 OUTBOX = ROOT / "outbox"           # the emails themselves, one .eml file each
+# What started a run, from the GitHub Actions event (see .github/workflows/chase-bills.yml); unset = run locally.
+TRIGGERS = {"schedule": "schedule", "push": "new data", "workflow_dispatch": "by hand"}
 
 PRODUCTS = ['Monitor 24"', 'Monitor 27"', "Mechanical Keyboard", "USB-C Dock", "ErgoLift Standing Desk",
             "Wireless Mouse", "Webcam HD", "Laptop Stand", "Office Chair", "Desk Lamp"]
@@ -283,7 +286,7 @@ def send_new_emails(queue, as_of):
             msg.set_content(q["emailBody"], cte="7bit")
             (folder / f"{q['orderId']}-{q['tier']}.eml").write_bytes(bytes(msg))
             sent[(q["orderId"], q["tier"])] = day
-        runs.append({"date": day, "actions": [{k: q[k] for k in ("orderId", "customer", "amount", "tier")} for q in new]})
+        runs.append({"date": day, "trigger": TRIGGERS.get(os.environ.get("GITHUB_EVENT_NAME", ""), "by hand"), "actions":[{k: q[k] for k in ("orderId", "customer", "amount", "tier")} for q in new]})
         ACTIVITY.write_text(json.dumps(runs, indent=1))
     for q in queue:
         q["sentOn"] = sent[(q["orderId"], q["tier"])]

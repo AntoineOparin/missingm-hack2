@@ -10,6 +10,9 @@
   gap: 10px;
   max-width: 720px;
 }
+.q-head p {
+  max-width: 65ch;
+}
 .q-totals {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -69,6 +72,9 @@
 .q-filter .num {
   color: var(--muted);
 }
+.q-filter-new {
+  color: var(--oak);
+}
 .q-filter[aria-pressed='true'] {
   background: var(--surface-2);
   border-color: var(--text);
@@ -80,10 +86,9 @@
   background: var(--tier, var(--muted));
 }
 
+/* The table scrolls with the page (no nested scroll to trap a trackpad); clip keeps the sticky header working. */
 .q-scroll {
-  max-height: 70svh;
-  overflow: auto;
-  overscroll-behavior: contain;
+  overflow: clip;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
@@ -151,6 +156,16 @@
   display: block;
   font-size: 0.8rem;
 }
+.q-id {
+  white-space: nowrap;
+}
+.q-new {
+  font-weight: 600;
+  color: var(--oak);
+}
+.q-more {
+  justify-self: start;
+}
 .q-tier {
   display: inline-flex;
   align-items: center;
@@ -173,8 +188,7 @@
 
 .q-filter:focus-visible,
 .q-open:focus-visible,
-.q-btn:focus-visible,
-.q-scroll:focus-visible {
+.q-btn:focus-visible {
   outline: 2px solid var(--oak);
   outline-offset: 2px;
 }
@@ -293,21 +307,51 @@
 }
 
 /* Log of what the automation did on its last runs. */
+/* The proof the automation runs leads the page: one line per run, newest first, then what happens next. */
 .q-runs {
+  display: grid;
+  gap: 14px;
+  padding: 22px 24px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  padding: 16px 18px;
 }
-.q-runs ul {
+.q-runs h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+.q-run-list {
   list-style: none;
-  margin: 8px 0 0;
+  margin: 0;
   padding: 0;
   display: grid;
-  gap: 6px;
+  gap: 12px;
 }
-.q-runs li {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 18px;
+.q-run {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: 4px 20px;
+  align-items: baseline;
+}
+.q-run-date {
+  font-size: 1.05rem;
+}
+.q-run-detail {
+  font-size: 0.85rem;
+}
+.q-path {
+  font: 0.9em var(--font-num);
+  white-space: nowrap;
+}
+.q-run-next {
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+.q-run-note {
+  font-size: 0.85rem;
+}
+@media (max-width: 860px) {
+  .q-run {
+    grid-template-columns: 1fr;
+  }
 }
