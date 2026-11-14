@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { activity, queue, story, type QueueItem } from '../data'
-import { money } from '../lib/format'
+import { money, moneyShort } from '../lib/format'
 import './Queue.css'
 
 // Most urgent first; unknown tiers from a future pipeline run fall in after these.
@@ -18,7 +18,18 @@ const overdue = rows.reduce((sum, r) => sum + (r.daysOverdue > 0 ? r.amount : 0)
 
 const dateFmt = new Intl.DateTimeFormat('en-CA', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
 const date = (iso: string) => dateFmt.format(new Date(`${iso}T00:00:00Z`))
-const late = (d: number) => (d > 0 ? `${d} days late` : d === 0 ? 'due today' : `due in ${-d} days`)
+const days = (n: number) => `${n} ${n === 1 ? 'day' : 'days'}`
+const late = (d: number) => (d > 0 ? `${days(d)} late` : d === 0 ? 'due today' : `due in ${days(-d)}`)
+// A customer who pays early on average reads as "on time", never "-1 days late".
+const habit = (avg: number) => (Math.round(avg) > 0 ? `usually pays ${days(Math.round(avg))} late` : 'usually pays on time')
+// Counted form of each step, for the run summary ("9 call-now notices").
+const TIER_NOUN: Record<string, [string, string]> = {
+  escalate: ['call-now notice', 'call-now notices'],
+  firm: ['firm notice', 'firm notices'],
+  reminder: ['friendly reminder', 'friendly reminders'],
+  'pre-due': ['heads-up', 'heads-ups'],
+}
+const tierCount = (t: string, n: number) => `${n} ${TIER_NOUN[t]?.[n === 1 ? 0 : 1] ?? tierLabel(t).toLowerCase()}`
 
 function Tier({ tier }: { tier: string }) {
   return (
@@ -76,8 +87,8 @@ export default function Queue() {
         <p className="eyebrow">Your weekly list</p>
         <h2 id="queue-title">Who to chase this week</h2>
         <p className="muted">
-          Every week, and whenever new payment data arrives, this list rebuilds itself and emails each customer whose bill reached a new step. Biggest bills
-          first, moved up the longer they are late and the later that customer usually pays. This list is from {date(story.meta.asOf)}.
+          Every Monday, and whenever new payment data arrives, this list rebuilds itself and writes an email for each bill that reached a new step. Ranked by
+          how much is owed, how late it is, and how late that customer usually pays. This list is from {date(story.meta.asOf)}.
         </p>
       </header>
 
@@ -88,12 +99,12 @@ export default function Queue() {
             <li key={run.date}>
               <span className="num">{date(run.date)}</span>
               <span>
-                <span className="num">{run.actions.length}</span> emails sent
+                <span className="num">{run.actions.length}</span> emails written
               </span>
               <span className="muted">
                 {tiers
                   .filter((t) => run.actions.some((a) => a.tier === t))
-                  .map((t) => `${run.actions.filter((a) => a.tier === t).length} ${tierLabel(t).toLowerCase()}`)
+                  .map((t) => tierCount(t, run.actions.filter((a) => a.tier === t).length))
                   .join(' · ')}
               </span>
             </li>
@@ -109,6 +120,9 @@ export default function Queue() {
         <div>
           <p className="q-stat-name">Owed on these bills</p>
           <p className="num q-stat">{money(total)}</p>
+          <p className="q-stat-note muted">
+            of <span className="num">{moneyShort(story.receivables.openTotal)}</span> unpaid in all
+          </p>
         </div>
         <div>
           <p className="q-stat-name">Already past due</p>
@@ -166,7 +180,7 @@ export default function Queue() {
                       {r.customer}
                     </button>
                     <span className="q-sub muted">
-                      Bill {r.orderId} · usually pays {Math.round(r.customerAvgDaysLate)} days late · emailed {date(r.sentOn)}
+                      Bill {r.orderId} · {habit(r.customerAvgDaysLate)} · emailed {date(r.sentOn)}
                     </span>
                   </td>
                   <td className="num q-right">{money(r.amount)}</td>

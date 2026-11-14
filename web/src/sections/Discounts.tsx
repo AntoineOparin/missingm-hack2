@@ -199,10 +199,10 @@ const steps = [
   </>,
   <>
     <p className="eyebrow">How we catch it</p>
-    <h3>One rule, checked every week</h3>
+    <h3>One rule catches it</h3>
     <p>
-      We flag any salesperson whose discount is over {ruleFactor}x the typical one: it went off <span className="num leak">{outlierRule.hits}</span> times, all
-      for {outlierRule.who.join(' and ')}.
+      We flag any salesperson whose discount in a quarter is over {ruleFactor}x the typical one: it went off{' '}
+      <span className="num leak">{outlierRule.hits}</span> times, all for {outlierRule.who.join(' and ')}.
     </p>
     <p>What to do: {cap.label}. Anything bigger needs a manager's OK.</p>
   </>,

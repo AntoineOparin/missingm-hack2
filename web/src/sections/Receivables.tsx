@@ -72,7 +72,9 @@ const steps = [
   </>,
   <>
     {EYEBROW}
-    <h3>A few customers always pay late</h3>
+    <h3>
+      <span className="num">{rule.hits}</span> customers always pay late
+    </h3>
     <p>
       The very late bills all come from them. <span className="num">{worst.length}</span> of them still owe you{' '}
       <span className="num">{moneyShort(worstOpen)}</span>.

@@ -222,7 +222,8 @@ def build_queue(open_inv, cust):
             continue
         # Priority: dollars at stake, scaled up by how overdue it is and how late this customer usually pays.
         score = x.rev * (1 + max(x.daysOverdue, 0) / 30) * (1 + max(cu.avgLate, 0) / 30)
-        when = f"{x.daysOverdue} days past due" if x.daysOverdue > 0 else f"due on {x.due:%b %d, %Y}"
+        when = (f"{x.daysOverdue} day{'s' if x.daysOverdue != 1 else ''} past due" if x.daysOverdue > 0
+                else f"due on {x.due:%b %d, %Y}")
         opener = {"pre-due": "A quick heads-up that the invoice below is coming due.",
                   "reminder": "This is a friendly reminder that the invoice below is now past due.",
                   "firm": "Our records show the invoice below remains unpaid well past its due date.",
@@ -231,7 +232,7 @@ def build_queue(open_inv, cust):
                       "amount": r0(x.rev), "orderDate": f"{x.order_date:%Y-%m-%d}", "dueDate": f"{x.due:%Y-%m-%d}",
                       "daysOverdue": int(x.daysOverdue), "customerAvgDaysLate": round(cu.avgLate, 1),
                       "score": r0(score), "tier": t, "action": action,
-                      "emailSubject": f"Invoice {x.order_id}: ${x.rev:,.2f} {when}",
+                      "emailSubject": f"Invoice {x.order_id}: ${x.rev:,.2f}, {when}",
                       "emailBody": f"Hello,\n\n{opener}\n\nInvoice: {x.order_id}\nAmount: ${x.rev:,.2f}\n"
                                    f"Terms: {x.payment_terms}\nDue date: {x.due:%B %d, %Y}\n\n"
                                    "If payment is already on its way, please disregard this note. Otherwise, reply "

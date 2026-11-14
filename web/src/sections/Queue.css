@@ -29,6 +29,9 @@
   font-size: 1.6rem;
   line-height: 1.2;
 }
+.q-stat-note {
+  font-size: 0.8rem;
+}
 
 /* Tier colour lives in one place; every use also prints the tier name. */
 .q [data-tier='escalate'] {

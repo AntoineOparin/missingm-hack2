@@ -212,7 +212,7 @@ function Scene({ step }: { step: number }) {
         animate={{ opacity: step === 3 ? 1 : 0 }}
       />
       <g className="water-notes">
-        <Callout show={step === 1} from={[314, 214]} to={[352, 166]} text={[`${pct(yoy.change.gross)} more`, 'poured in']} fontSize={13} />
+        <Callout show={step === 1} from={[314, 214]} to={[352, 166]} text={['List-price sales', `up ${pct(yoy.change.gross)}`]} fontSize={13} />
         <Callout
           show={step === 2}
           tone="leak"
