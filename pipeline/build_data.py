@@ -144,8 +144,8 @@ def detect_credit_breach(cust):
                   "hits": int(over.sum()), "who": cust[over].index.tolist()}
 
 
-def main():
-    o, c, r, log = clean()
+def enrich_orders(o, c, r):
+    """Join customer terms onto orders and add the money, timing and period columns everything else uses."""
     o = o.merge(c[["customer_id", "segment", "payment_terms", "credit_limit"]], on="customer_id", how="left")
     o["gross"] = o.quantity * o.unit_price
     o["rev"] = o.gross * (1 - o.discount)
@@ -157,17 +157,32 @@ def main():
     o["refund"] = o.order_id.map(r.groupby("order_id").refund_amount.sum()).fillna(0)
     o["y"] = o.order_date.dt.year
     o["q"] = o.order_date.dt.to_period("Q").astype(str)
-    as_of = o.payment_date.max()  # shortcut: "today" = last payment in the data; swap for date.today() on live data
+    return o
 
-    def totals(d):
-        return {"gross": r0(d.gross.sum()), "discounts": r0(d.gross.sum() - d.rev.sum()), "revenue": r0(d.rev.sum()),
-                "cogs": r0(d.cogs.sum()), "grossProfit": r0(d.gm.sum()), "refunds": r0(d.refund.sum()),
-                "profitAfterRefunds": r0(d.gm.sum() - d.refund.sum()), "orders": len(d),
-                "discountRate": round(1 - d.rev.sum() / d.gross.sum(), 4), "marginPct": round(d.gm.sum() / d.rev.sum(), 4)}
 
+def unpaid_invoices(o, as_of):
+    """Invoiced (non-prepaid) orders, and the ones still unpaid with days past due as of `as_of`."""
+    ar = o[o.terms > 0]
+    open_inv = ar[ar.payment_date.isna()].copy()
+    open_inv["daysOverdue"] = (as_of - open_inv.due).dt.days
+    return ar, open_inv
+
+
+def totals(d):
+    return {"gross": r0(d.gross.sum()), "discounts": r0(d.gross.sum() - d.rev.sum()), "revenue": r0(d.rev.sum()),
+            "cogs": r0(d.cogs.sum()), "grossProfit": r0(d.gm.sum()), "refunds": r0(d.refund.sum()),
+            "profitAfterRefunds": r0(d.gm.sum() - d.refund.sum()), "orders": len(d),
+            "discountRate": round(1 - d.rev.sum() / d.gross.sum(), 4), "marginPct": round(d.gm.sum() / d.rev.sum(), 4)}
+
+
+def ytd(o):
     # Same nine months of each year, so the comparison is like for like.
-    ytd = o[o.order_date.dt.month <= 9]
-    yoy = {str(y): totals(d) for y, d in ytd.groupby("y")}
+    return o[o.order_date.dt.month <= 9]
+
+
+def headline_charts(o):
+    """Jan-Sep 2025 vs 2026 totals, per-quarter totals, and billed vs collected by month."""
+    yoy = {str(y): totals(d) for y, d in ytd(o).groupby("y")}
     yoy["change"] = {k: round(yoy["2026"][k] / yoy["2025"][k] - 1, 4)
                      for k in ["gross", "discounts", "revenue", "grossProfit", "refunds", "profitAfterRefunds"]}
     quarters = [{"q": q, **totals(d)} for q, d in o.groupby("q")]
@@ -176,10 +191,11 @@ def main():
     paid = o.dropna(subset=["payment_date"])
     collected = paid.groupby(paid.payment_date.dt.to_period("M").astype(str)).rev.sum()
     monthly = [{"month": m, "billed": r0(billed.get(m, 0)), "collected": r0(collected.get(m, 0))} for m in billed.index]
+    return yoy, quarters, monthly
 
-    # --- Detection 1: rep discount outlier vs peer median, per quarter
-    rq, discount_outlier = detect_discount_outliers(o)
-    flagged_reps = discount_outlier["who"]
+
+def discount_charts(o, rq, flagged_reps):
+    """Per-rep discount and margin by quarter, and discount by week of quarter."""
     below = o[o.sales_rep.notna() & (o.gm < 0)].groupby("sales_rep").size()
     reps = [{"rep": rep, "flagged": bool(d.flag.any()), "belowCostOrders": int(below.get(rep, 0)),
              "revenue": r0(d.rev.sum()),
@@ -194,12 +210,11 @@ def main():
     quarter_end = [{"week": int(w), "discount": round(1 - d.rev.sum() / d.gross.sum(), 4), "orders": len(d),
                     "discountExFlagged": round(1 - ex[ex.week == w].rev.sum() / ex[ex.week == w].gross.sum(), 4)}
                    for w, d in ds.groupby("week")]
+    return reps, quarter_end
 
-    # --- Detection 2: below-cost orders
-    below_cost = detect_below_cost(o)
-    # --- Detection 3: return hot spots (product x reason share of all refunds)
-    rr = r.merge(o[["order_id", "product", "segment", "q"]], on="order_id")
-    returns, return_hotspot = detect_return_hotspots(rr)
+
+def returns_charts(o, rr):
+    """Refunds by quarter, by reason (with the segment behind it), and refund rate by product."""
     returns_q = [{"q": q, "refund": r0(d.refund_amount.sum())} for q, d in rr.groupby("q")]
     # Which customer segment drives each return reason (backs the "resellers send stock back" claim)
     seg = rr.groupby(["reason", "segment"]).refund_amount.sum()
@@ -207,14 +222,12 @@ def main():
                        "topSegmentShare": round(d.max() / d.sum(), 4)} for reason, d in seg.groupby(level=0)]
     rate = o.groupby("product").agg(rev=("rev", "sum"), refund=("refund", "sum"))
     return_rates = [{"product": p, "rate": round(x.refund / x.rev, 4)} for p, x in rate.iterrows()]
+    return returns_q, return_reasons, return_rates
 
-    # --- Detection 4: chronic late payers; Detection 5: credit-limit breach
-    ar = o[o.terms > 0]
-    open_inv = ar[ar.payment_date.isna()].copy()
-    open_inv["daysOverdue"] = (as_of - open_inv.due).dt.days
-    cust = customer_payment_stats(ar, open_inv)
-    cust["chronic"], chronic_late = detect_late_payers(cust)
-    cust["overLimit"], credit_breach = detect_credit_breach(cust)
+
+def receivables_charts(ar, open_inv, cust):
+    """Unpaid-bill totals, customers to watch, how-late histogram, and aging buckets."""
+    overdue = open_inv[open_inv.daysOverdue > 0]
     watch = cust[cust.chronic | cust.overLimit | (cust.open > 0)].sort_values("avgLate", ascending=False)
     customers = [{"customer": i, "segment": x.segment, "terms": x.terms, "avgDaysLate": round(x.avgLate, 1),
                   "pctLate": round(x.pctLate, 3), "invoices": int(x.invoices), "revenue": r0(x.revenue),
@@ -230,23 +243,30 @@ def main():
                             ("31-60 days", open_inv.daysOverdue.between(31, 60)),
                             ("61-90 days", open_inv.daysOverdue.between(61, 90)),
                             ("90+ days", open_inv.daysOverdue > 90)]]
+    return {"openTotal": r0(open_inv.rev.sum()), "openInvoices": len(open_inv),
+            "overdueTotal": r0(overdue.rev.sum()), "overdueInvoices": len(overdue),
+            "aging": aging, "customers": customers, "lateHistogram": late_hist}
 
-    # --- Automation: weekly collections queue
-    def tier(days, chronic, over):
-        if days > 60 or (over and days > 0):
-            return "escalate", "Call them, and pause their new orders"
-        if days > 30:
-            return "firm", "Send a firm notice with the bill attached"
-        if days > 0:
-            return "reminder", "Send a friendly reminder"
-        if chronic:
-            return "pre-due", "Send a heads-up before it is due (they usually pay late)"
-        return "none", "No action yet"
 
+# --- Automation: weekly collections queue
+def queue_tier(days, chronic, over):
+    if days > 60 or (over and days > 0):
+        return "escalate", "Call them, and pause their new orders"
+    if days > 30:
+        return "firm", "Send a firm notice with the bill attached"
+    if days > 0:
+        return "reminder", "Send a friendly reminder"
+    if chronic:
+        return "pre-due", "Send a heads-up before it is due (they usually pay late)"
+    return "none", "No action yet"
+
+
+def build_queue(open_inv, cust):
+    """Every unpaid bill that needs action, ranked, with a drafted email."""
     queue = []
     for x in open_inv.itertuples():
         cu = cust.loc[x.customer_id]
-        t, action = tier(x.daysOverdue, cu.chronic, cu.overLimit)
+        t, action = queue_tier(x.daysOverdue, cu.chronic, cu.overLimit)
         if t == "none":
             continue
         # Priority: dollars at stake, scaled up by how overdue it is and how late this customer usually pays.
@@ -268,13 +288,16 @@ def main():
     queue.sort(key=lambda q: -q["score"])
     for i, q in enumerate(queue, 1):
         q["rank"] = i
+    return queue
 
-    # --- Scenarios for the "plug the holes" toggles (Jan-Sep 2026)
-    y26 = ytd[ytd.y == 2026]
+
+def build_scenarios(o, rr, open_inv):
+    """What-if numbers for the "plug the holes" toggles (Jan-Sep 2026)."""
+    y26 = ytd(o)[lambda d: d.y == 2026]
     over_cap = y26[y26.discount > DISCOUNT_CAP]
     desk = rr[(rr["product"] == "ErgoLift Standing Desk") & (rr.reason == "Damaged in transit") & rr.q.str.startswith("2026")]
     overdue = open_inv[open_inv.daysOverdue > 0]
-    scenarios = [
+    return [
         {"id": "discountCap", "label": f"Cap discounts at {DISCOUNT_CAP:.0%}", "kind": "profit",
          "recovered": r0((over_cap.gross * (over_cap.discount - DISCOUNT_CAP)).sum()),
          "assumption": "If the same orders still sell at the lower discount."},
@@ -286,7 +309,36 @@ def main():
          "assumption": "Cash you get once. It is not extra profit."},
     ]
 
-    detections = [discount_outlier, below_cost, return_hotspot, chronic_late, credit_breach]
+
+def check(story, queue):
+    """Self-check: the headline the whole story rests on."""
+    ch = story["yoy"]["change"]
+    rec = story["receivables"]
+    assert 0.30 < ch["revenue"] < 0.36, ch
+    assert ch["profitAfterRefunds"] < ch["revenue"] / 2, ch
+    assert abs(rec["openTotal"] - sum(a["amount"] for a in rec["aging"])) <= len(rec["aging"])
+    assert queue and queue[0]["score"] >= queue[-1]["score"]
+
+
+def main():
+    o, c, r, log = clean()
+    o = enrich_orders(o, c, r)
+    as_of = o.payment_date.max()  # shortcut: "today" = last payment in the data; swap for date.today() on live data
+    rr = r.merge(o[["order_id", "product", "segment", "q"]], on="order_id")
+    ar, open_inv = unpaid_invoices(o, as_of)
+
+    rq, discount_outlier = detect_discount_outliers(o)
+    below_cost = detect_below_cost(o)
+    returns, return_hotspot = detect_return_hotspots(rr)
+    cust = customer_payment_stats(ar, open_inv)
+    cust["chronic"], chronic_late = detect_late_payers(cust)
+    cust["overLimit"], credit_breach = detect_credit_breach(cust)
+    flagged_reps = discount_outlier["who"]
+
+    yoy, quarters, monthly = headline_charts(o)
+    reps, quarter_end = discount_charts(o, rq, flagged_reps)
+    returns_q, return_reasons, return_rates = returns_charts(o, rr)
+    queue = build_queue(open_inv, cust)
 
     story = {
         "meta": {"asOf": f"{as_of:%Y-%m-%d}", "comparison": "January to September, 2025 vs 2026",
@@ -294,23 +346,16 @@ def main():
         "yoy": yoy, "quarters": quarters, "monthly": monthly,
         "reps": reps, "quarterEnd": quarter_end,
         "returns": returns, "returnsByQuarter": returns_q, "returnRates": return_rates, "returnReasons": return_reasons,
-        "receivables": {"openTotal": r0(open_inv.rev.sum()), "openInvoices": len(open_inv),
-                        "overdueTotal": r0(overdue.rev.sum()), "overdueInvoices": len(overdue),
-                        "aging": aging, "customers": customers, "lateHistogram": late_hist},
-        "scenarios": scenarios, "detections": detections,
+        "receivables": receivables_charts(ar, open_inv, cust),
+        "scenarios": build_scenarios(o, rr, open_inv),
+        "detections": [discount_outlier, below_cost, return_hotspot, chronic_late, credit_breach],
     }
-
-    # Self-check: the headline the whole story rests on.
-    ch = yoy["change"]
-    assert 0.30 < ch["revenue"] < 0.36, ch
-    assert ch["profitAfterRefunds"] < ch["revenue"] / 2, ch
-    assert story["receivables"]["openTotal"] == sum(a["amount"] for a in aging) or abs(
-        story["receivables"]["openTotal"] - sum(a["amount"] for a in aging)) <= len(aging)
-    assert queue and queue[0]["score"] >= queue[-1]["score"]
+    check(story, queue)
 
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "story.json").write_text(json.dumps(story, indent=1))
     (OUT / "queue.json").write_text(json.dumps(queue, indent=1))
+    ch = yoy["change"]
     print(f"story.json + queue.json written to {OUT}")
     print(f"revenue {ch['revenue']:+.0%}, profit after refunds {ch['profitAfterRefunds']:+.0%}, "
           f"flagged reps {flagged_reps}, queue {len(queue)} invoices")
