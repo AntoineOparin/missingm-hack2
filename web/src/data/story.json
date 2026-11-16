@@ -1490,15 +1490,15 @@
     "chronic": false
    },
    {
-    "customer": "C1053",
-    "avgDaysLate": 0.5,
-    "open": 165,
-    "chronic": false
-   },
-   {
     "customer": "C1078",
     "avgDaysLate": 0.5,
     "open": 2576,
+    "chronic": false
+   },
+   {
+    "customer": "C1053",
+    "avgDaysLate": 0.5,
+    "open": 165,
     "chronic": false
    },
    {
@@ -1544,15 +1544,15 @@
     "chronic": false
    },
    {
-    "customer": "C1044",
-    "avgDaysLate": -1.0,
-    "open": 443,
-    "chronic": false
-   },
-   {
     "customer": "C1071",
     "avgDaysLate": -1.0,
     "open": 374,
+    "chronic": false
+   },
+   {
+    "customer": "C1044",
+    "avgDaysLate": -1.0,
+    "open": 443,
     "chronic": false
    },
    {
@@ -1562,15 +1562,15 @@
     "chronic": false
    },
    {
-    "customer": "C1159",
-    "avgDaysLate": -2.0,
-    "open": 2271,
-    "chronic": false
-   },
-   {
     "customer": "C1133",
     "avgDaysLate": -2.0,
     "open": 4341,
+    "chronic": false
+   },
+   {
+    "customer": "C1159",
+    "avgDaysLate": -2.0,
+    "open": 2271,
     "chronic": false
    },
    {
